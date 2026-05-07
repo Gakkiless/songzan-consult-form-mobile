@@ -1555,39 +1555,39 @@ function closeGroupDetailModal() { document.getElementById('groupDetailModal').c
 // ============ 客户分组明细弹窗 ============
 var groupDetailData = {
   repurchase: [
-    { cardNo:'MD80010021', regDate:'2024-03-15', custType:'存量激活客', sales:'李明辉', memberAttr:'老会员', custAttr:'老客', yearFreq:3, orderAmt:58600, travelAmt:42800, isRepurchase:'是', regFirstGap:12 },
-    { cardNo:'MD80010087', regDate:'2023-08-22', custType:'标准忠诚客', sales:'王芳', memberAttr:'老会员', custAttr:'老客', yearFreq:2, orderAmt:35200, travelAmt:28900, isRepurchase:'是', regFirstGap:45 },
-    { cardNo:'MD80010234', regDate:'2024-01-10', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'老客', yearFreq:4, orderAmt:125800, travelAmt:98600, isRepurchase:'是', regFirstGap:8 },
-    { cardNo:'MD80010356', regDate:'2023-05-18', custType:'标准忠诚客', sales:'张伟', memberAttr:'老会员', custAttr:'新客', yearFreq:2, orderAmt:42300, travelAmt:31500, isRepurchase:'是', regFirstGap:67 },
-    { cardNo:'MD80010489', regDate:'2024-06-03', custType:'存量激活客', sales:'王芳', memberAttr:'新会员', custAttr:'老客', yearFreq:3, orderAmt:67800, travelAmt:52100, isRepurchase:'是', regFirstGap:15 },
-    { cardNo:'MD80010512', regDate:'2023-11-29', custType:'标准忠诚客', sales:'赵雪', memberAttr:'老会员', custAttr:'老客', yearFreq:5, orderAmt:186500, travelAmt:142300, isRepurchase:'是', regFirstGap:23 },
-    { cardNo:'MD80010678', regDate:'2024-09-14', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:2, orderAmt:29400, travelAmt:22100, isRepurchase:'是', regFirstGap:5 },
-    { cardNo:'MD80010801', regDate:'2023-02-07', custType:'标准忠诚客', sales:'李明辉', memberAttr:'老会员', custAttr:'老客', yearFreq:3, orderAmt:73200, travelAmt:55800, isRepurchase:'是', regFirstGap:38 }
+    { cardNo:'MD80001234', memberId:'wjm', regDate:'2024-03-15', custType:'存量激活客', sales:'李明辉', memberAttr:'老会员', custAttr:'老客', yearFreq:3, orderAmt:58600, travelAmt:42800, isRepurchase:'是', regFirstGap:12 },
+    { cardNo:'MD80002345', memberId:'slh', regDate:'2023-08-22', custType:'标准忠诚客', sales:'王芳', memberAttr:'老会员', custAttr:'老客', yearFreq:2, orderAmt:35200, travelAmt:28900, isRepurchase:'是', regFirstGap:45 },
+    { cardNo:'MD80003456', memberId:'zyz', regDate:'2024-01-10', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'老客', yearFreq:4, orderAmt:125800, travelAmt:98600, isRepurchase:'是', regFirstGap:8 },
+    { cardNo:'MD80004567', memberId:'yf', regDate:'2023-05-18', custType:'标准忠诚客', sales:'张伟', memberAttr:'老会员', custAttr:'新客', yearFreq:2, orderAmt:42300, travelAmt:31500, isRepurchase:'是', regFirstGap:67 },
+    { cardNo:'MD80005678', memberId:'lt', regDate:'2024-06-03', custType:'存量激活客', sales:'王芳', memberAttr:'新会员', custAttr:'老客', yearFreq:3, orderAmt:67800, travelAmt:52100, isRepurchase:'是', regFirstGap:15 },
+    { cardNo:'MD80006789', memberId:'zm', regDate:'2023-11-29', custType:'标准忠诚客', sales:'赵雪', memberAttr:'老会员', custAttr:'老客', yearFreq:5, orderAmt:186500, travelAmt:142300, isRepurchase:'是', regFirstGap:23 },
+    { cardNo:'MD80007890', memberId:'ly', regDate:'2024-09-14', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:2, orderAmt:29400, travelAmt:22100, isRepurchase:'是', regFirstGap:5 },
+    { cardNo:'MD80008888', memberId:'hlj', regDate:'2023-02-07', custType:'标准忠诚客', sales:'李明辉', memberAttr:'老会员', custAttr:'老客', yearFreq:3, orderAmt:73200, travelAmt:55800, isRepurchase:'是', regFirstGap:38 }
   ],
   firstbuy: [
-    { cardNo:'MD80020001', regDate:'2026-01-08', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:15800, travelAmt:12600, isRepurchase:'否', regFirstGap:3 },
-    { cardNo:'MD80020015', regDate:'2026-01-22', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:22400, travelAmt:18900, isRepurchase:'否', regFirstGap:7 },
-    { cardNo:'MD80020033', regDate:'2025-11-15', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:8600, travelAmt:6200, isRepurchase:'否', regFirstGap:12 },
-    { cardNo:'MD80020048', regDate:'2026-02-03', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:31200, travelAmt:25600, isRepurchase:'否', regFirstGap:2 },
-    { cardNo:'MD80020059', regDate:'2025-12-20', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:19700, travelAmt:14800, isRepurchase:'否', regFirstGap:18 },
-    { cardNo:'MD80020067', regDate:'2026-03-11', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:42300, travelAmt:35100, isRepurchase:'否', regFirstGap:5 },
-    { cardNo:'MD80020082', regDate:'2026-01-30', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:12800, travelAmt:9600, isRepurchase:'否', regFirstGap:9 },
-    { cardNo:'MD80020095', regDate:'2026-02-18', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:56400, travelAmt:43200, isRepurchase:'否', regFirstGap:4 },
-    { cardNo:'MD80020108', regDate:'2025-10-05', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:7800, travelAmt:5400, isRepurchase:'否', regFirstGap:22 },
-    { cardNo:'MD80020119', regDate:'2026-03-25', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:28600, travelAmt:22100, isRepurchase:'否', regFirstGap:6 },
-    { cardNo:'MD80020134', regDate:'2026-04-02', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:16300, travelAmt:12800, isRepurchase:'否', regFirstGap:1 },
-    { cardNo:'MD80020145', regDate:'2026-02-28', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:38900, travelAmt:30600, isRepurchase:'否', regFirstGap:11 },
-    { cardNo:'MD80020158', regDate:'2026-01-15', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:24100, travelAmt:18500, isRepurchase:'否', regFirstGap:14 },
-    { cardNo:'MD80020163', regDate:'2025-09-28', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:11500, travelAmt:8200, isRepurchase:'否', regFirstGap:35 },
-    { cardNo:'MD80020179', regDate:'2026-03-08', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:47200, travelAmt:38900, isRepurchase:'否', regFirstGap:3 },
-    { cardNo:'MD80020185', regDate:'2026-04-15', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:19800, travelAmt:15200, isRepurchase:'否', regFirstGap:8 },
-    { cardNo:'MD80020192', regDate:'2026-02-10', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:33700, travelAmt:27400, isRepurchase:'否', regFirstGap:16 },
-    { cardNo:'MD80020206', regDate:'2026-03-20', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:25600, travelAmt:19800, isRepurchase:'否', regFirstGap:10 },
-    { cardNo:'MD80020218', regDate:'2026-01-25', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:14200, travelAmt:10600, isRepurchase:'否', regFirstGap:20 },
-    { cardNo:'MD80020231', regDate:'2026-04-08', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:51800, travelAmt:41500, isRepurchase:'否', regFirstGap:2 },
-    { cardNo:'MD80020245', regDate:'2026-03-01', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:9200, travelAmt:6800, isRepurchase:'否', regFirstGap:13 },
-    { cardNo:'MD80020258', regDate:'2026-02-22', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:37500, travelAmt:29200, isRepurchase:'否', regFirstGap:6 },
-    { cardNo:'MD80020263', regDate:'2026-04-12', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:20900, travelAmt:16400, isRepurchase:'否', regFirstGap:4 }
+    { cardNo:'MD80011111', memberId:'mx', regDate:'2026-01-08', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:15800, travelAmt:12600, isRepurchase:'否', regFirstGap:3 },
+    { cardNo:'MD80012222', memberId:'xw', regDate:'2026-01-22', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:22400, travelAmt:18900, isRepurchase:'否', regFirstGap:7 },
+    { cardNo:'MD80013333', memberId:'lf', regDate:'2025-11-15', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:8600, travelAmt:6200, isRepurchase:'否', regFirstGap:12 },
+    { cardNo:'MD80009012', memberId:'czq', regDate:'2026-02-03', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:31200, travelAmt:25600, isRepurchase:'否', regFirstGap:2 },
+    { cardNo:'MD80009999', memberId:'zw', regDate:'2025-12-20', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:19700, travelAmt:14800, isRepurchase:'否', regFirstGap:18 },
+    { cardNo:'MD80010021', memberId:'wjm', regDate:'2026-03-11', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:42300, travelAmt:35100, isRepurchase:'否', regFirstGap:5 },
+    { cardNo:'MD80010087', memberId:'slh', regDate:'2026-01-30', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:12800, travelAmt:9600, isRepurchase:'否', regFirstGap:9 },
+    { cardNo:'MD80010234', memberId:'zyz', regDate:'2026-02-18', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:56400, travelAmt:43200, isRepurchase:'否', regFirstGap:4 },
+    { cardNo:'MD80010356', memberId:'yf', regDate:'2025-10-05', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:7800, travelAmt:5400, isRepurchase:'否', regFirstGap:22 },
+    { cardNo:'MD80010489', memberId:'lt', regDate:'2026-03-25', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:28600, travelAmt:22100, isRepurchase:'否', regFirstGap:6 },
+    { cardNo:'MD80010512', memberId:'zm', regDate:'2026-04-02', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:16300, travelAmt:12800, isRepurchase:'否', regFirstGap:1 },
+    { cardNo:'MD80010678', memberId:'ly', regDate:'2026-02-28', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:38900, travelAmt:30600, isRepurchase:'否', regFirstGap:11 },
+    { cardNo:'MD80010801', memberId:'hlj', regDate:'2026-01-15', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:24100, travelAmt:18500, isRepurchase:'否', regFirstGap:14 },
+    { cardNo:'MD80011001', memberId:'mx', regDate:'2025-09-28', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:11500, travelAmt:8200, isRepurchase:'否', regFirstGap:35 },
+    { cardNo:'MD80011015', memberId:'xw', regDate:'2026-03-08', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:47200, travelAmt:38900, isRepurchase:'否', regFirstGap:3 },
+    { cardNo:'MD80011033', memberId:'lf', regDate:'2026-04-15', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:19800, travelAmt:15200, isRepurchase:'否', regFirstGap:8 },
+    { cardNo:'MD80011048', memberId:'czq', regDate:'2026-02-10', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:33700, travelAmt:27400, isRepurchase:'否', regFirstGap:16 },
+    { cardNo:'MD80011059', memberId:'zw', regDate:'2026-03-20', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:25600, travelAmt:19800, isRepurchase:'否', regFirstGap:10 },
+    { cardNo:'MD80011067', memberId:'wjm', regDate:'2026-01-25', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:14200, travelAmt:10600, isRepurchase:'否', regFirstGap:20 },
+    { cardNo:'MD80011082', memberId:'slh', regDate:'2026-04-08', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:51800, travelAmt:41500, isRepurchase:'否', regFirstGap:2 },
+    { cardNo:'MD80011095', memberId:'zyz', regDate:'2026-03-01', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:9200, travelAmt:6800, isRepurchase:'否', regFirstGap:13 },
+    { cardNo:'MD80011108', memberId:'yf', regDate:'2026-02-22', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:37500, travelAmt:29200, isRepurchase:'否', regFirstGap:6 },
+    { cardNo:'MD80011119', memberId:'lt', regDate:'2026-04-12', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:20900, travelAmt:16400, isRepurchase:'否', regFirstGap:4 }
   ]
 };
 
@@ -1607,7 +1607,6 @@ function renderGroupTable(data) {
   var tbody = document.getElementById('groupTableBody');
   if (!data || data.length === 0) {
     tbody.innerHTML = '<tr><td colspan="11" style="text-align:center;padding:40px 0;color:#999;">暂无匹配数据</td></tr>';
-    document.getElementById('groupCount').textContent = '共 0 条';
     return;
   }
   var html = '';
@@ -1616,7 +1615,7 @@ function renderGroupTable(data) {
     var memberAttrColor = r.memberAttr === '老会员' ? '#FA8C16' : '#52C41A';
     var custAttrColor = r.custAttr === '老客' ? '#FA8C16' : '#1890FF';
     var repurchaseColor = r.isRepurchase === '是' ? '#52C41A' : '#F5222D';
-    html += '<tr style="cursor:pointer;" onmouseenter="this.style.background=\'#E6F7FF\'" onmouseleave="this.style.background=\'\'">' +
+    html += '<tr style="cursor:pointer;" onclick="openMemberFromGroup(\'' + r.memberId + '\')" onmouseenter="this.style.background=\'#E6F7FF\'" onmouseleave="this.style.background=\'\'">' +
       '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;font-family:monospace;color:#1890ff;">' + r.cardNo + '</td>' +
       '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;">' + r.regDate + '</td>' +
       '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;"><span style="font-size:11px;padding:1px 8px;border-radius:10px;background:' + custTypeColor + '12;color:' + custTypeColor + ';">' + r.custType + '</span></td>' +
@@ -1631,7 +1630,6 @@ function renderGroupTable(data) {
       '</tr>';
   });
   tbody.innerHTML = html;
-  document.getElementById('groupCount').textContent = '共 ' + data.length + ' 条';
 }
 
 function filterGroupTable() {
@@ -1658,6 +1656,15 @@ function exportGroupTable() {
   a.href = URL.createObjectURL(blob);
   a.download = (currentGroupType === 'repurchase' ? '当年复购非核心-优先维护' : '当年首购非核心-建议维护') + '_客户明细.csv';
   a.click();
+}
+
+function openMemberFromGroup(memberId) {
+  closeGroupDetailModal();
+  // 打开会员查询弹窗并展示该会员详情
+  openSearchModal();
+  document.getElementById('searchList').style.display = 'none';
+  document.getElementById('searchCount').textContent = '会员详情';
+  selectMember(memberId);
 }
 
 // ============ 从表格行读取数据的工具函数 ============
