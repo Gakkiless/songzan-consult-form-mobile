@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>松赞销售工作台 — 客户维护与待办</title>
+<title>松赞用户关系助手 — 客户维护与待办</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingFang SC", sans-serif; background: #F0F2F5; color: #333; font-size: 13px; }
@@ -316,7 +316,7 @@ select.m-input { cursor: pointer; }
 
 <!-- ====== 顶栏 ====== -->
 <div class="top-bar">
-  <div class="top-logo">松赞<em>销售工作台</em></div>
+  <div class="top-logo">松赞<em>用户关系助手</em></div>
   <div class="top-spacer"></div>
 
   <!-- 销售切换 -->
@@ -410,6 +410,7 @@ select.m-input { cursor: pointer; }
           <span class="filter-tag" onclick="switchTodoTab(this,'today')" style="color:#FA8C16;border-color:#FFD591;">今日到期 <b>3</b></span>
           <span class="filter-tag" onclick="switchTodoTab(this,'upcoming')" style="color:#1890FF;border-color:#91D5FF;">即将到期 <b>8</b></span>
           <span class="filter-tag" onclick="switchTodoTab(this,'done')" style="color:#52C41A;border-color:#B7EB8F;">标记完成 <b>4</b></span>
+          <span class="filter-tag" onclick="switchTodoTab(this,'all')" style="color:#333;border-color:#d9d9d9;">全部 <b>20</b></span>
         </div>
 
         <div class="todo-card-list">
@@ -746,6 +747,14 @@ select.m-input { cursor: pointer; }
           <div style="display:flex;align-items:center;gap:16px;">
             <div class="record-stats">
               <div class="record-stat-item">
+                <div class="record-stat-num" style="color:#F5222D;">8</div>
+                <div class="record-stat-label">当年复购非核心-优先维护</div>
+              </div>
+              <div class="record-stat-item">
+                <div class="record-stat-num" style="color:#FA8C16;">23</div>
+                <div class="record-stat-label">当年首购非核心-建议维护</div>
+              </div>
+              <div class="record-stat-item">
                 <div class="record-stat-num green">156</div>
                 <div class="record-stat-label">名下会员数</div>
               </div>
@@ -783,18 +792,20 @@ select.m-input { cursor: pointer; }
         <table class="record-table">
           <thead>
             <tr>
+              <th>维护记录ID</th>
               <th>会员卡号</th>
               <th>更新时间</th>
               <th>会员</th>
               <th>维护日期</th>
               <th>维护行为</th>
               <th>客户反馈</th>
-              <th>产出结果/跟进计划</th>
+              <th>提醒事项</th>
               <th>操作</th>
             </tr>
           </thead>
           <tbody id="recordTableBody">
             <tr data-rid="r1" data-sales="廖文娟" data-travel-season="秋季（9-11月）" data-travel-group="夫妻出行" data-travel-budget="20,000-50,000" data-travel-days="7-10天" data-travel-pref="自然风光">
+              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">1</td>
               <td style="color:#999;font-size:12px;">MD80003456</td>
               <td style="color:#999;font-size:12px;">2026-04-17 16:32:15</td>
               <td>
@@ -809,13 +820,14 @@ select.m-input { cursor: pointer; }
               <td>2026-04-17</td>
               <td><span class="tag tag-phone">电话回访</span></td>
               <td style="color:#666;line-height:1.5;">客户对来古冰川行程很感兴趣，询问国庆期间房态和价格</td>
-              <td style="color:#666;line-height:1.5;">确认国庆双人豪华房有房，已报价。需在截止日前确认是否预定</td>
+              <td style="color:#FA8C16;font-size:12px;">跟进报价反馈</td>
               <td>
                 <span class="action-link" onclick="openDetail(this)">查看</span><span class="action-divider">|</span><span class="action-link" onclick="openEdit(this)">编辑</span>
               </td>
             </tr>
 
             <tr data-rid="r2" data-sales="曾卓">
+              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">2</td>
               <td style="color:#999;font-size:12px;">MD80005678</td>
               <td style="color:#999;font-size:12px;">2026-04-16 14:05:22</td>
               <td>
@@ -830,13 +842,14 @@ select.m-input { cursor: pointer; }
               <td>2026-04-16</td>
               <td><span class="tag tag-wechat">微信沟通</span></td>
               <td style="color:#666;line-height:1.5;">客户希望暑期带家人出行，想要拉萨-林芝-波密完整行程，8-10天</td>
-              <td style="color:#666;line-height:1.5;">整理暑期亲子行程方案，含报价明细，尽快发送给客户确认</td>
+              <td style="color:#FA8C16;font-size:12px;">跟进报价反馈</td>
               <td>
                 <span class="action-link" onclick="openDetail(this)">查看</span><span class="action-divider">|</span><span class="action-link" onclick="openEdit(this)">编辑</span>
               </td>
             </tr>
 
             <tr data-rid="r3" data-sales="王翊" data-travel-season="冬季（12-2月）" data-travel-group="夫妻出行" data-travel-budget="50,000以上" data-travel-days="7-10天" data-travel-pref="奢享度假">
+              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">3</td>
               <td style="color:#999;font-size:12px;">MD80008888</td>
               <td style="color:#999;font-size:12px;">2026-04-16 10:18:05</td>
               <td>
@@ -851,13 +864,14 @@ select.m-input { cursor: pointer; }
               <td>2026-04-16</td>
               <td><span class="tag tag-visit">线下拜访</span></td>
               <td style="color:#666;line-height:1.5;">客户到店体验，对林卡套房和私厨服务非常满意，想定制一条高端线路</td>
-              <td style="color:#666;line-height:1.5;">安排高端定制行程方案，含松赞全线串联和私厨体验，预计3天内出方案</td>
+              <td style="color:#FA8C16;font-size:12px;">跟进报价反馈</td>
               <td>
                 <span class="action-link" onclick="openDetail(this)">查看</span><span class="action-divider">|</span><span class="action-link" onclick="openEdit(this)">编辑</span>
               </td>
             </tr>
 
             <tr data-rid="r4" data-sales="郑文婷">
+              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">4</td>
               <td style="color:#999;font-size:12px;">MD80007890</td>
               <td style="color:#999;font-size:12px;">2026-04-15 11:23:08</td>
               <td>
@@ -872,13 +886,14 @@ select.m-input { cursor: pointer; }
               <td>2026-04-15</td>
               <td><span class="tag tag-phone">电话回访</span></td>
               <td style="color:#666;line-height:1.5;">客户对续费有些犹豫，觉得当前会员权益使用不够充分</td>
-              <td style="color:#666;line-height:1.5;">向客户介绍了即将上线的会员专属活动，建议续费后可享受</td>
+              <td style="color:#FA8C16;font-size:12px;">跟进报价反馈</td>
               <td>
                 <span class="action-link" onclick="openDetail(this)">查看</span><span class="action-divider">|</span><span class="action-link" onclick="openEdit(this)">编辑</span>
               </td>
             </tr>
 
             <tr data-rid="r5" data-sales="苏凝影" data-travel-season="夏季（6-8月）" data-travel-group="朋友结伴" data-travel-budget="10,000-20,000" data-travel-days="11-15天" data-travel-pref="户外徒步">
+              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">5</td>
               <td style="color:#999;font-size:12px;">MD80009012</td>
               <td style="color:#999;font-size:12px;">2026-04-13 09:15:33</td>
               <td>
@@ -892,14 +907,15 @@ select.m-input { cursor: pointer; }
               </td>
               <td>2026-04-13</td>
               <td><span class="tag tag-wechat">微信沟通</span></td>
-              <td style="color:#666;line-height:1.5;">客户对南迦巴瓦徒步路线非常感兴趣，已支付定金，需要详细行程</td>
-              <td style="color:#666;line-height:1.5;">整理徒步路线行程单和装备清单，发给客户做行前准备</td>
+              <td style="color:#666;line-height:1.5;"></td>
+              <td style="color:#FA8C16;font-size:12px;">跟进报价反馈</td>
               <td>
                 <span class="action-link" onclick="openDetail(this)">查看</span><span class="action-divider">|</span><span class="action-link" onclick="openEdit(this)">编辑</span>
               </td>
             </tr>
 
             <tr data-rid="r6" data-sales="赵岍" data-travel-season="夏季（6-8月）" data-travel-group="朋友结伴" data-travel-budget="10,000-20,000" data-travel-days="7-10天" data-travel-pref="自然风光">
+              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">6</td>
               <td style="color:#999;font-size:12px;">MD80001234</td>
               <td style="color:#999;font-size:12px;">2026-04-12 14:05:22</td>
               <td>
@@ -913,14 +929,15 @@ select.m-input { cursor: pointer; }
               </td>
               <td>2026-04-12</td>
               <td><span class="tag tag-visit">线下拜访</span></td>
-              <td style="color:#666;line-height:1.5;">客户对梅里雪山路线有意向，希望6月出行，目前有3-4人同行计划</td>
-              <td style="color:#666;line-height:1.5;">确认6月有团期可报，告知价格区间，客户需回去和家人商议后确认</td>
+              <td style="color:#666;line-height:1.5;"></td>
+              <td style="color:#FA8C16;font-size:12px;">跟进报价反馈</td>
               <td>
                 <span class="action-link" onclick="openDetail(this)">查看</span><span class="action-divider">|</span><span class="action-link" onclick="openEdit(this)">编辑</span>
               </td>
             </tr>
 
             <tr data-rid="r7" data-sales="王倩">
+              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">7</td>
               <td style="color:#999;font-size:12px;">MD80002345</td>
               <td style="color:#999;font-size:12px;">2026-04-10 10:30:41</td>
               <td>
@@ -935,13 +952,14 @@ select.m-input { cursor: pointer; }
               <td>2026-04-10</td>
               <td><span class="tag tag-visit">线下拜访</span></td>
               <td style="color:#666;line-height:1.5;">客户提到想了解新线路，对藏东方向感兴趣</td>
-              <td style="color:#666;line-height:1.5;">预约下次回访时间，带上新线路手册和图册</td>
+              <td style="color:#FA8C16;font-size:12px;">跟进报价反馈</td>
               <td>
                 <span class="action-link" onclick="openDetail(this)">查看</span><span class="action-divider">|</span><span class="action-link" onclick="openEdit(this)">编辑</span>
               </td>
             </tr>
 
             <tr data-rid="r8" data-sales="张金鸿" data-travel-season="春季（3-5月）" data-travel-group="朋友结伴" data-travel-budget="20,000-50,000" data-travel-days="11-15天" data-travel-pref="户外徒步">
+              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">8</td>
               <td style="color:#999;font-size:12px;">MD80004567</td>
               <td style="color:#999;font-size:12px;">2026-04-08 16:42:19</td>
               <td>
@@ -955,14 +973,15 @@ select.m-input { cursor: pointer; }
               </td>
               <td>2026-04-08</td>
               <td><span class="tag tag-phone">电话回访</span></td>
-              <td style="color:#666;line-height:1.5;">客户询问藏东自驾线路详情，对波密-墨脱段特别感兴趣</td>
-              <td style="color:#666;line-height:1.5;">评估藏东自驾线路成团可能性，后续安排线路推荐</td>
+              <td style="color:#666;line-height:1.5;"></td>
+              <td style="color:#FA8C16;font-size:12px;">跟进报价反馈</td>
               <td>
                 <span class="action-link" onclick="openDetail(this)">查看</span><span class="action-divider">|</span><span class="action-link" onclick="openEdit(this)">编辑</span>
               </td>
             </tr>
 
             <tr data-rid="r9" data-sales="张嵩">
+              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">9</td>
               <td style="color:#999;font-size:12px;">MD80009999</td>
               <td style="color:#999;font-size:12px;">2026-04-05 09:00:00</td>
               <td>
@@ -977,7 +996,7 @@ select.m-input { cursor: pointer; }
               <td>2026-04-05</td>
               <td><span class="tag tag-phone">电话回访</span></td>
               <td style="color:#666;line-height:1.5;">电话未接通，已留言。上次消费距今超过45天</td>
-              <td style="color:#666;line-height:1.5;">标记为沉睡客户，计划发送冬季温泉促销信息做唤醒</td>
+              <td style="color:#FA8C16;font-size:12px;">跟进报价反馈</td>
               <td>
                 <span class="action-link" onclick="openDetail(this)">查看</span><span class="action-divider">|</span><span class="action-link" onclick="openEdit(this)">编辑</span>
               </td>
@@ -1040,16 +1059,11 @@ select.m-input { cursor: pointer; }
             <option>活动邀约</option>
             <option selected>微信沟通</option>
           </select>
-          <div class="m-hint">维护行为选项由系统统一管理</div>
         </div>
       </div>
       <div class="form-group">
-        <label class="form-label">客户反馈</label>
+        <label class="form-label">客户反馈 <span class="req">*</span></label>
         <textarea class="m-input" placeholder="记录客户关键反馈、态度或需求..."></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">产出结果/跟进计划</label>
-        <textarea class="m-input" placeholder="记录本次达成的共识、下一步计划或具体成果..."></textarea>
       </div>
 
       <!-- 出行需求信息（非必选） -->
@@ -1119,24 +1133,16 @@ select.m-input { cursor: pointer; }
         </div>
       </div>
 
-      <!-- 事项提醒（非必选，开关控制） -->
+      <!-- 提醒事项（必填） -->
       <div style="border-top:1px dashed #e8e8e8;margin:20px 0 16px;"></div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-        <label style="position:relative;display:inline-block;width:36px;height:20px;cursor:pointer;">
-          <input type="checkbox" id="reminderToggle" onchange="toggleReminderFields()" style="opacity:0;width:0;height:0;">
-          <span style="position:absolute;inset:0;background:#ccc;border-radius:20px;transition:.3s;"></span>
-          <span id="toggleDot" style="position:absolute;top:2px;left:2px;width:16px;height:16px;background:#fff;border-radius:50%;transition:.3s;"></span>
-        </label>
-        <span style="font-size:14px;font-weight:500;color:#333;">⏰ 设置事项提醒</span>
-        <span style="font-size:12px;color:#999;">（开启后可在工作台「我的待办」中收到提醒）</span>
-      </div>
-      <div id="reminderFields" style="display:none;background:#FFF7E6;border:1px solid #FFD591;border-radius:6px;padding:12px 14px;">
+      <div style="font-size:14px;font-weight:500;color:#333;margin-bottom:12px;">⏰ 提醒事项</div>
+      <div style="background:#FFF7E6;border:1px solid #FFD591;border-radius:6px;padding:12px 14px;">
         <div class="form-group" style="margin-bottom:10px;">
-          <label class="form-label">提醒日期</label>
+          <label class="form-label">提醒日期 <span class="req">*</span></label>
           <input type="date" class="m-input">
         </div>
         <div class="form-group" style="margin-bottom:0;">
-          <label class="form-label">提醒事项</label>
+          <label class="form-label">提醒事项 <span class="req">*</span></label>
           <textarea class="m-input" placeholder="如：确认客户是否预定、跟进报价反馈、发送行程方案..." style="min-height:48px;"></textarea>
         </div>
       </div>
@@ -1160,16 +1166,18 @@ select.m-input { cursor: pointer; }
       <table class="log-table">
         <thead>
           <tr>
-            <th style="width:150px;">更新时间</th>
+            <th style="width:130px;">维护记录ID</th>
+            <th style="width:130px;">更新时间</th>
             <th style="width:70px;">更新人</th>
             <th style="width:60px;">变更类型</th>
-            <th style="width:100px;">会员</th>
+            <th style="width:80px;">会员</th>
             <th style="width:90px;">维护日期</th>
             <th>变更内容摘要</th>
           </tr>
         </thead>
         <tbody id="logTableBody">
-          <tr data-rid="r1">
+          <tr data-rid="r1" data-sales="廖文娟">
+            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">1</td>
             <td>2026-04-17 16:32</td>
             <td>赵岍</td>
             <td><span class="type-add">新增</span></td>
@@ -1177,7 +1185,8 @@ select.m-input { cursor: pointer; }
             <td>2026-04-17</td>
             <td>新增维护记录：电话回访 — 客户咨询来古冰川行程</td>
           </tr>
-          <tr data-rid="r2">
+          <tr data-rid="r2" data-sales="曾卓">
+            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">2</td>
             <td>2026-04-16 14:05</td>
             <td>廖文娟</td>
             <td><span class="type-add">新增</span></td>
@@ -1185,7 +1194,8 @@ select.m-input { cursor: pointer; }
             <td>2026-04-16</td>
             <td>新增维护记录：微信沟通 — 客户咨询暑期亲子路线</td>
           </tr>
-          <tr data-rid="r3">
+          <tr data-rid="r3" data-sales="王翊">
+            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">3</td>
             <td>2026-04-16 10:18</td>
             <td>张金鸿</td>
             <td><span class="type-add">新增</span></td>
@@ -1193,7 +1203,8 @@ select.m-input { cursor: pointer; }
             <td>2026-04-16</td>
             <td>新增维护记录：线下拜访 — 客户到店体验高端定制</td>
           </tr>
-          <tr data-rid="r4">
+          <tr data-rid="r4" data-sales="郑文婷">
+            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">4</td>
             <td>2026-04-15 11:23</td>
             <td>杨慧中</td>
             <td><span class="type-add">新增</span></td>
@@ -1201,7 +1212,8 @@ select.m-input { cursor: pointer; }
             <td>2026-04-15</td>
             <td>新增维护记录：电话回访 — 跟进会员续费意向</td>
           </tr>
-          <tr data-rid="r5">
+          <tr data-rid="r5" data-sales="苏凝影">
+            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">5</td>
             <td>2026-04-13 09:15</td>
             <td>苏凝影</td>
             <td><span class="type-add">新增</span></td>
@@ -1209,7 +1221,8 @@ select.m-input { cursor: pointer; }
             <td>2026-04-13</td>
             <td>新增维护记录：微信沟通 — 南迦巴瓦徒步路线确认</td>
           </tr>
-          <tr data-rid="r6">
+          <tr data-rid="r6" data-sales="赵岍">
+            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">6</td>
             <td>2026-04-12 14:05</td>
             <td>赵岍</td>
             <td><span class="type-add">新增</span></td>
@@ -1217,7 +1230,26 @@ select.m-input { cursor: pointer; }
             <td>2026-04-12</td>
             <td>新增维护记录：线下拜访 — 梅里雪山路线沟通</td>
           </tr>
-          <tr data-rid="r7">
+          <tr data-rid="r7" data-sales="王倩">
+            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">7</td>
+            <td>2026-04-10 10:30</td>
+            <td>李海燕</td>
+            <td><span class="type-add">新增</span></td>
+            <td>孙丽华</td>
+            <td>2026-04-10</td>
+            <td>新增维护记录：线下拜访 — 客户想了解藏东新线路</td>
+          </tr>
+          <tr data-rid="r8" data-sales="张金鸿">
+            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">8</td>
+            <td>2026-04-08 16:42</td>
+            <td>张金鸿</td>
+            <td><span class="type-add">新增</span></td>
+            <td>杨帆</td>
+            <td>2026-04-08</td>
+            <td>新增维护记录：电话回访 — 藏东自驾线路成团评估</td>
+          </tr>
+          <tr data-rid="r9" data-sales="张嵩">
+            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">9</td>
             <td>2026-04-05 09:00</td>
             <td>李海燕</td>
             <td><span class="type-add">新增</span></td>
@@ -1279,6 +1311,10 @@ select.m-input { cursor: pointer; }
         <div class="detail-body">
           <div class="detail-grid">
             <div class="detail-field">
+              <div class="detail-field-label">姓名</div>
+              <div class="detail-field-value" id="detailNameField">王建明</div>
+            </div>
+            <div class="detail-field">
               <div class="detail-field-label">手机号码</div>
               <div class="detail-field-value" id="detailPhone">138****5678</div>
             </div>
@@ -1299,24 +1335,30 @@ select.m-input { cursor: pointer; }
               <div class="detail-field-label">是否城市大使</div>
               <div id="detailAmbassadorView" style="display:flex;align-items:center;gap:6px;">
                 <span class="detail-field-value" id="detailAmbassador">否</span>
-                <span class="edit-icon" onclick="startEditField('ambassador')" title="修改城市大使">✏️</span>
               </div>
-              <div id="detailAmbassadorEdit" style="display:none;margin-top:2px;">
-                <select id="detailAmbassadorInput" class="inline-edit-input" style="width:auto;padding:2px 8px;">
-                  <option value="是">是</option>
-                  <option value="否">否</option>
-                  <option value="未知">未知</option>
-                </select>
-                <span class="edit-save-btn" onclick="saveEditField('ambassador')">保存</span>
-                <span class="edit-cancel-btn" onclick="cancelEditField('ambassador')">取消</span>
-              </div>
+            </div>
+            <div class="detail-field">
+              <div class="detail-field-label">权益关联人</div>
+              <div class="detail-field-value" id="detailEquityRelated" style="font-size:12px;color:#666;">—</div>
+            </div>
+            <div class="detail-field">
+              <div class="detail-field-label">积分转增人</div>
+              <div class="detail-field-value" id="detailPointsTransfer" style="font-size:12px;color:#666;">—</div>
+            </div>
+            <div class="detail-field">
+              <div class="detail-field-label">推荐人</div>
+              <div class="detail-field-value" id="detailReferrer" style="font-size:12px;color:#666;">—</div>
+            </div>
+            <div class="detail-field">
+              <div class="detail-field-label">被推荐人</div>
+              <div class="detail-field-value" id="detailReferee" style="font-size:12px;color:#666;">—</div>
             </div>
             <div class="detail-field">
               <div class="detail-field-label">累计消费</div>
               <div class="detail-field-value" id="detailAmount" style="color:#CF1322;">¥286,500</div>
             </div>
             <div class="detail-field">
-              <div class="detail-field-label">最近下单</div>
+              <div class="detail-field-label">最近下单日期</div>
               <div class="detail-field-value" id="detailLastOrder">2026-03-20</div>
             </div>
             <div class="detail-field">
@@ -1324,22 +1366,12 @@ select.m-input { cursor: pointer; }
               <div class="detail-field-value" id="detailExpiry">2026-12-31</div>
             </div>
             <div class="detail-field">
+              <div class="detail-field-label">最近维护日期</div>
+              <div class="detail-field-value" id="detailLastMaint" style="color:#1890ff;">—</div>
+            </div>
+            <div class="detail-field">
               <div class="detail-field-label">最近联系</div>
               <div class="detail-field-value" id="detailLastContact">8天前 · 线下拜访</div>
-            </div>
-          </div>
-
-          <div class="detail-section">
-            <div class="detail-section-title">会员关系</div>
-            <div class="detail-relation">
-              <span class="name">王小红</span>
-              <span class="rel-type">配偶</span>
-              <span style="color:#999;font-size:11px;">MD80006789 · 莲</span>
-            </div>
-            <div class="detail-relation">
-              <span class="name">王子轩</span>
-              <span class="rel-type">子女</span>
-              <span style="color:#999;font-size:11px;">MD80011234 · 格桑</span>
             </div>
           </div>
 
@@ -1383,6 +1415,7 @@ select.m-input { cursor: pointer; }
       </div>
       <!-- 基础信息 -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin-bottom:16px;">
+        <div><span style="font-size:12px;color:#999;">维护记录ID</span><div style="font-size:13px;color:#1890ff;margin-top:2px;font-weight:500;" id="dtRecordId">—</div></div>
         <div><span style="font-size:12px;color:#999;">维护日期</span><div style="font-size:13px;color:#333;margin-top:2px;" id="dtDate">2026-04-17</div></div>
         <div><span style="font-size:12px;color:#999;">维护行为</span><div style="font-size:13px;margin-top:2px;" id="dtBehavior"></div></div>
         <div><span style="font-size:12px;color:#999;">更新时间</span><div style="font-size:13px;color:#999;margin-top:2px;" id="dtUpdated">2026-04-17 16:32:15</div></div>
@@ -1391,11 +1424,6 @@ select.m-input { cursor: pointer; }
       <div style="margin-bottom:14px;">
         <div style="font-size:12px;color:#999;margin-bottom:4px;">客户反馈</div>
         <div style="font-size:13px;color:#333;line-height:1.7;background:#FAFAFA;padding:10px 12px;border-radius:4px;" id="dtFeedback">—</div>
-      </div>
-      <!-- 产出结果/跟进计划 -->
-      <div style="margin-bottom:14px;">
-        <div style="font-size:12px;color:#999;margin-bottom:4px;">产出结果/跟进计划</div>
-        <div style="font-size:13px;color:#333;line-height:1.7;background:#FAFAFA;padding:10px 12px;border-radius:4px;" id="dtResult">—</div>
       </div>
       <!-- 出行需求信息（有则显示） -->
       <div id="dtTravelWrap" style="display:none;margin-bottom:14px;">
@@ -1456,27 +1484,16 @@ select.m-input { cursor: pointer; }
         <label class="form-label">客户反馈</label>
         <textarea class="m-input" id="editFeedback" placeholder="记录客户的关键反馈、态度或疑虑..."></textarea>
       </div>
-      <div class="form-group">
-        <label class="form-label">产出结果/跟进计划</label>
-        <textarea class="m-input" id="editResult" placeholder="记录本次达成的共识、下一步计划或具体成果..."></textarea>
-      </div>
-      <!-- 事项提醒开关 -->
+      <!-- 提醒事项（必填） -->
       <div style="border-top:1px dashed #e8e8e8;margin:20px 0 16px;"></div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-        <label style="position:relative;display:inline-block;width:36px;height:20px;cursor:pointer;">
-          <input type="checkbox" id="editReminderToggle" onchange="toggleEditReminder()" style="opacity:0;width:0;height:0;">
-          <span style="position:absolute;inset:0;background:#ccc;border-radius:20px;transition:.3s;"></span>
-          <span id="editToggleDot" style="position:absolute;top:2px;left:2px;width:16px;height:16px;background:#fff;border-radius:50%;transition:.3s;"></span>
-        </label>
-        <span style="font-size:14px;font-weight:500;color:#333;">⏰ 设置事项提醒</span>
-      </div>
-      <div id="editReminderFields" style="display:none;background:#FFF7E6;border:1px solid #FFD591;border-radius:6px;padding:12px 14px;">
+      <div style="font-size:14px;font-weight:500;color:#333;margin-bottom:12px;">⏰ 提醒事项</div>
+      <div style="background:#FFF7E6;border:1px solid #FFD591;border-radius:6px;padding:12px 14px;">
         <div class="form-group" style="margin-bottom:10px;">
-          <label class="form-label">提醒日期</label>
+          <label class="form-label">提醒日期 <span class="req">*</span></label>
           <input type="date" class="m-input" id="editReminderDate">
         </div>
         <div class="form-group" style="margin-bottom:0;">
-          <label class="form-label">提醒事项</label>
+          <label class="form-label">提醒事项 <span class="req">*</span></label>
           <textarea class="m-input" id="editReminderContent" placeholder="如：确认客户是否预定、跟进报价反馈..." style="min-height:48px;"></textarea>
         </div>
       </div>
@@ -1505,17 +1522,17 @@ function getRowData(tr) {
   var tagEl = tr.querySelector('.tag');
   return {
     rid: tr.dataset.rid,
-    card: tds[0] ? tds[0].textContent.trim() : '',
-    updated: tds[1] ? tds[1].textContent.trim() : '',
+    recordId: tds[0] ? tds[0].textContent.trim() : '',
+    card: tds[1] ? tds[1].textContent.trim() : '',
+    updated: tds[2] ? tds[2].textContent.trim() : '',
     avatarText: avatarEl ? avatarEl.textContent.trim() : '',
     avatarBg: avatarEl ? avatarEl.style.background : '#1890FF',
     name: nameEl ? nameEl.textContent.trim() : '',
     memberId: memberIdEl ? memberIdEl.textContent.trim() : '',
-    date: tds[3] ? tds[3].textContent.trim() : '',
+    date: tds[4] ? tds[4].textContent.trim() : '',
     behavior: tagEl ? tagEl.textContent.trim() : '',
     behaviorClass: tagEl ? tagEl.className : '',
-    feedback: tds[5] ? tds[5].textContent.trim() : '',
-    result: tds[6] ? tds[6].textContent.trim() : '',
+    feedback: tds[6] ? tds[6].textContent.trim() : '',
     travelSeason: tr.dataset.travelSeason || '',
     travelGroup: tr.dataset.travelGroup || '',
     travelBudget: tr.dataset.travelBudget || '',
@@ -1538,13 +1555,13 @@ function fillDetailModal(d) {
   var av = document.getElementById('dtAvatar');
   av.textContent = d.avatarText;
   av.style.background = d.avatarBg;
+  document.getElementById('dtRecordId').textContent = d.recordId || '—';
   document.getElementById('dtName').innerHTML = d.name + ' <span style="font-size:12px;color:#999;font-weight:400;">' + d.card + ' · ' + (d.memberId.split('·')[1]||'').trim() + '</span>';
   document.getElementById('dtPhone').textContent = (d.memberId.split('·')[0]||'').trim();
   document.getElementById('dtDate').textContent = d.date;
   document.getElementById('dtUpdated').textContent = d.updated;
   document.getElementById('dtBehavior').innerHTML = '<span class="' + d.behaviorClass + '">' + d.behavior + '</span>';
   document.getElementById('dtFeedback').textContent = d.feedback || '—';
-  document.getElementById('dtResult').textContent = d.result || '—';
   // 出行需求信息
   var hasTravel = d.travelSeason || d.travelGroup || d.travelBudget || d.travelDays || d.travelPref;
   var tw = document.getElementById('dtTravelWrap');
@@ -1584,12 +1601,12 @@ function openDetailFromCard(el) {
     var todoContentEl = card.querySelector('.todo-content');
     var metaSpans = card.querySelectorAll('.todo-meta span');
     document.getElementById('dtAvatar').textContent = name[0];
+    document.getElementById('dtRecordId').textContent = '—';
     document.getElementById('dtName').innerHTML = name + (cardTagEl ? ' <span style="font-size:12px;color:#999;font-weight:400;">' + cardTagEl.textContent + '</span>' : '');
     document.getElementById('dtPhone').textContent = '';
     document.getElementById('dtDate').textContent = metaSpans[0] ? metaSpans[0].textContent.replace('来源：','').split(' ')[0] : '';
     document.getElementById('dtBehavior').textContent = '';
     document.getElementById('dtFeedback').textContent = '—';
-    document.getElementById('dtResult').textContent = todoContentEl ? todoContentEl.textContent.trim() : '—';
     document.getElementById('dtUpdated').textContent = '—';
     document.getElementById('dtTravelWrap').style.display = 'none';
     document.getElementById('dtReminderWrap').style.display = 'none';
@@ -1653,9 +1670,9 @@ function submitEdit() {
   var now = new Date();
   var pad = function(n){ return n<10?'0'+n:n; };
   var ts = now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+' '+pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
-  if (tds[1]) tds[1].textContent = ts;
+  if (tds[2]) tds[2].textContent = ts;
   // 更新维护日期
-  if (tds[3]) tds[3].textContent = date;
+  if (tds[4]) tds[4].textContent = date;
   // 更新维护行为标签
   var tagEl = _currentEditTr.querySelector('.tag');
   if (tagEl) {
@@ -1664,9 +1681,7 @@ function submitEdit() {
     tagEl.textContent = behavior;
   }
   // 更新客户反馈
-  if (tds[5]) tds[5].textContent = feedback;
-  // 更新产出结果
-  if (tds[6]) tds[6].textContent = result;
+  if (tds[6]) tds[6].textContent = feedback;
   closeEditModal();
   // 短暂高亮该行
   _currentEditTr.style.transition = 'background .2s';
@@ -1680,7 +1695,11 @@ function switchTodoTab(el, tab) {
   document.querySelectorAll('.todo-filters .filter-tag').forEach(function(t){ t.classList.remove('active'); });
   el.classList.add('active');
   document.querySelectorAll('.todo-card-list .todo-card').forEach(function(card){
-    card.style.display = card.dataset.tab === tab ? '' : 'none';
+    if (tab === 'all') {
+      card.style.display = '';
+    } else {
+      card.style.display = card.dataset.tab === tab ? '' : 'none';
+    }
   });
 }
 // 初始化：默认显示已过期
@@ -1768,20 +1787,20 @@ let selectedMemberId = null;
 
 // 模拟会员数据库
 const memberDB = [
-  { id:'wjm', name:'王建明', card:'MD80001234', level:'金刚', phone:'138****5678', city:'北京 · 朝阳区', ambassador:'是', type:'VIP客户', typeClass:'type-vip', follow:'需跟进 · 8天未联系', followClass:'follow-need', tags:['🏔️ 自然风光','🥾 户外徒步'], travelTags:['夫妻出行','朋友结伴'], prefTags:['素食偏好','高原经验丰富'], matchRate:85, matchDetail:[{tag:'自然风光',rate:92},{tag:'户外徒步',rate:78}], amount:'¥286,500', lastOrder:'2026-03-20', expiry:'2026-12-31', lastContact:'8天前 · 线下拜访', sales:'赵岍', color:'#1890ff', relations:[{name:'王小红',rel:'配偶',card:'MD80006789',level:'莲'},{name:'王子轩',rel:'子女',card:'MD80011234',level:'格桑'}] },
-  { id:'slh', name:'孙丽华', card:'MD80002345', level:'金刚', phone:'139****1234', city:'上海 · 静安区', ambassador:'未知', type:'VIP客户', typeClass:'type-vip', follow:'正常 · 5天前联系', followClass:'follow-ok', tags:['🏛️ 人文历史','🍜 美食体验'], travelTags:['闺蜜出行'], prefTags:['忌辣','摄影器材需求'], matchRate:72, matchDetail:[{tag:'人文历史',rate:80},{tag:'美食体验',rate:64}], amount:'¥512,000', lastOrder:'2026-04-10', expiry:'2027-06-30', lastContact:'5天前 · 线下拜访', sales:'王倩', color:'#722ED1', relations:[{name:'孙建国',rel:'配偶',card:'MD80004500',level:'雪莲'}] },
-  { id:'zyz', name:'赵雅芝', card:'MD80003456', level:'绿绒蒿', phone:'135****9876', city:'深圳 · 南山区', ambassador:'否', type:'VIP客户', typeClass:'type-vip', follow:'正常 · 2天前联系', followClass:'follow-ok', tags:['🏔️ 自然风光','📷 摄影采风'], travelTags:['夫妻出行'], prefTags:['高原经验丰富'], matchRate:90, matchDetail:[{tag:'自然风光',rate:95},{tag:'摄影采风',rate:85}], amount:'¥378,900', lastOrder:'2026-04-15', expiry:'2027-03-15', lastContact:'2天前 · 电话回访', sales:'廖文娟', color:'#C41D7F', relations:[] },
-  { id:'lt', name:'李婷', card:'MD80005678', level:'莲', phone:'136****4321', city:'成都 · 锦江区', ambassador:'否', type:'重点客户', typeClass:'type-key', follow:'需跟进 · 5天未联系', followClass:'follow-need', tags:['👨‍👩‍👧 亲子出行','🏔️ 自然风光'], travelTags:['亲子出行'], prefTags:['儿童餐需求','无高原经验'], matchRate:65, matchDetail:[{tag:'亲子出行',rate:70},{tag:'自然风光',rate:60}], amount:'¥152,800', lastOrder:'2026-04-11', expiry:'2027-01-20', lastContact:'5天前 · 微信沟通', sales:'曾卓', color:'#C41D7F', relations:[{name:'李子豪',rel:'子女',card:'MD80008888',level:'格桑'},{name:'张明远',rel:'配偶',card:'MD80007777',level:'雪莲'}] },
-  { id:'yf', name:'杨帆', card:'MD80004567', level:'雪莲', phone:'137****8765', city:'广州 · 天河区', ambassador:'否', type:'活跃客户', typeClass:'type-active', follow:'正常 · 7天前联系', followClass:'follow-ok', tags:['🥾 户外徒步','🏔️ 自然风光'], travelTags:['朋友结伴'], prefTags:['露营经验','自带装备'], matchRate:78, matchDetail:[{tag:'户外徒步',rate:82},{tag:'自然风光',rate:74}], amount:'¥98,700', lastOrder:'2026-03-25', expiry:'2026-11-10', lastContact:'7天前 · 电话回访', sales:'张金鸿', color:'#FA8C16', relations:[] },
-  { id:'zm', name:'周明', card:'MD80006789', level:'莲', phone:'133****5555', city:'杭州 · 西湖区', ambassador:'未知', type:'普通客户', typeClass:'type-normal', follow:'即将到期 · 1天', followClass:'follow-soon', tags:['🏔️ 自然风光','👨‍👩‍👧 亲子出行'], travelTags:['亲子出行','父母同游'], prefTags:['忌牛羊肉'], matchRate:55, matchDetail:[{tag:'自然风光',rate:50},{tag:'亲子出行',rate:60}], amount:'¥32,500', lastOrder:'2026-03-01', expiry:'2026-08-15', lastContact:'1天前 · 微信沟通', sales:'曹晓昕', color:'#389E0D', relations:[{name:'王小红',rel:'配偶',card:'MD80001234',level:'金刚'}] },
-  { id:'ly', name:'刘洋', card:'MD80007890', level:'格桑', phone:'158****3333', city:'重庆 · 渝北区', ambassador:'否', type:'活跃客户', typeClass:'type-active', follow:'正常 · 1天前联系', followClass:'follow-ok', tags:['🏛️ 人文历史'], travelTags:['独自出行'], prefTags:['预算敏感','素食偏好'], matchRate:45, matchDetail:[{tag:'人文历史',rate:45}], amount:'¥56,300', lastOrder:'2026-04-16', expiry:'2026-09-30', lastContact:'1天前 · 电话回访', sales:'郑文婷', color:'#08979C', relations:[] },
-  { id:'hlj', name:'黄丽娟', card:'MD80008888', level:'雪莲', phone:'159****2222', city:'南京 · 鼓楼区', ambassador:'是', type:'重点客户', typeClass:'type-key', follow:'需跟进 · 6天未联系', followClass:'follow-need', tags:['💎 奢享度假','🍜 美食体验'], travelTags:['夫妻出行'], prefTags:['私厨定制','红酒偏好'], matchRate:82, matchDetail:[{tag:'奢享度假',rate:88},{tag:'美食体验',rate:76}], amount:'¥421,000', lastOrder:'2026-04-11', expiry:'2027-05-20', lastContact:'6天前 · 线下拜访', sales:'王翊', color:'#AD6800', relations:[] },
-  { id:'czq', name:'陈志强', card:'MD80009012', level:'雪莲', phone:'186****1111', city:'武汉 · 武昌区', ambassador:'否', type:'活跃客户', typeClass:'type-active', follow:'即将到期 · 3天', followClass:'follow-soon', tags:['🥾 户外徒步','📷 摄影采风'], travelTags:['朋友结伴'], prefTags:['露营经验','高原经验丰富'], matchRate:68, matchDetail:[{tag:'户外徒步',rate:72},{tag:'摄影采风',rate:64}], amount:'¥89,600', lastOrder:'2026-04-13', expiry:'2026-10-08', lastContact:'3天前 · 微信沟通', sales:'苏凝影', color:'#AD6800', relations:[] },
-  { id:'zw', name:'张伟', card:'MD80009999', level:'格桑', phone:'150****6666', city:'西安 · 雁塔区', ambassador:'未知', type:'沉睡客户', typeClass:'type-sleep', follow:'需跟进 · 45天未联系', followClass:'follow-need', tags:['♨️ 雪山温泉'], travelTags:['独自出行'], prefTags:['预算敏感'], matchRate:30, matchDetail:[{tag:'雪山温泉',rate:30}], amount:'¥18,200', lastOrder:'2026-03-02', expiry:'2026-07-01', lastContact:'45天前 · 电话回访', sales:'张嵩', color:'#999', relations:[] },
+  { id:'wjm', name:'王建明', card:'MD80001234', level:'金刚', phone:'138****5678', city:'北京 · 朝阳区', ambassador:'是', type:'VIP客户', typeClass:'type-vip', follow:'需跟进 · 8天未联系', followClass:'follow-need', tags:['🏔️ 自然风光','🥾 户外徒步'], travelTags:['夫妻出行','朋友结伴'], prefTags:['素食偏好','高原经验丰富'], matchRate:85, matchDetail:[{tag:'自然风光',rate:92},{tag:'户外徒步',rate:78}], amount:'¥286,500', lastOrder:'2026-03-20', expiry:'2026-12-31', lastContact:'8天前 · 线下拜访', sales:'赵岍', color:'#1890ff', relations:[{name:'王小红',rel:'配偶',card:'MD80006789',level:'莲'},{name:'王子轩',rel:'子女',card:'MD80011234',level:'格桑'}], equityRelated:['王小红'], pointsTransfer:['王小红'], referrer:['周明'], referee:['王子轩'], lastMaint:'2026-04-12' },
+  { id:'slh', name:'孙丽华', card:'MD80002345', level:'金刚', phone:'139****1234', city:'上海 · 静安区', ambassador:'未知', type:'VIP客户', typeClass:'type-vip', follow:'正常 · 5天前联系', followClass:'follow-ok', tags:['🏛️ 人文历史','🍜 美食体验'], travelTags:['闺蜜出行'], prefTags:['忌辣','摄影器材需求'], matchRate:72, matchDetail:[{tag:'人文历史',rate:80},{tag:'美食体验',rate:64}], amount:'¥512,000', lastOrder:'2026-04-10', expiry:'2027-06-30', lastContact:'5天前 · 线下拜访', sales:'王倩', color:'#722ED1', relations:[{name:'孙建国',rel:'配偶',card:'MD80004500',level:'雪莲'}], equityRelated:[], pointsTransfer:['孙建国'], referrer:[], referee:[], lastMaint:'2026-04-10' },
+  { id:'zyz', name:'赵雅芝', card:'MD80003456', level:'绿绒蒿', phone:'135****9876', city:'深圳 · 南山区', ambassador:'否', type:'VIP客户', typeClass:'type-vip', follow:'正常 · 2天前联系', followClass:'follow-ok', tags:['🏔️ 自然风光','📷 摄影采风'], travelTags:['夫妻出行'], prefTags:['高原经验丰富'], matchRate:90, matchDetail:[{tag:'自然风光',rate:95},{tag:'摄影采风',rate:85}], amount:'¥378,900', lastOrder:'2026-04-15', expiry:'2027-03-15', lastContact:'2天前 · 电话回访', sales:'廖文娟', color:'#C41D7F', relations:[], equityRelated:[], pointsTransfer:[], referrer:['林芳'], referee:[], lastMaint:'2026-04-17' },
+  { id:'lt', name:'李婷', card:'MD80005678', level:'莲', phone:'136****4321', city:'成都 · 锦江区', ambassador:'否', type:'重点客户', typeClass:'type-key', follow:'需跟进 · 5天未联系', followClass:'follow-need', tags:['👨‍👩‍👧 亲子出行','🏔️ 自然风光'], travelTags:['亲子出行'], prefTags:['儿童餐需求','无高原经验'], matchRate:65, matchDetail:[{tag:'亲子出行',rate:70},{tag:'自然风光',rate:60}], amount:'¥152,800', lastOrder:'2026-04-11', expiry:'2027-01-20', lastContact:'5天前 · 微信沟通', sales:'曾卓', color:'#C41D7F', relations:[{name:'李子豪',rel:'子女',card:'MD80008888',level:'格桑'},{name:'张明远',rel:'配偶',card:'MD80007777',level:'雪莲'}], equityRelated:['张明远'], pointsTransfer:[], referrer:['马晓芸'], referee:[], lastMaint:'2026-04-16' },
+  { id:'yf', name:'杨帆', card:'MD80004567', level:'雪莲', phone:'137****8765', city:'广州 · 天河区', ambassador:'否', type:'活跃客户', typeClass:'type-active', follow:'正常 · 7天前联系', followClass:'follow-ok', tags:['🥾 户外徒步','🏔️ 自然风光'], travelTags:['朋友结伴'], prefTags:['露营经验','自带装备'], matchRate:78, matchDetail:[{tag:'户外徒步',rate:82},{tag:'自然风光',rate:74}], amount:'¥98,700', lastOrder:'2026-03-25', expiry:'2026-11-10', lastContact:'7天前 · 电话回访', sales:'张金鸿', color:'#FA8C16', relations:[], equityRelated:[], pointsTransfer:[], referrer:[], referee:['陈志强'], lastMaint:'2026-04-08' },
+  { id:'zm', name:'周明', card:'MD80006789', level:'莲', phone:'133****5555', city:'杭州 · 西湖区', ambassador:'未知', type:'普通客户', typeClass:'type-normal', follow:'即将到期 · 1天', followClass:'follow-soon', tags:['🏔️ 自然风光','👨‍👩‍👧 亲子出行'], travelTags:['亲子出行','父母同游'], prefTags:['忌牛羊肉'], matchRate:55, matchDetail:[{tag:'自然风光',rate:50},{tag:'亲子出行',rate:60}], amount:'¥32,500', lastOrder:'2026-03-01', expiry:'2026-08-15', lastContact:'1天前 · 微信沟通', sales:'曹晓昕', color:'#389E0D', relations:[{name:'王小红',rel:'配偶',card:'MD80001234',level:'金刚'}], equityRelated:[], pointsTransfer:[], referrer:[], referee:['王建明'], lastMaint:'2026-03-01' },
+  { id:'ly', name:'刘洋', card:'MD80007890', level:'格桑', phone:'158****3333', city:'重庆 · 渝北区', ambassador:'否', type:'活跃客户', typeClass:'type-active', follow:'正常 · 1天前联系', followClass:'follow-ok', tags:['🏛️ 人文历史'], travelTags:['独自出行'], prefTags:['预算敏感','素食偏好'], matchRate:45, matchDetail:[{tag:'人文历史',rate:45}], amount:'¥56,300', lastOrder:'2026-04-16', expiry:'2026-09-30', lastContact:'1天前 · 电话回访', sales:'郑文婷', color:'#08979C', relations:[], equityRelated:[], pointsTransfer:[], referrer:[], referee:[], lastMaint:'2026-04-15' },
+  { id:'hlj', name:'黄丽娟', card:'MD80008888', level:'雪莲', phone:'159****2222', city:'南京 · 鼓楼区', ambassador:'是', type:'重点客户', typeClass:'type-key', follow:'需跟进 · 6天未联系', followClass:'follow-need', tags:['💎 奢享度假','🍜 美食体验'], travelTags:['夫妻出行'], prefTags:['私厨定制','红酒偏好'], matchRate:82, matchDetail:[{tag:'奢享度假',rate:88},{tag:'美食体验',rate:76}], amount:'¥421,000', lastOrder:'2026-04-11', expiry:'2027-05-20', lastContact:'6天前 · 线下拜访', sales:'王翊', color:'#AD6800', relations:[], equityRelated:['孙建国'], pointsTransfer:['孙建国'], referrer:[], referee:[], lastMaint:'2026-04-16' },
+  { id:'czq', name:'陈志强', card:'MD80009012', level:'雪莲', phone:'186****1111', city:'武汉 · 武昌区', ambassador:'否', type:'活跃客户', typeClass:'type-active', follow:'即将到期 · 3天', followClass:'follow-soon', tags:['🥾 户外徒步','📷 摄影采风'], travelTags:['朋友结伴'], prefTags:['露营经验','高原经验丰富'], matchRate:68, matchDetail:[{tag:'户外徒步',rate:72},{tag:'摄影采风',rate:64}], amount:'¥89,600', lastOrder:'2026-04-13', expiry:'2026-10-08', lastContact:'3天前 · 微信沟通', sales:'苏凝影', color:'#AD6800', relations:[], equityRelated:[], pointsTransfer:[], referrer:['杨帆'], referee:[], lastMaint:'2026-04-13' },
+  { id:'zw', name:'张伟', card:'MD80009999', level:'格桑', phone:'150****6666', city:'西安 · 雁塔区', ambassador:'未知', type:'沉睡客户', typeClass:'type-sleep', follow:'需跟进 · 45天未联系', followClass:'follow-need', tags:['♨️ 雪山温泉'], travelTags:['独自出行'], prefTags:['预算敏感'], matchRate:30, matchDetail:[{tag:'雪山温泉',rate:30}], amount:'¥18,200', lastOrder:'2026-03-02', expiry:'2026-07-01', lastContact:'45天前 · 电话回访', sales:'张嵩', color:'#999', relations:[], equityRelated:[], pointsTransfer:[], referrer:[], referee:[], lastMaint:'2026-04-05' },
   // 无销售员的会员（可认领）
-  { id:'mx', name:'马晓芸', card:'MD80011111', level:'莲', phone:'131****7777', city:'昆明 · 盘龙区', ambassador:'否', type:'VIP客户', typeClass:'type-vip', follow:'需跟进 · 12天未联系', followClass:'follow-need', tags:['🏔️ 自然风光','🏛️ 人文历史','♨️ 雪山温泉'], travelTags:['夫妻出行','父母同游'], prefTags:['素食偏好','忌辣','高原经验丰富'], matchRate:76, matchDetail:[{tag:'自然风光',rate:80},{tag:'人文历史',rate:72},{tag:'雪山温泉',rate:76}], amount:'¥356,000', lastOrder:'2026-03-05', expiry:'2027-02-28', lastContact:'12天前 · 微信沟通', sales:null, color:'#CF1322', relations:[{name:'马建国',rel:'配偶',card:'MD80012222',level:'雪莲'}] },
-  { id:'xw', name:'许文强', card:'MD80012222', level:'雪莲', phone:'132****8888', city:'昆明 · 五华区', ambassador:'未知', type:'活跃客户', typeClass:'type-active', follow:'正常 · 3天前联系', followClass:'follow-ok', tags:['📷 摄影采风','🥾 户外徒步'], travelTags:['朋友结伴'], prefTags:['摄影器材需求','自带装备'], matchRate:60, matchDetail:[{tag:'摄影采风',rate:65},{tag:'户外徒步',rate:55}], amount:'¥68,500', lastOrder:'2026-04-14', expiry:'2026-12-10', lastContact:'3天前 · 活动邀约', sales:null, color:'#AD6800', relations:[{name:'马晓芸',rel:'配偶',card:'MD80011111',level:'莲'}] },
-  { id:'lf', name:'林芳', card:'MD80013333', level:'绿绒蒿', phone:'188****4444', city:'拉萨 · 城关区', ambassador:'是', type:'重点客户', typeClass:'type-key', follow:'需跟进 · 15天未联系', followClass:'follow-need', tags:['💎 奢享度假','🍜 美食体验','🏛️ 人文历史'], travelTags:['闺蜜出行'], prefTags:['私厨定制','红酒偏好','忌辣'], matchRate:88, matchDetail:[{tag:'奢享度假',rate:92},{tag:'美食体验',rate:84},{tag:'人文历史',rate:88}], amount:'¥198,000', lastOrder:'2026-02-20', expiry:'2027-08-30', lastContact:'15天前 · 线下拜访', sales:null, color:'#C41D7F', relations:[] },
+  { id:'mx', name:'马晓芸', card:'MD80011111', level:'莲', phone:'131****7777', city:'昆明 · 盘龙区', ambassador:'否', type:'VIP客户', typeClass:'type-vip', follow:'需跟进 · 12天未联系', followClass:'follow-need', tags:['🏔️ 自然风光','🏛️ 人文历史','♨️ 雪山温泉'], travelTags:['夫妻出行','父母同游'], prefTags:['素食偏好','忌辣','高原经验丰富'], matchRate:76, matchDetail:[{tag:'自然风光',rate:80},{tag:'人文历史',rate:72},{tag:'雪山温泉',rate:76}], amount:'¥356,000', lastOrder:'2026-03-05', expiry:'2027-02-28', lastContact:'12天前 · 微信沟通', sales:null, color:'#CF1322', relations:[{name:'马建国',rel:'配偶',card:'MD80012222',level:'雪莲'}], equityRelated:[], pointsTransfer:[], referrer:[], referee:['李婷'], lastMaint:'2026-04-14' },
+  { id:'xw', name:'许文强', card:'MD80012222', level:'雪莲', phone:'132****8888', city:'昆明 · 五华区', ambassador:'未知', type:'活跃客户', typeClass:'type-active', follow:'正常 · 3天前联系', followClass:'follow-ok', tags:['📷 摄影采风','🥾 户外徒步'], travelTags:['朋友结伴'], prefTags:['摄影器材需求','自带装备'], matchRate:60, matchDetail:[{tag:'摄影采风',rate:65},{tag:'户外徒步',rate:55}], amount:'¥68,500', lastOrder:'2026-04-14', expiry:'2026-12-10', lastContact:'3天前 · 活动邀约', sales:null, color:'#AD6800', relations:[{name:'马晓芸',rel:'配偶',card:'MD80011111',level:'莲'}], equityRelated:[], pointsTransfer:[], referrer:[], referee:[], lastMaint:'—' },
+  { id:'lf', name:'林芳', card:'MD80013333', level:'绿绒蒿', phone:'188****4444', city:'拉萨 · 城关区', ambassador:'是', type:'重点客户', typeClass:'type-key', follow:'需跟进 · 15天未联系', followClass:'follow-need', tags:['💎 奢享度假','🍜 美食体验','🏛️ 人文历史'], travelTags:['闺蜜出行'], prefTags:['私厨定制','红酒偏好','忌辣'], matchRate:88, matchDetail:[{tag:'奢享度假',rate:92},{tag:'美食体验',rate:84},{tag:'人文历史',rate:88}], amount:'¥198,000', lastOrder:'2026-02-20', expiry:'2027-08-30', lastContact:'15天前 · 线下拜访', sales:null, color:'#C41D7F', relations:[], equityRelated:['马晓芸'], pointsTransfer:[], referrer:[], referee:['赵雅芝'], lastMaint:'—' },
 ];
 
 function openSearchModal() {
@@ -1870,6 +1889,14 @@ function selectMember(id) {
   document.getElementById('detailExpiry').textContent = m.expiry;
   document.getElementById('detailLastContact').textContent = m.lastContact;
 
+  // 新增字段
+  document.getElementById('detailNameField').textContent = m.name;
+  document.getElementById('detailEquityRelated').textContent = (m.equityRelated && m.equityRelated.length) ? m.equityRelated.join('、') : '—';
+  document.getElementById('detailPointsTransfer').textContent = (m.pointsTransfer && m.pointsTransfer.length) ? m.pointsTransfer.join('、') : '—';
+  document.getElementById('detailReferrer').textContent = (m.referrer && m.referrer.length) ? m.referrer.join('、') : '—';
+  document.getElementById('detailReferee').textContent = (m.referee && m.referee.length) ? m.referee.join('、') : '—';
+  document.getElementById('detailLastMaint').textContent = m.lastMaint || '—';
+
   const salesTag = document.getElementById('detailSalesTag');
   if (m.sales) {
     salesTag.textContent = '👤 归属销售：' + m.sales;
@@ -1877,22 +1904,6 @@ function selectMember(id) {
   } else {
     salesTag.textContent = '⭕ 暂无归属销售 — 可认领';
     salesTag.className = 'detail-sales-tag unassigned';
-  }
-
-  // 会员关系
-  const detailBody = document.querySelector('.detail-body');
-  const relSection = detailBody.querySelectorAll('.detail-section');
-  if (relSection.length >= 1) {
-    const relContainer = relSection[0];
-    if (m.relations.length === 0) {
-      relContainer.innerHTML = '<div class="detail-section-title">会员关系</div><div style="font-size:12px;color:#999;padding:4px 0;">暂无关联会员</div>';
-    } else {
-      let relHtml = '<div class="detail-section-title">会员关系</div>';
-      m.relations.forEach(r => {
-        relHtml += '<div class="detail-relation"><span class="name">' + r.name + '</span><span class="rel-type">' + r.rel + '</span><span style="color:#999;font-size:11px;">' + r.card + ' · ' + r.level + '</span></div>';
-      });
-      relContainer.innerHTML = relHtml;
-    }
   }
 
   // 重置编辑态
@@ -1921,8 +1932,7 @@ function selectMember(id) {
 // ====== 字段内联编辑 ======
 const fieldMeta = {
   name: { viewId: 'detailNameView', editId: 'detailNameEdit', inputId: 'detailNameInput', displayId: 'detailName', label: '会员姓名' },
-  city: { viewId: 'detailCityView', editId: 'detailCityEdit', inputId: 'detailCityInput', displayId: 'detailCity', label: '会员所在地' },
-  ambassador: { viewId: 'detailAmbassadorView', editId: 'detailAmbassadorEdit', inputId: 'detailAmbassadorInput', displayId: 'detailAmbassador', label: '是否城市大使' }
+  city: { viewId: 'detailCityView', editId: 'detailCityEdit', inputId: 'detailCityInput', displayId: 'detailCity', label: '会员所在地' }
 };
 
 function startEditField(field) {
@@ -2115,13 +2125,13 @@ function filterTableBySales() {
     }
   });
 
-  // 更新变更日志表格（操作日志弹窗）
-  var logRows = document.querySelectorAll('#logModal tr[data-rid]');
+  // 更新操作日志表格（直接用 data-sales 过滤）
+  var logRows = document.querySelectorAll('#logTableBody tr[data-sales]');
   logRows.forEach(function(row) {
-    var rid = row.dataset.rid;
-    var mainRow = document.querySelector('#recordTableBody tr[data-rid="' + rid + '"]');
-    if (mainRow) {
-      row.style.display = mainRow.style.display;
+    if (!currentSales || row.dataset.sales === currentSales) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
     }
   });
 
@@ -2135,10 +2145,10 @@ function updateStats(visibleCount) {
   var seenMembers = new Set();
   allRows.forEach(function(row) {
     if (row.style.display !== 'none') {
-      // 从会员ID字段提取唯一会员
+      // 从会员卡号字段提取唯一会员（索引1，因为索引0是维护记录ID）
       var cells = row.querySelectorAll('td');
-      if (cells.length > 0) {
-        seenMembers.add(cells[0].textContent.trim());
+      if (cells.length > 1) {
+        seenMembers.add(cells[1].textContent.trim());
       }
     }
   });

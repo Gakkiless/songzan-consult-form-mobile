@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>松赞销售工作台 — 数据权限配置</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingFang SC", sans-serif; background: #F0F2F5; color: #333; font-size: 13px; }
+
+/* ====== 顶栏 ====== */
+.top-bar { background: #fff; border-bottom: 1px solid #e8e8e8; padding: 0 24px; display: flex; align-items: center; height: 48px; gap: 16px; position: sticky; top: 0; z-index: 100; }
+.top-logo { font-size: 15px; font-weight: 600; color: #333; white-space: nowrap; }
+.top-logo em { font-style: normal; color: #1890ff; }
+.top-spacer { flex: 1; }
+.user-avatar { display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+.user-avatar:hover { background: #F5F5F5; }
+.user-avatar .name { font-size: 13px; color: #333; font-weight: 500; }
+.user-avatar .icon { width: 28px; height: 28px; border-radius: 50%; background: #1890ff; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
+
+/* ====== 页面标题 ====== */
+.page-header { background: #fff; border-bottom: 1px solid #e8e8e8; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; }
+.page-title { font-size: 18px; font-weight: 600; color: #333; margin-bottom: 4px; }
+.page-desc { font-size: 13px; color: #999; }
+.header-actions { display: flex; gap: 8px; }
+
+/* ====== 按钮 ====== */
+.btn { padding: 6px 16px; font-size: 13px; border: 1px solid #d9d9d9; background: #fff; color: #333; cursor: pointer; border-radius: 4px; font-family: inherit; transition: .2s; display: inline-flex; align-items: center; gap: 4px; }
+.btn:hover { color: #1890ff; border-color: #1890ff; }
+.btn-primary { background: #1890ff; color: #fff; border-color: #1890ff; }
+.btn-primary:hover { background: #40a9ff; border-color: #40a9ff; color: #fff; }
+.btn-sm { padding: 3px 10px; font-size: 12px; }
+.btn-danger { color: #F5222D; border-color: #F5222D; }
+.btn-danger:hover { background: #F5222D; color: #fff; border-color: #F5222D; }
+
+/* ====== 主容器 ====== */
+.page-container { max-width: 1200px; margin: 0 auto; padding: 20px 24px; }
+
+/* ====== 角色说明条 ====== */
+.role-legend { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #666; padding: 6px 12px; background: #fff; border: 1px solid #e8e8e8; border-radius: 4px; }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.legend-dot.sales { background: #1890ff; }
+.legend-dot.leader { background: #52C41A; }
+.legend-dot.admin { background: #FA8C16; }
+
+/* ====== 筛选栏 ====== */
+.filter-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; background: #fff; padding: 12px 16px; border: 1px solid #e8e8e8; border-radius: 6px; }
+.filter-bar label { font-size: 12px; color: #666; white-space: nowrap; }
+.filter-input { padding: 5px 10px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 12px; height: 30px; font-family: inherit; }
+.filter-input:focus { outline: none; border-color: #1890ff; }
+.filter-select { padding: 5px 8px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 12px; height: 30px; font-family: inherit; cursor: pointer; }
+
+/* ====== 表格 ====== */
+.config-table-wrap { background: #fff; border: 1px solid #e8e8e8; border-radius: 6px; overflow: hidden; }
+.config-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.config-table th { background: #FAFAFA; padding: 10px 14px; text-align: left; font-weight: 500; color: #666; border-bottom: 1px solid #e8e8e8; white-space: nowrap; }
+.config-table td { padding: 10px 14px; border-bottom: 1px solid #F0F0F0; vertical-align: middle; }
+.config-table tr:hover { background: #FAFAFA; }
+.config-table tr:last-child td { border-bottom: none; }
+
+/* 用户信息单元格 */
+.user-cell { display: flex; align-items: center; gap: 10px; }
+.user-cell-avatar { width: 32px; height: 32px; border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; flex-shrink: 0; }
+.user-cell-info { line-height: 1.4; }
+.user-cell-name { font-size: 13px; font-weight: 500; color: #333; }
+.user-cell-id { font-size: 11px; color: #999; }
+
+/* 角色标签 */
+.role-tag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 4px; font-size: 12px; font-weight: 500; cursor: pointer; transition: .2s; }
+.role-tag:hover { opacity: .85; }
+.role-tag.sales { background: #E6F7FF; color: #1890ff; border: 1px solid #91D5FF; }
+.role-tag.leader { background: #F6FFED; color: #52C41A; border: 1px solid #B7EB8F; }
+.role-tag.admin { background: #FFF7E6; color: #FA8C16; border: 1px solid #FFD591; }
+
+/* 大区标签 */
+.region-tag { display: inline-block; padding: 1px 8px; border-radius: 3px; font-size: 11px; }
+.region-north { background: #F0F5FF; color: #2F54EB; }
+.region-south { background: #F0FFF0; color: #389E0D; }
+.region-west { background: #FFF7E6; color: #D46B08; }
+.region-east { background: #FFF0F6; color: #C41D7F; }
+
+/* 权限列 */
+.perm-cell { display: flex; flex-direction: column; gap: 3px; }
+.perm-line { font-size: 12px; color: #333; display: flex; align-items: center; gap: 4px; }
+.perm-line .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.perm-line .dot.yes { background: #52C41A; }
+.perm-line .dot.no { background: #D9D9D9; }
+.perm-line .perm-label { color: #999; font-size: 11px; }
+
+/* 状态 */
+.status-tag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 3px; font-size: 12px; }
+.status-active { background: #F6FFED; color: #52C41A; }
+.status-disabled { background: #F5F5F5; color: #999; }
+
+/* 操作 */
+.action-link { color: #1890ff; cursor: pointer; font-size: 12px; white-space: nowrap; }
+.action-link:hover { text-decoration: underline; }
+.action-divider { color: #E8E8E8; margin: 0 4px; }
+.action-link.danger { color: #F5222D; }
+.action-link.danger:hover { text-decoration: underline; }
+
+/* ====== 分页 ====== */
+.pagination { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; font-size: 12px; color: #999; }
+
+/* ====== 弹窗通用 ====== */
+.modal-mask { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,.45); z-index: 1000; justify-content: center; align-items: center; }
+.modal-mask.show { display: flex; }
+.modal { background: #fff; border-radius: 8px; width: 520px; max-height: 90vh; overflow-y: auto; box-shadow: 0 6px 24px rgba(0,0,0,.15); }
+.modal-header { padding: 16px 24px; border-bottom: 1px solid #e8e8e8; display: flex; align-items: center; justify-content: space-between; }
+.modal-title { font-size: 15px; font-weight: 600; }
+.modal-close { font-size: 18px; cursor: pointer; color: #999; background: none; border: none; padding: 4px; }
+.modal-close:hover { color: #333; }
+.modal-body { padding: 20px 24px; }
+.modal-footer { padding: 12px 24px; border-top: 1px solid #e8e8e8; display: flex; justify-content: flex-end; gap: 8px; }
+
+/* 表单 */
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; font-size: 13px; color: #333; margin-bottom: 6px; font-weight: 500; }
+.form-label .req { color: #F5222D; margin-left: 2px; }
+.form-label .tip { font-size: 11px; color: #999; font-weight: 400; margin-left: 8px; }
+.form-input { width: 100%; padding: 6px 12px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 13px; height: 34px; font-family: inherit; }
+.form-input:focus { outline: none; border-color: #1890ff; box-shadow: 0 0 0 2px rgba(24,144,255,.15); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+textarea.form-input { min-height: 60px; resize: vertical; height: auto; }
+
+/* 角色选择卡片 */
+.role-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.role-option { border: 2px solid #e8e8e8; border-radius: 8px; padding: 14px; cursor: pointer; transition: .2s; text-align: center; }
+.role-option:hover { border-color: #1890ff; }
+.role-option.selected { border-color: #1890ff; background: #E6F7FF; }
+.role-option .role-icon { font-size: 24px; margin-bottom: 6px; }
+.role-option .role-name { font-size: 13px; font-weight: 600; color: #333; margin-bottom: 2px; }
+.role-option .role-sub { font-size: 11px; color: #999; }
+.role-option.selected .role-name { color: #1890ff; }
+
+/* 权限预览 */
+.perm-preview { background: #FAFAFA; border: 1px solid #e8e8e8; border-radius: 6px; padding: 14px; margin-top: 12px; }
+.perm-preview-title { font-size: 12px; font-weight: 600; color: #333; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.perm-preview-item { font-size: 12px; color: #666; padding: 4px 0; display: flex; align-items: center; gap: 6px; }
+.perm-preview-item .check { color: #52C41A; }
+.perm-preview-item .cross { color: #D9D9D9; }
+
+/* Toast */
+.toast { position: fixed; top: 60px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 8px 20px; border-radius: 6px; font-size: 13px; z-index: 2000; opacity: 0; transition: opacity .3s; pointer-events: none; }
+.toast.show { opacity: 1; }
+.toast.success { background: #52C41A; }
+</style>
+</head>
+<body>
+
+<!-- 顶栏 -->
+<div class="top-bar">
+  <div class="top-logo"><em>松赞</em> 销售工作台</div>
+  <div class="top-spacer"></div>
+  <div class="user-avatar">
+    <span class="name">系统管理员</span>
+    <div class="icon">管</div>
+  </div>
+</div>
+
+<!-- 页面标题 -->
+<div class="page-header">
+  <div>
+    <div class="page-title">🔐 数据权限配置</div>
+    <div class="page-desc">管理系统用户的角色和数据访问权限</div>
+  </div>
+  <div class="header-actions">
+    <button class="btn" onclick="showLog()">📋 操作日志</button>
+    <button class="btn btn-primary" onclick="openAddModal()">＋ 新增用户</button>
+  </div>
+</div>
+
+<!-- 主容器 -->
+<div class="page-container">
+
+  <!-- 筛选栏 -->
+  <div class="filter-bar">
+    <label>姓名/工号：</label>
+    <input class="filter-input" placeholder="输入姓名或工号搜索" id="searchInput" oninput="filterTable()" style="width:180px;">
+    <label>角色：</label>
+    <select class="filter-select" id="roleFilter" onchange="filterTable()">
+      <option value="">全部角色</option>
+      <option value="线下销售">线下销售</option>
+      <option value="销售负责人">销售负责人</option>
+      <option value="集团">集团</option>
+    </select>
+    <label>大区：</label>
+    <select class="filter-select" id="regionFilter" onchange="filterTable()">
+      <option value="">全部大区</option>
+      <option value="华北区">华北区</option>
+      <option value="华南区">华南区</option>
+      <option value="西南区">西南区</option>
+      <option value="华东区">华东区</option>
+    </select>
+    <label>状态：</label>
+    <select class="filter-select" id="statusFilter" onchange="filterTable()">
+      <option value="">全部</option>
+      <option value="启用">启用</option>
+      <option value="禁用">禁用</option>
+    </select>
+  </div>
+
+  <!-- 配置表格 -->
+  <div class="config-table-wrap">
+    <table class="config-table" id="configTable">
+      <thead>
+        <tr>
+          <th style="width:40px;"><input type="checkbox" id="checkAll" onchange="toggleCheckAll()"></th>
+          <th>用户信息</th>
+          <th>所属大区</th>
+          <th>角色</th>
+          <th>状态</th>
+          <th>最后更新</th>
+          <th style="width:140px;">操作</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+      </tbody>
+    </table>
+    <div class="pagination">
+      <div>共 <b id="totalCount">0</b> 条记录</div>
+      <div style="display:flex;gap:4px;">
+        <button class="btn btn-sm">上一页</button>
+        <button class="btn btn-sm" style="border-color:#1890ff;color:#1890ff;">1</button>
+        <button class="btn btn-sm">下一页</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ====== 新增/编辑用户弹窗 ====== -->
+<div class="modal-mask" id="userModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">新增用户</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">UC中台账号 <span class="req">*</span></label>
+        <input class="form-input" id="inputEmpId" placeholder="输入UC中台账号">
+      </div>
+      <div class="form-group">
+        <label class="form-label">所属大区 <span class="req">*</span></label>
+        <select class="form-input" id="inputRegion">
+          <option value="">请选择大区</option>
+          <option>华北区</option>
+          <option>华南区</option>
+          <option>西南区</option>
+          <option>华东区</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">角色 <span class="req">*</span></label>
+        <div class="role-selector" id="roleSelector">
+          <div class="role-option" data-role="线下销售" onclick="selectRole(this)">
+            <div class="role-icon">👤</div>
+            <div class="role-name">线下销售</div>
+            <div class="role-sub">仅本人数据</div>
+          </div>
+          <div class="role-option" data-role="销售负责人" onclick="selectRole(this)">
+            <div class="role-icon">👔</div>
+            <div class="role-name">销售负责人</div>
+            <div class="role-sub">本大区数据</div>
+          </div>
+          <div class="role-option" data-role="集团" onclick="selectRole(this)">
+            <div class="role-icon">🏢</div>
+            <div class="role-name">集团</div>
+            <div class="role-sub">全公司数据</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 权限预览区 -->
+      <div class="perm-preview" id="permPreview">
+        <div class="perm-preview-title">📋 权限说明</div>
+        <div class="perm-preview-item"><span class="check">✅</span> 查看本人的维护记录、待办事项</div>
+        <div class="perm-preview-item"><span class="check">✅</span> 查看本人的操作日志</div>
+        <div class="perm-preview-item"><span class="cross">❌</span> 查看其他销售数据</div>
+        <div class="perm-preview-item"><span class="cross">❌</span> 切换销售员视图</div>
+        <div class="perm-preview-item"><span class="cross">❌</span> 导出维护记录</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal()">取消</button>
+      <button class="btn btn-primary" onclick="saveUser()">确认保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 操作日志弹窗 ====== -->
+<div class="modal-mask" id="logModal">
+  <div class="modal" style="width:720px;">
+    <div class="modal-header">
+      <span class="modal-title">📋 操作日志</span>
+      <button class="modal-close" onclick="closeLogModal()">✕</button>
+    </div>
+    <div class="modal-body" style="padding:0;">
+      <div style="padding:12px 24px;display:flex;gap:10px;align-items:center;border-bottom:1px solid #f0f0f0;">
+        <select class="filter-select" style="height:30px;">
+          <option>全部操作</option>
+          <option>新增用户</option>
+          <option>修改角色</option>
+          <option>修改大区</option>
+          <option>禁用用户</option>
+        </select>
+        <input class="filter-input" placeholder="操作人" style="width:120px;height:30px;">
+        <input class="filter-input" type="date" style="width:140px;height:30px;">
+        <span style="font-size:12px;color:#999;">至</span>
+        <input class="filter-input" type="date" style="width:140px;height:30px;">
+      </div>
+      <table class="config-table" style="font-size:12px;">
+        <thead>
+          <tr><th>操作时间</th><th>操作人</th><th>操作类型</th><th>操作对象</th><th>变更详情</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2026-04-21 12:30</td><td>系统管理员</td><td><span style="color:#52C41A;font-weight:500;">修改角色</span></td><td>王翊</td><td>线下销售 → <span style="color:#52C41A;">销售负责人</span></td></tr>
+          <tr><td>2026-04-21 10:15</td><td>系统管理员</td><td><span style="color:#1890ff;font-weight:500;">新增用户</span></td><td>苏凝影</td><td>角色：线下销售，大区：华南区</td></tr>
+          <tr><td>2026-04-20 16:42</td><td>系统管理员</td><td><span style="color:#52C41A;font-weight:500;">修改角色</span></td><td>系统管理员</td><td>销售负责人 → <span style="color:#FA8C16;">集团</span></td></tr>
+          <tr><td>2026-04-20 14:20</td><td>系统管理员</td><td><span style="color:#F5222D;font-weight:500;">禁用用户</span></td><td>刘波</td><td>状态变更：启用 → 禁用（离职）</td></tr>
+          <tr><td>2026-04-19 09:30</td><td>系统管理员</td><td><span style="color:#AD6800;font-weight:500;">修改大区</span></td><td>曾卓</td><td>华北区 → <span style="color:#52C41A;">华南区</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeLogModal()">关闭</button>
+      <button class="btn btn-primary" onclick="closeLogModal()">📥 导出日志</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ====== 模拟数据 ======
+var users = [
+  { id: 1, name: '廖文娟', empId: 'EMP001', phone: '138****5678', region: '华北区', role: '线下销售', status: '启用', remark: '', updated: '2026-04-21 10:00', color: '#C41D7F' },
+  { id: 2, name: '曾卓', empId: 'EMP002', phone: '139****4321', region: '华南区', role: '线下销售', status: '启用', remark: '', updated: '2026-04-20 14:20', color: '#2F54EB' },
+  { id: 3, name: '王翊', empId: 'EMP003', phone: '136****8765', region: '华北区', role: '销售负责人', status: '启用', remark: '华北区负责人', updated: '2026-04-21 12:30', color: '#389E0D' },
+  { id: 4, name: '苏凝影', empId: 'EMP004', phone: '137****2345', region: '华南区', role: '线下销售', status: '启用', remark: '', updated: '2026-04-21 10:15', color: '#C41D7F' },
+  { id: 5, name: '赵岍', empId: 'EMP005', phone: '135****6789', region: '华北区', role: '线下销售', status: '启用', remark: '', updated: '2026-04-18 09:00', color: '#08979C' },
+  { id: 6, name: '张嵩', empId: 'EMP006', phone: '186****1111', region: '西南区', role: '销售负责人', status: '启用', remark: '西南区负责人', updated: '2026-04-19 16:00', color: '#AD6800' },
+  { id: 7, name: '李欣', empId: 'EMP007', phone: '158****2222', region: '华东区', role: '销售负责人', status: '启用', remark: '华东区负责人', updated: '2026-04-17 11:00', color: '#722ED1' },
+  { id: 8, name: '系统管理员', empId: 'SYS001', phone: '180****0000', region: '—', role: '集团', status: '启用', remark: '总部', updated: '2026-04-20 16:42', color: '#FA8C16' },
+  { id: 9, name: '刘波', empId: 'EMP008', phone: '151****3333', region: '华南区', role: '线下销售', status: '禁用', remark: '已离职', updated: '2026-04-20 14:20', color: '#999' },
+];
+
+var _editingId = null;
+
+// ====== 权限配置 ======
+var rolePerms = {
+  '线下销售': {
+    items: [
+      { yes: true, text: '查看本人的维护记录、待办事项' },
+      { yes: true, text: '查看本人的操作日志' },
+      { yes: false, text: '查看其他销售数据' },
+      { yes: false, text: '切换销售员视图' },
+      { yes: false, text: '导出维护记录' },
+    ]
+  },
+  '销售负责人': {
+    items: [
+      { yes: true, text: '查看本人的数据（含操作日志）' },
+      { yes: true, text: '切换查看本大区所有销售的数据（含操作日志）' },
+      { yes: true, text: '导出本大区所有销售的维护记录' },
+      { yes: false, text: '查看其他大区销售数据' },
+    ]
+  },
+  '集团': {
+    items: [
+      { yes: true, text: '切换查看所有销售的数据（含操作日志）' },
+      { yes: true, text: '导出所有销售的维护记录' },
+      { yes: true, text: '查看全公司维护记录概览' },
+    ]
+  }
+};
+
+// ====== 渲染表格 ======
+function renderTable(data) {
+  var tbody = document.getElementById('tableBody');
+  if (!data) data = users;
+  document.getElementById('totalCount').textContent = data.length;
+
+  var html = '';
+  data.forEach(function(u) {
+    var roleClass = u.role === '线下销售' ? 'sales' : u.role === '销售负责人' ? 'leader' : 'admin';
+    var regionClass = u.region === '华北区' ? 'north' : u.region === '华南区' ? 'south' : u.region === '西南区' ? 'west' : u.region === '华东区' ? 'east' : '';
+    var statusClass = u.status === '启用' ? 'active' : 'disabled';
+
+    var perms = rolePerms[u.role] ? rolePerms[u.role].items : [];
+    var permHtml = '';
+    perms.forEach(function(p) {
+      permHtml += '<div class="perm-line"><span class="dot ' + (p.yes ? 'yes' : 'no') + '"></span>' + p.text + '</div>';
+    });
+
+    html += '<tr data-id="' + u.id + '" data-role="' + u.role + '" data-region="' + u.region + '" data-status="' + u.status + '">'
+      + '<td><input type="checkbox" class="row-check"></td>'
+      + '<td><div class="user-cell"><div class="user-cell-avatar" style="background:' + u.color + ';">' + u.name[0] + '</div>'
+      + '<div class="user-cell-info"><div class="user-cell-name">' + u.name + '</div><div class="user-cell-id">' + u.empId + ' · ' + u.phone + '</div></div></div></td>'
+      + '<td>' + (regionClass ? '<span class="region-tag ' + regionClass + '">' + u.region + '</span>' : u.region) + '</td>'
+      + '<td><span class="role-tag ' + roleClass + '" onclick="openEditModal(' + u.id + ')">' + u.role + '</span></td>'
+      + '<td><span class="status-tag ' + statusClass + '">' + (u.status === '启用' ? '● 启用' : '● 禁用') + '</span></td>'
+      + '<td style="color:#999;font-size:12px;">' + u.updated + '</td>'
+      + '<td><span class="action-link" onclick="openEditModal(' + u.id + ')">编辑</span><span class="action-divider">|</span>'
+      + (u.status === '启用' ? '<span class="action-link danger" onclick="toggleStatus(' + u.id + ',\'禁用\')">禁用</span>' : '<span class="action-link" onclick="toggleStatus(' + u.id + ',\'启用\')" style="color:#52C41A;">启用</span>')
+      + '</td>'
+      + '</tr>';
+  });
+  tbody.innerHTML = html;
+}
+
+// ====== 筛选 ======
+function filterTable() {
+  var search = document.getElementById('searchInput').value.trim().toLowerCase();
+  var role = document.getElementById('roleFilter').value;
+  var region = document.getElementById('regionFilter').value;
+  var status = document.getElementById('statusFilter').value;
+
+  var filtered = users.filter(function(u) {
+    var matchSearch = !search || u.name.toLowerCase().includes(search) || u.empId.toLowerCase().includes(search);
+    var matchRole = !role || u.role === role;
+    var matchRegion = !region || u.region === region;
+    var matchStatus = !status || u.status === status;
+    return matchSearch && matchRole && matchRegion && matchStatus;
+  });
+  renderTable(filtered);
+}
+
+// ====== 全选 ======
+function toggleCheckAll() {
+  var checked = document.getElementById('checkAll').checked;
+  document.querySelectorAll('.row-check').forEach(function(cb) { cb.checked = checked; });
+}
+
+// ====== 弹窗 ======
+function openAddModal() {
+  _editingId = null;
+  document.getElementById('modalTitle').textContent = '新增用户';
+  document.getElementById('inputEmpId').value = '';
+  document.getElementById('inputRegion').value = '';
+  resetRoleSelector();
+  updatePermPreview('线下销售');
+  document.getElementById('userModal').classList.add('show');
+}
+
+function openEditModal(id) {
+  var u = users.find(function(x) { return x.id === id; });
+  if (!u) return;
+  _editingId = id;
+  document.getElementById('modalTitle').textContent = '编辑用户 — ' + u.name;
+  document.getElementById('inputEmpId').value = u.empId;
+  document.getElementById('inputRegion').value = u.region === '—' ? '' : u.region;
+  resetRoleSelector();
+  var opt = document.querySelector('.role-option[data-role="' + u.role + '"]');
+  if (opt) selectRole(opt);
+  document.getElementById('userModal').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('userModal').classList.remove('show');
+}
+
+function resetRoleSelector() {
+  document.querySelectorAll('.role-option').forEach(function(o) { o.classList.remove('selected'); });
+}
+
+function selectRole(el) {
+  document.querySelectorAll('.role-option').forEach(function(o) { o.classList.remove('selected'); });
+  el.classList.add('selected');
+  updatePermPreview(el.dataset.role);
+}
+
+function updatePermPreview(role) {
+  var perms = rolePerms[role] ? rolePerms[role].items : [];
+  var html = '<div class="perm-preview-title">📋 「' + role + '」权限说明</div>';
+  perms.forEach(function(p) {
+    html += '<div class="perm-preview-item"><span class="' + (p.yes ? 'check' : 'cross') + '">' + (p.yes ? '✅' : '❌') + '</span>' + p.text + '</div>';
+  });
+  document.getElementById('permPreview').innerHTML = html;
+}
+
+function saveUser() {
+  var empId = document.getElementById('inputEmpId').value.trim();
+  var region = document.getElementById('inputRegion').value;
+  var selectedRole = document.querySelector('.role-option.selected');
+
+  if (!empId || !region || !selectedRole) {
+    showToast('请填写必填项', 'error');
+    return;
+  }
+
+  var role = selectedRole.dataset.role;
+  var now = new Date();
+  var timeStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+
+  if (_editingId) {
+    var u = users.find(function(x) { return x.id === _editingId; });
+    if (u) {
+      u.empId = empId;
+      u.region = region; u.role = role;
+      u.updated = timeStr;
+    }
+    showToast('用户「' + u.name + '」已更新');
+  } else {
+    users.push({
+      id: Date.now(), name: empId, empId: empId,
+      region: region, role: role,
+      status: '启用',
+      updated: timeStr, color: '#1890ff'
+    });
+    showToast('用户已添加');
+  }
+
+  closeModal();
+  filterTable();
+}
+
+// ====== 启用/禁用 ======
+function toggleStatus(id, newStatus) {
+  var u = users.find(function(x) { return x.id === id; });
+  if (!u) return;
+  var msg = newStatus === '禁用' ? '确定禁用用户「' + u.name + '」？禁用后将无法登录工作台。' : '确定启用用户「' + u.name + '」？';
+  if (!confirm(msg)) return;
+  var now = new Date();
+  u.status = newStatus;
+  u.updated = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+  filterTable();
+  showToast('用户「' + u.name + '」已' + newStatus);
+}
+
+// ====== 操作日志弹窗 ======
+function showLog() { document.getElementById('logModal').classList.add('show'); }
+function closeLogModal() { document.getElementById('logModal').classList.remove('show'); }
+
+// ====== Toast ======
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type === 'error' ? '' : ' success');
+  setTimeout(function() { t.className = 'toast'; }, 2000);
+}
+
+// ====== 初始化 ======
+renderTable();
+</script>
+
+</body>
+</html>
