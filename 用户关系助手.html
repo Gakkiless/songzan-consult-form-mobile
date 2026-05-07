@@ -127,6 +127,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingF
 /* 维护记录标题栏统计指标 */
 .record-stats { display: flex; gap: 20px; align-items: center; }
 .record-stat-item { text-align: center; }
+.record-stat-item.clickable { cursor: pointer; border-radius: 6px; padding: 6px 12px; transition: .15s; }
+.record-stat-item.clickable:hover { background: rgba(24,144,255,.08); transform: translateY(-1px); }
 .record-stat-num { font-size: 20px; font-weight: 600; line-height: 1.2; }
 .record-stat-num.green { color: #52C41A; }
 .record-stat-num.blue { color: #1890FF; }
@@ -746,11 +748,11 @@ select.m-input { cursor: pointer; }
           <div class="section-title">📝 维护记录</div>
           <div style="display:flex;align-items:center;gap:16px;">
             <div class="record-stats">
-              <div class="record-stat-item">
+              <div class="record-stat-item clickable" onclick="showGroupDetail('repurchase')">
                 <div class="record-stat-num" style="color:#F5222D;">8</div>
                 <div class="record-stat-label">当年复购非核心-优先维护</div>
               </div>
-              <div class="record-stat-item">
+              <div class="record-stat-item clickable" onclick="showGroupDetail('firstbuy')">
                 <div class="record-stat-num" style="color:#FA8C16;">23</div>
                 <div class="record-stat-label">当年首购非核心-建议维护</div>
               </div>
@@ -1505,6 +1507,42 @@ select.m-input { cursor: pointer; }
   </div>
 </div>
 
+<!-- ====== 客户分组明细弹窗 ====== -->
+<div class="modal-mask" id="groupDetailModal">
+  <div class="modal" style="width:960px;">
+    <div class="modal-header">
+      <span class="modal-title" id="groupDetailTitle">📋 客户明细</span>
+      <button class="modal-close" onclick="closeGroupDetailModal()">✕</button>
+    </div>
+    <div class="modal-body" style="padding:16px 20px;">
+      <!-- 表格 -->
+      <div style="max-height:55vh;overflow-y:auto;border:1px solid #e8e8e8;border-radius:4px;">
+        <table class="log-table" id="groupTable" style="width:100%;border-collapse:collapse;font-size:12px;">
+          <thead>
+            <tr style="position:sticky;top:0;z-index:1;">
+              <th style="background:#FAFAFA;padding:10px 10px;text-align:left;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">会员卡号</th>
+              <th style="background:#FAFAFA;padding:10px 10px;text-align:left;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">注册时间</th>
+              <th style="background:#FAFAFA;padding:10px 10px;text-align:left;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">客户类型</th>
+              <th style="background:#FAFAFA;padding:10px 10px;text-align:left;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">销售员</th>
+              <th style="background:#FAFAFA;padding:10px 10px;text-align:left;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">会员属性</th>
+              <th style="background:#FAFAFA;padding:10px 10px;text-align:left;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">客户属性</th>
+              <th style="background:#FAFAFA;padding:10px 10px;text-align:right;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">本年消费频次</th>
+              <th style="background:#FAFAFA;padding:10px 10px;text-align:right;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">当年下单金额</th>
+              <th style="background:#FAFAFA;padding:10px 10px;text-align:right;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">当年出行金额</th>
+              <th style="background:#FAFAFA;padding:10px 10px;text-align:center;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">是否复购</th>
+              <th style="background:#FAFAFA;padding:10px 10px;text-align:right;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">注册_首购间隔天数</th>
+            </tr>
+          </thead>
+          <tbody id="groupTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeGroupDetailModal()">关闭</button>
+    </div>
+  </div>
+</div>
+
 <script>
 function openModal() { document.getElementById('addModal').classList.add('show'); }
 function closeModal() { document.getElementById('addModal').classList.remove('show'); }
@@ -1512,6 +1550,115 @@ function showLogModal() { document.getElementById('logModal').classList.add('sho
 function hideLogModal() { document.getElementById('logModal').classList.remove('show'); }
 function closeDetailModal() { document.getElementById('detailModal').classList.remove('show'); }
 function closeEditModal() { document.getElementById('editModal').classList.remove('show'); }
+function closeGroupDetailModal() { document.getElementById('groupDetailModal').classList.remove('show'); }
+
+// ============ 客户分组明细弹窗 ============
+var groupDetailData = {
+  repurchase: [
+    { cardNo:'MD80010021', regDate:'2024-03-15', custType:'存量激活客', sales:'李明辉', memberAttr:'老会员', custAttr:'老客', yearFreq:3, orderAmt:58600, travelAmt:42800, isRepurchase:'是', regFirstGap:12 },
+    { cardNo:'MD80010087', regDate:'2023-08-22', custType:'标准忠诚客', sales:'王芳', memberAttr:'老会员', custAttr:'老客', yearFreq:2, orderAmt:35200, travelAmt:28900, isRepurchase:'是', regFirstGap:45 },
+    { cardNo:'MD80010234', regDate:'2024-01-10', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'老客', yearFreq:4, orderAmt:125800, travelAmt:98600, isRepurchase:'是', regFirstGap:8 },
+    { cardNo:'MD80010356', regDate:'2023-05-18', custType:'标准忠诚客', sales:'张伟', memberAttr:'老会员', custAttr:'新客', yearFreq:2, orderAmt:42300, travelAmt:31500, isRepurchase:'是', regFirstGap:67 },
+    { cardNo:'MD80010489', regDate:'2024-06-03', custType:'存量激活客', sales:'王芳', memberAttr:'新会员', custAttr:'老客', yearFreq:3, orderAmt:67800, travelAmt:52100, isRepurchase:'是', regFirstGap:15 },
+    { cardNo:'MD80010512', regDate:'2023-11-29', custType:'标准忠诚客', sales:'赵雪', memberAttr:'老会员', custAttr:'老客', yearFreq:5, orderAmt:186500, travelAmt:142300, isRepurchase:'是', regFirstGap:23 },
+    { cardNo:'MD80010678', regDate:'2024-09-14', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:2, orderAmt:29400, travelAmt:22100, isRepurchase:'是', regFirstGap:5 },
+    { cardNo:'MD80010801', regDate:'2023-02-07', custType:'标准忠诚客', sales:'李明辉', memberAttr:'老会员', custAttr:'老客', yearFreq:3, orderAmt:73200, travelAmt:55800, isRepurchase:'是', regFirstGap:38 }
+  ],
+  firstbuy: [
+    { cardNo:'MD80020001', regDate:'2026-01-08', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:15800, travelAmt:12600, isRepurchase:'否', regFirstGap:3 },
+    { cardNo:'MD80020015', regDate:'2026-01-22', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:22400, travelAmt:18900, isRepurchase:'否', regFirstGap:7 },
+    { cardNo:'MD80020033', regDate:'2025-11-15', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:8600, travelAmt:6200, isRepurchase:'否', regFirstGap:12 },
+    { cardNo:'MD80020048', regDate:'2026-02-03', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:31200, travelAmt:25600, isRepurchase:'否', regFirstGap:2 },
+    { cardNo:'MD80020059', regDate:'2025-12-20', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:19700, travelAmt:14800, isRepurchase:'否', regFirstGap:18 },
+    { cardNo:'MD80020067', regDate:'2026-03-11', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:42300, travelAmt:35100, isRepurchase:'否', regFirstGap:5 },
+    { cardNo:'MD80020082', regDate:'2026-01-30', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:12800, travelAmt:9600, isRepurchase:'否', regFirstGap:9 },
+    { cardNo:'MD80020095', regDate:'2026-02-18', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:56400, travelAmt:43200, isRepurchase:'否', regFirstGap:4 },
+    { cardNo:'MD80020108', regDate:'2025-10-05', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:7800, travelAmt:5400, isRepurchase:'否', regFirstGap:22 },
+    { cardNo:'MD80020119', regDate:'2026-03-25', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:28600, travelAmt:22100, isRepurchase:'否', regFirstGap:6 },
+    { cardNo:'MD80020134', regDate:'2026-04-02', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:16300, travelAmt:12800, isRepurchase:'否', regFirstGap:1 },
+    { cardNo:'MD80020145', regDate:'2026-02-28', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:38900, travelAmt:30600, isRepurchase:'否', regFirstGap:11 },
+    { cardNo:'MD80020158', regDate:'2026-01-15', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:24100, travelAmt:18500, isRepurchase:'否', regFirstGap:14 },
+    { cardNo:'MD80020163', regDate:'2025-09-28', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:11500, travelAmt:8200, isRepurchase:'否', regFirstGap:35 },
+    { cardNo:'MD80020179', regDate:'2026-03-08', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:47200, travelAmt:38900, isRepurchase:'否', regFirstGap:3 },
+    { cardNo:'MD80020185', regDate:'2026-04-15', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:19800, travelAmt:15200, isRepurchase:'否', regFirstGap:8 },
+    { cardNo:'MD80020192', regDate:'2026-02-10', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:33700, travelAmt:27400, isRepurchase:'否', regFirstGap:16 },
+    { cardNo:'MD80020206', regDate:'2026-03-20', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:25600, travelAmt:19800, isRepurchase:'否', regFirstGap:10 },
+    { cardNo:'MD80020218', regDate:'2026-01-25', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:14200, travelAmt:10600, isRepurchase:'否', regFirstGap:20 },
+    { cardNo:'MD80020231', regDate:'2026-04-08', custType:'存量激活客', sales:'张伟', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:51800, travelAmt:41500, isRepurchase:'否', regFirstGap:2 },
+    { cardNo:'MD80020245', regDate:'2026-03-01', custType:'标准忠诚客', sales:'王芳', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:9200, travelAmt:6800, isRepurchase:'否', regFirstGap:13 },
+    { cardNo:'MD80020258', regDate:'2026-02-22', custType:'存量激活客', sales:'李明辉', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:37500, travelAmt:29200, isRepurchase:'否', regFirstGap:6 },
+    { cardNo:'MD80020263', regDate:'2026-04-12', custType:'标准忠诚客', sales:'赵雪', memberAttr:'新会员', custAttr:'新客', yearFreq:1, orderAmt:20900, travelAmt:16400, isRepurchase:'否', regFirstGap:4 }
+  ]
+};
+
+var currentGroupType = '';
+
+function showGroupDetail(type) {
+  currentGroupType = type;
+  var title = type === 'repurchase' ? '当年复购非核心-优先维护' : '当年首购非核心-建议维护';
+  document.getElementById('groupDetailTitle').textContent = '📋 ' + title + ' — 客户明细';
+  document.getElementById('groupSearchInput').value = '';
+  document.getElementById('groupTypeFilter').value = '';
+  renderGroupTable(groupDetailData[type]);
+  document.getElementById('groupDetailModal').classList.add('show');
+}
+
+function renderGroupTable(data) {
+  var tbody = document.getElementById('groupTableBody');
+  if (!data || data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="11" style="text-align:center;padding:40px 0;color:#999;">暂无匹配数据</td></tr>';
+    document.getElementById('groupCount').textContent = '共 0 条';
+    return;
+  }
+  var html = '';
+  data.forEach(function(r) {
+    var custTypeColor = r.custType === '存量激活客' ? '#722ED1' : '#1890FF';
+    var memberAttrColor = r.memberAttr === '老会员' ? '#FA8C16' : '#52C41A';
+    var custAttrColor = r.custAttr === '老客' ? '#FA8C16' : '#1890FF';
+    var repurchaseColor = r.isRepurchase === '是' ? '#52C41A' : '#F5222D';
+    html += '<tr style="cursor:pointer;" onmouseenter="this.style.background=\'#E6F7FF\'" onmouseleave="this.style.background=\'\'">' +
+      '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;font-family:monospace;color:#1890ff;">' + r.cardNo + '</td>' +
+      '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;">' + r.regDate + '</td>' +
+      '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;"><span style="font-size:11px;padding:1px 8px;border-radius:10px;background:' + custTypeColor + '12;color:' + custTypeColor + ';">' + r.custType + '</span></td>' +
+      '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;">' + r.sales + '</td>' +
+      '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;"><span style="font-size:11px;padding:1px 6px;border-radius:3px;background:' + memberAttrColor + '12;color:' + memberAttrColor + ';">' + r.memberAttr + '</span></td>' +
+      '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;"><span style="font-size:11px;padding:1px 6px;border-radius:3px;background:' + custAttrColor + '12;color:' + custAttrColor + ';">' + r.custAttr + '</span></td>' +
+      '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;text-align:right;font-weight:600;">' + r.yearFreq + '次</td>' +
+      '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;text-align:right;color:#333;">¥' + r.orderAmt.toLocaleString() + '</td>' +
+      '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;text-align:right;color:#333;">¥' + r.travelAmt.toLocaleString() + '</td>' +
+      '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;text-align:center;"><span style="font-size:11px;font-weight:600;color:' + repurchaseColor + ';">' + r.isRepurchase + '</span></td>' +
+      '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;text-align:right;color:#666;">' + r.regFirstGap + '天</td>' +
+      '</tr>';
+  });
+  tbody.innerHTML = html;
+  document.getElementById('groupCount').textContent = '共 ' + data.length + ' 条';
+}
+
+function filterGroupTable() {
+  var keyword = document.getElementById('groupSearchInput').value.trim().toLowerCase();
+  var typeFilter = document.getElementById('groupTypeFilter').value;
+  var source = groupDetailData[currentGroupType];
+  var filtered = source.filter(function(r) {
+    var matchKeyword = !keyword || r.cardNo.toLowerCase().indexOf(keyword) > -1 || r.sales.toLowerCase().indexOf(keyword) > -1;
+    var matchType = !typeFilter || r.custType === typeFilter;
+    return matchKeyword && matchType;
+  });
+  renderGroupTable(filtered);
+}
+
+function exportGroupTable() {
+  var source = groupDetailData[currentGroupType];
+  var headers = ['会员卡号','注册时间','客户类型','销售员','会员属性','客户属性','本年消费频次','当年下单金额','当年出行金额','是否复购','注册_首购间隔天数'];
+  var csv = '\uFEFF' + headers.join(',') + '\n';
+  source.forEach(function(r) {
+    csv += [r.cardNo, r.regDate, r.custType, r.sales, r.memberAttr, r.custAttr, r.yearFreq, r.orderAmt, r.travelAmt, r.isRepurchase, r.regFirstGap].join(',') + '\n';
+  });
+  var blob = new Blob([csv], { type:'text/csv;charset=utf-8;' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (currentGroupType === 'repurchase' ? '当年复购非核心-优先维护' : '当年首购非核心-建议维护') + '_客户明细.csv';
+  a.click();
+}
 
 // ============ 从表格行读取数据的工具函数 ============
 function getRowData(tr) {
