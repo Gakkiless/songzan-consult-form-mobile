@@ -1597,8 +1597,6 @@ function showGroupDetail(type) {
   currentGroupType = type;
   var title = type === 'repurchase' ? '当年复购非核心-优先维护' : '当年首购非核心-建议维护';
   document.getElementById('groupDetailTitle').textContent = '📋 ' + title + ' — 客户明细';
-  document.getElementById('groupSearchInput').value = '';
-  document.getElementById('groupTypeFilter').value = '';
   renderGroupTable(groupDetailData[type]);
   document.getElementById('groupDetailModal').classList.add('show');
 }
@@ -1633,15 +1631,8 @@ function renderGroupTable(data) {
 }
 
 function filterGroupTable() {
-  var keyword = document.getElementById('groupSearchInput').value.trim().toLowerCase();
-  var typeFilter = document.getElementById('groupTypeFilter').value;
   var source = groupDetailData[currentGroupType];
-  var filtered = source.filter(function(r) {
-    var matchKeyword = !keyword || r.cardNo.toLowerCase().indexOf(keyword) > -1 || r.sales.toLowerCase().indexOf(keyword) > -1;
-    var matchType = !typeFilter || r.custType === typeFilter;
-    return matchKeyword && matchType;
-  });
-  renderGroupTable(filtered);
+  renderGroupTable(source);
 }
 
 function exportGroupTable() {
