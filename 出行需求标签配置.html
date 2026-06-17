@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>出行需求标签配置</title>
+  <style>
+    /* ===== Ant Design 5 Design Tokens ===== */
+    :root {
+      --ant-primary: #1677ff;
+      --ant-primary-hover: #4096ff;
+      --ant-primary-active: #0958d9;
+      --ant-success: #52c41a;
+      --ant-warning: #faad14;
+      --ant-error: #ff4d4f;
+      --ant-error-bg: #fff2f0;
+      --ant-error-border: #ffccc7;
+      --ant-text: rgba(0,0,0,0.88);
+      --ant-text-secondary: rgba(0,0,0,0.65);
+      --ant-text-tertiary: rgba(0,0,0,0.45);
+      --ant-text-quaternary: rgba(0,0,0,0.25);
+      --ant-border: #d9d9d9;
+      --ant-border-secondary: #f0f0f0;
+      --ant-fill: rgba(0,0,0,0.04);
+      --ant-fill-secondary: rgba(0,0,0,0.06);
+      --ant-bg-layout: #f5f5f5;
+      --ant-bg-container: #ffffff;
+      --ant-bg-elevated: #ffffff;
+      --ant-radius: 6px;
+      --ant-radius-lg: 8px;
+      --ant-shadow: 0 1px 2px 0 rgba(0,0,0,0.03), 0 1px 6px -1px rgba(0,0,0,0.02), 0 2px 4px 0 rgba(0,0,0,0.02);
+      --ant-shadow-lg: 0 6px 16px 0 rgba(0,0,0,0.08), 0 3px 6px -4px rgba(0,0,0,0.12), 0 9px 28px 8px rgba(0,0,0,0.05);
+      --ant-font: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji';
+      --ant-font-size: 14px;
+      --ant-font-size-lg: 16px;
+      --ant-font-size-sm: 12px;
+      --ant-line-height: 1.5714285714285714;
+      --ant-control-height: 32px;
+      --ant-control-height-lg: 40px;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: var(--ant-font);
+      font-size: var(--ant-font-size);
+      line-height: var(--ant-line-height);
+      color: var(--ant-text);
+      background: var(--ant-bg-layout);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== Header ===== */
+    .header {
+      background: var(--ant-bg-container);
+      border-bottom: 1px solid var(--ant-border-secondary);
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .header-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--ant-text);
+      letter-spacing: -0.2px;
+    }
+
+    /* ===== Buttons ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      height: var(--ant-control-height);
+      padding: 4px 15px;
+      font-size: var(--ant-font-size);
+      font-family: inherit;
+      line-height: 1.5715;
+      border-radius: var(--ant-radius);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s cubic-bezier(0.645,0.045,0.355,1);
+      white-space: nowrap;
+      user-select: none;
+      outline: none;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary {
+      background: var(--ant-primary);
+      color: #fff;
+      border-color: var(--ant-primary);
+      box-shadow: 0 2px 0 rgba(5,145,255,0.1);
+    }
+    .btn-primary:hover { background: var(--ant-primary-hover); border-color: var(--ant-primary-hover); }
+    .btn-primary:active { background: var(--ant-primary-active); border-color: var(--ant-primary-active); }
+    .btn-default {
+      background: var(--ant-bg-container);
+      color: var(--ant-text);
+      border-color: var(--ant-border);
+      box-shadow: 0 2px 0 rgba(0,0,0,0.02);
+    }
+    .btn-default:hover { color: var(--ant-primary); border-color: var(--ant-primary); }
+    .btn-text {
+      background: transparent;
+      color: var(--ant-text);
+      border-color: transparent;
+      box-shadow: none;
+    }
+    .btn-text:hover { background: var(--ant-fill); }
+    .btn-text.danger:hover { color: var(--ant-error); background: var(--ant-error-bg); }
+    .btn-sm { height: 24px; padding: 0 7px; font-size: var(--ant-font-size-sm); border-radius: 4px; }
+    .btn-link {
+      background: transparent;
+      color: var(--ant-primary);
+      border: none;
+      box-shadow: none;
+      height: auto;
+      padding: 4px;
+    }
+    .btn-link:hover { color: var(--ant-primary-hover); }
+    .btn-link.danger { color: var(--ant-error); }
+    .btn-link.danger:hover { color: #ff7875; }
+
+    /* ===== Container ===== */
+    .container { max-width: 1040px; margin: 0 auto; padding: 24px; }
+
+    /* ===== Alert (intro) ===== */
+    .intro {
+      background: #e6f4ff;
+      border: 1px solid #91caff;
+      border-radius: var(--ant-radius-lg);
+      padding: 10px 16px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .intro-icon { color: var(--ant-primary); font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .intro-content { flex: 1; }
+    .intro-content p { color: var(--ant-text); font-size: var(--ant-font-size); }
+    .intro-content p:first-child { font-weight: 500; margin-bottom: 2px; }
+    .intro-content p:last-child { font-size: var(--ant-font-size-sm); color: var(--ant-text-secondary); }
+
+    /* ===== Add Bar ===== */
+    .add-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      align-items: center;
+    }
+    .ant-input {
+      flex: 1;
+      height: var(--ant-control-height);
+      padding: 0 11px;
+      border: 1px solid var(--ant-border);
+      border-radius: var(--ant-radius);
+      font-size: var(--ant-font-size);
+      font-family: inherit;
+      color: var(--ant-text);
+      background: var(--ant-bg-container);
+      outline: none;
+      transition: all 0.2s;
+    }
+    .ant-input::placeholder { color: var(--ant-text-quaternary); }
+    .ant-input:hover { border-color: var(--ant-primary-hover); }
+    .ant-input:focus { border-color: var(--ant-primary); box-shadow: 0 0 0 2px rgba(5,145,255,0.1); }
+
+    /* ===== Table (dimension list) ===== */
+    .dim-table-wrap {
+      background: var(--ant-bg-container);
+      border-radius: var(--ant-radius-lg);
+      border: 1px solid var(--ant-border-secondary);
+      overflow: hidden;
+    }
+
+    .dim-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    .dim-table thead th {
+      text-align: left;
+      padding: 12px 16px;
+      font-weight: 500;
+      font-size: var(--ant-font-size);
+      color: var(--ant-text);
+      background: #fafafa;
+      border-bottom: 1px solid var(--ant-border-secondary);
+      white-space: nowrap;
+    }
+    .dim-table thead th:first-child { padding-left: 16px; }
+    .dim-table thead th:last-child { text-align: right; padding-right: 16px; }
+
+    .dim-table tbody td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--ant-border-secondary);
+      vertical-align: middle;
+      transition: background 0.2s;
+    }
+    .dim-table tbody tr:last-child td { border-bottom: none; }
+    .dim-table tbody tr:hover td { background: #fafafa; }
+    .dim-table tbody tr.row-expanded td { background: #e6f4ff; }
+
+    .dim-name-cell { font-weight: 500; color: var(--ant-text); cursor: pointer; }
+    .dim-code-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 12px;
+      color: var(--ant-text-tertiary);
+      background: var(--ant-fill);
+      border-radius: 4px;
+      font-family: 'SF Mono',Monaco,monospace;
+      margin-left: 8px;
+    }
+    .dim-count-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      font-size: 12px;
+      color: var(--ant-primary);
+      background: #e6f4ff;
+      border-radius: 10px;
+      font-weight: 500;
+    }
+    .dim-name-row { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+
+    /* ===== Ant Switch ===== */
+    .ant-switch-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .ant-switch-label {
+      font-size: var(--ant-font-size);
+      color: var(--ant-text);
+      user-select: none;
+    }
+    .ant-switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 22px;
+      background: rgba(0,0,0,0.25);
+      border-radius: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    .ant-switch.on { background: var(--ant-primary); }
+    .ant-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 18px;
+      height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      transition: all 0.2s cubic-bezier(0.18,0.89,0.32,1.28);
+    }
+    .ant-switch.on::after { left: 24px; }
+    .ant-switch:hover:not(.on) { background: rgba(0,0,0,0.35); }
+
+    /* ===== Expanded enum row ===== */
+    .enum-expand-row td { padding: 0 !important; border-bottom: 2px solid var(--ant-primary) !important; background: #fafafa !important; }
+    .enum-expand-inner {
+      padding: 16px 24px;
+      border-top: 1px solid var(--ant-border-secondary);
+      background: #fafafa;
+    }
+    .enum-sub-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .enum-sub-table th {
+      text-align: left;
+      padding: 6px 12px;
+      font-weight: 500;
+      font-size: var(--ant-font-size-sm);
+      color: var(--ant-text-secondary);
+      border-bottom: 1px solid var(--ant-border-secondary);
+    }
+    .enum-sub-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--ant-border-secondary);
+      font-size: var(--ant-font-size);
+    }
+    .enum-sub-table tr:last-child td { border-bottom: none; }
+    .enum-code-text { color: var(--ant-text-tertiary); font-family: 'SF Mono',Monaco,monospace; font-size: var(--ant-font-size-sm); }
+    .enum-sub-empty { text-align: center; padding: 24px; color: var(--ant-text-quaternary); font-size: var(--ant-font-size); }
+
+    .quick-add-row { display: flex; gap: 8px; margin-top: 12px; }
+
+    .ant-input-sm {
+      height: var(--ant-control-height);
+      padding: 0 11px;
+      border: 1px solid var(--ant-border);
+      border-radius: var(--ant-radius);
+      font-size: var(--ant-font-size);
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s;
+      flex: 1;
+    }
+    .ant-input-sm::placeholder { color: var(--ant-text-quaternary); }
+    .ant-input-sm:hover { border-color: var(--ant-primary-hover); }
+    .ant-input-sm:focus { border-color: var(--ant-primary); box-shadow: 0 0 0 2px rgba(5,145,255,0.1); }
+
+    /* ===== Modal ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      animation: fadeIn 0.2s;
+    }
+    .modal-overlay.active { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .modal {
+      background: var(--ant-bg-elevated);
+      border-radius: var(--ant-radius-lg);
+      width: 480px;
+      max-width: 90vw;
+      max-height: 90vh;
+      overflow: hidden;
+      box-shadow: var(--ant-shadow-lg);
+      animation: slideUp 0.25s cubic-bezier(0.18,0.89,0.32,1.28);
+    }
+    .modal-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--ant-border-secondary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-title { font-size: var(--ant-font-size-lg); font-weight: 600; color: var(--ant-text); }
+    .modal-close-btn {
+      width: 28px; height: 28px;
+      border: none;
+      background: transparent;
+      border-radius: var(--ant-radius);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ant-text-tertiary);
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+    .modal-close-btn:hover { background: var(--ant-fill); color: var(--ant-text); }
+    .modal-body { padding: 24px; max-height: 50vh; overflow-y: auto; }
+    .form-item { margin-bottom: 20px; }
+    .form-item:last-child { margin-bottom: 0; }
+    .form-label {
+      display: block;
+      font-size: var(--ant-font-size);
+      color: var(--ant-text);
+      margin-bottom: 8px;
+      font-weight: 400;
+    }
+    .form-label .required-mark { color: var(--ant-error); margin-right: 4px; }
+    .form-input {
+      width: 100%;
+      height: var(--ant-control-height);
+      padding: 0 11px;
+      border: 1px solid var(--ant-border);
+      border-radius: var(--ant-radius);
+      font-size: var(--ant-font-size);
+      font-family: inherit;
+      color: var(--ant-text);
+      outline: none;
+      transition: all 0.2s;
+    }
+    .form-input:hover { border-color: var(--ant-primary-hover); }
+    .form-input:focus { border-color: var(--ant-primary); box-shadow: 0 0 0 2px rgba(5,145,255,0.1); }
+    .form-hint { font-size: var(--ant-font-size-sm); color: var(--ant-text-tertiary); margin-top: 4px; }
+    .modal-footer {
+      padding: 10px 16px;
+      border-top: 1px solid var(--ant-border-secondary);
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    /* ===== Popconfirm ===== */
+    .popconfirm-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1100;
+    }
+    .popconfirm-overlay.active { display: flex; }
+    .popconfirm {
+      background: var(--ant-bg-elevated);
+      border-radius: var(--ant-radius-lg);
+      padding: 16px 20px;
+      box-shadow: var(--ant-shadow-lg);
+      max-width: 320px;
+      animation: slideUp 0.2s cubic-bezier(0.18,0.89,0.32,1.28);
+    }
+    .popconfirm-msg { display:flex; align-items:flex-start; gap:8px; margin-bottom:12px; font-size:var(--ant-font-size); color:var(--ant-text); }
+    .popconfirm-icon { color:#faad14; font-size:16px; flex-shrink:0; margin-top:1px; }
+    .popconfirm-actions { display:flex; justify-content:flex-end; gap:8px; }
+
+    /* ===== Message ===== */
+    .message {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 16px;
+      border-radius: var(--ant-radius);
+      font-size: var(--ant-font-size);
+      color: var(--ant-text);
+      background: var(--ant-bg-elevated);
+      box-shadow: var(--ant-shadow-lg);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      animation: msgIn 0.2s cubic-bezier(0.18,0.89,0.32,1.28);
+    }
+    .message.show { display: flex; }
+    .message.success .msg-icon { color: var(--ant-success); }
+    .message.error .msg-icon { color: var(--ant-error); }
+    @keyframes msgIn { from { transform:translateX(-50%) translateY(-16px); opacity:0; } to { transform:translateX(-50%) translateY(0); opacity:1; } }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
+
+    /* right-align */
+    .text-right { text-align: right; }
+    .text-center { text-align: center; }
+    .flex-center { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title">出行需求标签配置</div>
+  <button class="btn btn-primary" onclick="saveData()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+    保存
+  </button>
+</div>
+
+<div class="container">
+  <div class="intro">
+    <span class="intro-icon">ℹ</span>
+    <div class="intro-content">
+      <p>标签维度配置</p>
+      <p>管理出行需求信息的标签维度和枚举值。点击维度行展开查看选项列表，可通过 ↑↓ 调整排序，必填/多选开关即时生效。</p>
+    </div>
+  </div>
+
+  <!-- 新增维度 -->
+  <div class="add-bar">
+    <input type="text" class="ant-input" id="quickAddInput" placeholder="输入维度名称，按 Enter 快速创建..." onkeydown="if(event.key==='Enter')quickAddDimension()">
+    <button class="btn btn-primary" onclick="quickAddDimension()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      新建维度
+    </button>
+  </div>
+
+  <!-- 维度表格 -->
+  <div class="dim-table-wrap">
+    <table class="dim-table">
+      <thead>
+        <tr>
+          <th style="width:28%">维度名称</th>
+          <th style="width:8%">选项数</th>
+          <th style="width:11%">必填</th>
+          <th style="width:11%">多选</th>
+          <th style="width:10%">操作</th>
+        </tr>
+      </thead>
+      <tbody id="dimensionList"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 维度弹窗 -->
+<div class="modal-overlay" id="dimensionModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="dimensionModalTitle">编辑维度</span>
+      <button class="modal-close-btn" onclick="closeDimensionModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-item">
+        <label class="form-label"><span class="required-mark">*</span>维度名称</label>
+        <input type="text" class="form-input" id="dimensionName" placeholder="例如：出行时节">
+      </div>
+      <div class="form-item">
+        <label class="form-label"><span class="required-mark">*</span>维度编码</label>
+        <input type="text" class="form-input" id="dimensionCode" placeholder="例如：season">
+        <p class="form-hint">英文小写，用于系统识别，创建后不建议修改</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-default" onclick="closeDimensionModal()">取消</button>
+      <button class="btn btn-primary" onclick="saveDimension()">确定</button>
+    </div>
+  </div>
+</div>
+
+<!-- 枚举值弹窗 -->
+<div class="modal-overlay" id="enumModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="enumModalTitle">添加选项</span>
+      <button class="modal-close-btn" onclick="closeEnumModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-item">
+        <label class="form-label"><span class="required-mark">*</span>选项名称</label>
+        <input type="text" class="form-input" id="enumName" placeholder="例如：春季">
+      </div>
+      <div class="form-item">
+        <label class="form-label"><span class="required-mark">*</span>选项编码</label>
+        <input type="text" class="form-input" id="enumCode" placeholder="例如：spring">
+        <p class="form-hint">英文小写，用于系统识别</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-default" onclick="closeEnumModal()">取消</button>
+      <button class="btn btn-primary" onclick="saveEnum()">确定</button>
+    </div>
+  </div>
+</div>
+
+<!-- Popconfirm -->
+<div class="popconfirm-overlay" id="popconfirm" onclick="closePopconfirm()">
+  <div class="popconfirm" onclick="event.stopPropagation()">
+    <div class="popconfirm-msg">
+      <span class="popconfirm-icon">⚠</span>
+      <span id="popconfirmText">确定要执行此操作吗？</span>
+    </div>
+    <div class="popconfirm-actions">
+      <button class="btn btn-default btn-sm" onclick="closePopconfirm()">取消</button>
+      <button class="btn btn-primary btn-sm" id="popconfirmOk">确定</button>
+    </div>
+  </div>
+</div>
+
+<div class="message" id="message">
+  <span class="msg-icon">✓</span>
+  <span id="messageText"></span>
+</div>
+
+<script>
+const STORAGE_KEY = 'travel_tag_config_v3';
+
+const defaultConfig = [
+  { id: 'dim_1', name: '出行时节', code: 'season', required: true, multiple: false, enums: [
+    { id: 'en_1_1', name: '春季 (3-5月)', code: 'spring', sort: 1 },
+    { id: 'en_1_2', name: '夏季 (6-8月)', code: 'summer', sort: 2 },
+    { id: 'en_1_3', name: '秋季 (9-11月)', code: 'autumn', sort: 3 },
+    { id: 'en_1_4', name: '冬季 (12-2月)', code: 'winter', sort: 4 }
+  ]},
+  { id: 'dim_2', name: '出行组合', code: 'group', required: true, multiple: false, enums: [
+    { id: 'en_2_1', name: '单人出行', code: 'single', sort: 1 },
+    { id: 'en_2_2', name: '情侣/夫妻', code: 'couple', sort: 2 },
+    { id: 'en_2_3', name: '家庭亲子', code: 'family', sort: 3 },
+    { id: 'en_2_4', name: '朋友结伴', code: 'friends', sort: 4 },
+    { id: 'en_2_5', name: '商务团建', code: 'business', sort: 5 }
+  ]},
+  { id: 'dim_3', name: '人均预算', code: 'budget', required: false, multiple: false, enums: [
+    { id: 'en_3_1', name: '5千元以下', code: 'under5k', sort: 1 },
+    { id: 'en_3_2', name: '5千-1万元', code: '5k10k', sort: 2 },
+    { id: 'en_3_3', name: '1万-2万元', code: '10k20k', sort: 3 },
+    { id: 'en_3_4', name: '2万-3万元', code: '20k30k', sort: 4 },
+    { id: 'en_3_5', name: '3万元以上', code: 'over30k', sort: 5 }
+  ]},
+  { id: 'dim_4', name: '出行天数', code: 'days', required: false, multiple: false, enums: [
+    { id: 'en_4_1', name: '1-3天', code: 'short', sort: 1 },
+    { id: 'en_4_2', name: '4-7天', code: 'week', sort: 2 },
+    { id: 'en_4_3', name: '8-14天', code: 'two_weeks', sort: 3 },
+    { id: 'en_4_4', name: '15天以上', code: 'long', sort: 4 }
+  ]},
+  { id: 'dim_5', name: '出行偏好', code: 'preference', required: false, multiple: true, enums: [
+    { id: 'en_5_1', name: '自然风光', code: 'nature', sort: 1 },
+    { id: 'en_5_2', name: '人文历史', code: 'culture', sort: 2 },
+    { id: 'en_5_3', name: '美食探索', code: 'food', sort: 3 },
+    { id: 'en_5_4', name: '户外探险', code: 'adventure', sort: 4 },
+    { id: 'en_5_5', name: '休闲度假', code: 'relax', sort: 5 },
+    { id: 'en_5_6', name: '摄影旅拍', code: 'photo', sort: 6 }
+  ]}
+];
+
+let config = JSON.parse(JSON.stringify(defaultConfig));
+let editingDimId = null;
+let editingEnumId = null;
+let currentDimId = null;
+let expandedIds = new Set();
+let popconfirmCb = null;
+
+// ========== Init ==========
+function init() {
+  let saved = localStorage.getItem(STORAGE_KEY);
+  // 从旧版本迁移
+  if (!saved) {
+    saved = localStorage.getItem('travel_tag_config_v2');
+    if (saved) localStorage.setItem(STORAGE_KEY, saved);
+  }
+  if (saved) {
+    try { config = JSON.parse(saved); } catch (e) {}
+  }
+  if (!Array.isArray(config) && config.dimensions) config = config.dimensions;
+  // 补齐 missing fields
+  config.forEach(d => {
+    if (d.multiple === undefined) d.multiple = false;
+    d.enums.forEach((e, i) => { if (e.sort === undefined) e.sort = i + 1; });
+  });
+  render();
+}
+init();
+
+// ========== Render ==========
+function render() {
+  const tbody = document.getElementById('dimensionList');
+  tbody.innerHTML = config.map(dim => {
+    const expanded = expandedIds.has(dim.id);
+    const sorted = [...dim.enums].sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    const enumsRows = sorted.length > 0
+      ? sorted.map((e, idx) => `
+          <tr>
+            <td style="width:40px;text-align:center;color:var(--ant-text-tertiary);font-size:12px">${e.sort || idx + 1}</td>
+            <td>${e.name}</td>
+            <td><span class="enum-code-text">${e.code}</span></td>
+            <td class="text-right">
+              <button class="btn btn-link btn-sm" onclick="moveEnum('${dim.id}','${e.id}',-1)" title="上移" ${idx === 0 ? 'disabled style="color:rgba(0,0,0,0.25);cursor:not-allowed"' : ''}>↑</button>
+              <button class="btn btn-link btn-sm" onclick="moveEnum('${dim.id}','${e.id}',1)" title="下移" ${idx === sorted.length - 1 ? 'disabled style="color:rgba(0,0,0,0.25);cursor:not-allowed"' : ''}>↓</button>
+              <button class="btn btn-link btn-sm" onclick="editEnum('${dim.id}','${e.id}')">编辑</button>
+              <button class="btn btn-link btn-sm danger" onclick="deleteEnum('${dim.id}','${e.id}')">删除</button>
+            </td>
+          </tr>`).join('')
+      : `<tr><td colspan="4"><div class="enum-sub-empty">暂无选项，请添加</div></td></tr>`;
+
+    return `
+      <tr class="${expanded ? 'row-expanded' : ''}">
+        <td>
+          <div class="dim-name-row" onclick="toggleGroup('${dim.id}')">
+            ${expanded
+              ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="color:var(--ant-primary)"><path d="M12 8l-6 6h12z"/></svg>'
+              : '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="color:var(--ant-text-tertiary)"><path d="M8 12l6-6 6 6H8z"/></svg>'}
+            <span class="dim-name-cell">${dim.name}</span>
+            <span class="dim-code-tag">${dim.code}</span>
+          </div>
+        </td>
+        <td><span class="dim-count-tag">${dim.enums.length}</span></td>
+        <td>
+          <div class="ant-switch-wrap" onclick="event.stopPropagation();toggleRequired('${dim.id}')" style="cursor:pointer">
+            <div class="ant-switch${dim.required ? ' on' : ''}"></div>
+          </div>
+        </td>
+        <td>
+          <div class="ant-switch-wrap" onclick="event.stopPropagation();toggleMultiple('${dim.id}')" style="cursor:pointer">
+            <div class="ant-switch${dim.multiple ? ' on' : ''}"></div>
+          </div>
+        </td>
+        <td class="text-right">
+          <button class="btn btn-link btn-sm" onclick="editDimension('${dim.id}')">编辑</button>
+          <button class="btn btn-link btn-sm danger" onclick="deleteDimension('${dim.id}')">删除</button>
+        </td>
+      </tr>
+      <tr class="enum-expand-row" id="enum-row-${dim.id}" style="${expanded ? '' : 'display:none'}">
+        <td colspan="5">
+          <div class="enum-expand-inner">
+            <table class="enum-sub-table">
+              <thead><tr><th style="width:8%">排序</th><th style="width:40%">选项名称</th><th style="width:32%">编码</th><th style="width:20%">操作</th></tr></thead>
+              <tbody>${enumsRows}</tbody>
+            </table>
+            <div class="quick-add-row">
+              <input type="text" class="ant-input-sm" id="qc-${dim.id}" placeholder="输入选项名称，按 Enter 快速添加..." onkeydown="if(event.key==='Enter'){event.stopPropagation();quickAddEnum('${dim.id}')}">
+              <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();quickAddEnum('${dim.id}')">添加</button>
+            </div>
+          </div>
+        </td>
+      </tr>`;
+  }).join('');
+}
+
+function toggleGroup(dimId) {
+  if (expandedIds.has(dimId)) expandedIds.delete(dimId);
+  else expandedIds.add(dimId);
+  render();
+}
+
+// ========== Dimension CRUD ==========
+function quickAddDimension() {
+  const input = document.getElementById('quickAddInput');
+  const name = input.value.trim();
+  if (!name) { showMsg('请输入维度名称', 'error'); return; }
+  const code = 'dim_' + Date.now().toString(36).slice(-6);
+  config.push({ id: 'dim_' + Date.now(), name, code, required: false, multiple: false, enums: [] });
+  input.value = '';
+  saveData();
+  render();
+  showMsg('维度已添加', 'success');
+}
+
+function editDimension(dimId) {
+  const dim = config.find(d => d.id === dimId);
+  if (!dim) return;
+  editingDimId = dimId;
+  document.getElementById('dimensionModalTitle').textContent = '编辑维度';
+  document.getElementById('dimensionName').value = dim.name;
+  document.getElementById('dimensionCode').value = dim.code;
+  document.getElementById('dimensionModal').classList.add('active');
+}
+
+function closeDimensionModal() {
+  document.getElementById('dimensionModal').classList.remove('active');
+  editingDimId = null;
+}
+
+function saveDimension() {
+  const name = document.getElementById('dimensionName').value.trim();
+  const code = document.getElementById('dimensionCode').value.trim().toLowerCase();
+  if (!name || !code) { showMsg('请填写完整信息', 'error'); return; }
+  const dup = config.some(d => d.code === code && d.id !== editingDimId);
+  if (dup) { showMsg('编码已存在', 'error'); return; }
+  const dim = config.find(d => d.id === editingDimId);
+  dim.name = name; dim.code = code;
+  saveData();
+  render();
+  closeDimensionModal();
+  showMsg('维度已更新', 'success');
+}
+
+function deleteDimension(dimId) {
+  showPopconfirm('确定删除该维度及其所有选项？', () => {
+    config = config.filter(d => d.id !== dimId);
+    expandedIds.delete(dimId);
+    saveData();
+    render();
+    showMsg('已删除', 'success');
+  });
+}
+
+function toggleRequired(dimId) {
+  const dim = config.find(d => d.id === dimId);
+  dim.required = !dim.required;
+  saveData();
+  render();
+}
+
+function toggleMultiple(dimId) {
+  const dim = config.find(d => d.id === dimId);
+  dim.multiple = !dim.multiple;
+  saveData();
+  render();
+}
+
+// ========== Enum CRUD ==========
+function quickAddEnum(dimId) {
+  const input = document.getElementById('qc-' + dimId);
+  const name = input.value.trim();
+  if (!name) { showMsg('请输入选项名称', 'error'); return; }
+  const dim = config.find(d => d.id === dimId);
+  const code = 'opt_' + Date.now().toString(36).slice(-6);
+  const maxSort = dim.enums.reduce((m, e) => Math.max(m, e.sort || 0), 0);
+  dim.enums.push({ id: 'en_' + Date.now(), name, code, sort: maxSort + 1 });
+  input.value = '';
+  expandedIds.add(dimId);
+  saveData();
+  render();
+  showMsg('选项已添加', 'success');
+}
+
+function editEnum(dimId, enumId) {
+  const dim = config.find(d => d.id === dimId);
+  const en = dim.enums.find(e => e.id === enumId);
+  if (!en) return;
+  currentDimId = dimId;
+  editingEnumId = enumId;
+  document.getElementById('enumModalTitle').textContent = '编辑选项';
+  document.getElementById('enumName').value = en.name;
+  document.getElementById('enumCode').value = en.code;
+  document.getElementById('enumModal').classList.add('active');
+}
+
+function closeEnumModal() {
+  document.getElementById('enumModal').classList.remove('active');
+  currentDimId = null; editingEnumId = null;
+}
+
+function saveEnum() {
+  const name = document.getElementById('enumName').value.trim();
+  const code = document.getElementById('enumCode').value.trim().toLowerCase();
+  if (!name || !code) { showMsg('请填写完整信息', 'error'); return; }
+  const dim = config.find(d => d.id === currentDimId);
+  const dup = dim.enums.some(e => e.code === code && e.id !== editingEnumId);
+  if (dup) { showMsg('编码在当前维度下已存在', 'error'); return; }
+  if (editingEnumId) {
+    const en = dim.enums.find(e => e.id === editingEnumId);
+    en.name = name; en.code = code;
+    showMsg('选项已更新', 'success');
+  } else {
+    dim.enums.push({ id: 'en_' + Date.now(), name, code, sort: dim.enums.length + 1 });
+    showMsg('选项已添加', 'success');
+  }
+  expandedIds.add(currentDimId);
+  saveData();
+  render();
+  closeEnumModal();
+}
+
+function deleteEnum(dimId, enumId) {
+  showPopconfirm('确定删除该选项？', () => {
+    const dim = config.find(d => d.id === dimId);
+    dim.enums = dim.enums.filter(e => e.id !== enumId);
+    // 重排序号保持连续
+    dim.enums.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    dim.enums.forEach((e, i) => { e.sort = i + 1; });
+    expandedIds.add(dimId);
+    saveData();
+    render();
+    showMsg('选项已删除', 'success');
+  });
+}
+
+// ========== Sort ==========
+function moveEnum(dimId, enumId, direction) {
+  const dim = config.find(d => d.id === dimId);
+  dim.enums.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+  const idx = dim.enums.findIndex(e => e.id === enumId);
+  if (idx === -1) return;
+  const target = idx + direction;
+  if (target < 0 || target >= dim.enums.length) return;
+  const tmp = dim.enums[idx].sort;
+  dim.enums[idx].sort = dim.enums[target].sort;
+  dim.enums[target].sort = tmp;
+  expandedIds.add(dimId);
+  saveData();
+  render();
+}
+
+// ========== Storage ==========
+function saveData() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+}
+
+// ========== Popconfirm ==========
+function showPopconfirm(text, cb) {
+  document.getElementById('popconfirmText').textContent = text;
+  popconfirmCb = cb;
+  document.getElementById('popconfirmOk').onclick = () => { closePopconfirm(); if (popconfirmCb) popconfirmCb(); };
+  document.getElementById('popconfirm').classList.add('active');
+}
+function closePopconfirm() {
+  document.getElementById('popconfirm').classList.remove('active');
+  popconfirmCb = null;
+}
+
+// ========== Message ==========
+function showMsg(msg, type) {
+  const box = document.getElementById('message');
+  const icon = box.querySelector('.msg-icon');
+  const text = document.getElementById('messageText');
+  text.textContent = msg;
+  box.className = 'message ' + type + ' show';
+  icon.textContent = type === 'success' ? '✓' : '✕';
+  clearTimeout(box._timer);
+  box._timer = setTimeout(() => box.classList.remove('show'), 2500);
+}
+</script>
+
+</body>
+</html>

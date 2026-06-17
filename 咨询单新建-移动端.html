@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>咨询单新建</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingFang SC", sans-serif;
+  background: #F5F6F8;
+  color: #333;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+/* ====== Header ====== */
+.header {
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-back {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; cursor:pointer; font-size:18px;
+  background: rgba(255,255,255,.1);
+}
+.header-title {
+  font-size: 16px; font-weight:600; color:#fff; flex:1;
+}
+
+/* ====== Main Content ====== */
+.main-content {
+  padding-bottom: 80px;
+}
+
+/* ====== Form Card ====== */
+.form-card {
+  background: #fff;
+  margin: 10px 12px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+.card-header {
+  padding: 14px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #000;
+  border-bottom: 1px solid #F0F0F0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-header .icon {
+  width: 22px; height: 22px;
+  background: #000;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-size: 12px;
+}
+.card-body { padding: 4px 0; }
+
+/* ====== Form Items ====== */
+.form-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid #F5F5F5;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.form-item:last-child { border-bottom: none; }
+
+.form-label {
+  font-size: 13px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.form-label .required {
+  color: #FF4D4F;
+  font-weight: 600;
+}
+
+.form-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.form-input {
+  flex: 1;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #fff;
+  transition: border-color .2s;
+  -webkit-appearance: none;
+}
+.form-input:focus {
+  outline: none;
+  border-color: #000;
+  box-shadow: 0 0 0 2px rgba(0,0,0,.08);
+}
+.form-input::placeholder { color: #BFBFBF; }
+
+/* Select styled as mobile native */
+.form-select {
+  flex: 1;
+  min-height: 44px;
+  padding: 10px 32px 10px 12px;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 12px center;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  color: #333;
+}
+.form-select:focus {
+  outline: none;
+  border-color: #000;
+}
+.form-select.placeholder { color: #BFBFBF; }
+
+/* Date input */
+input[type="date"].form-input,
+input[type="datetime-local"].form-input {
+  color: #333;
+}
+
+/* Number input with +/- buttons */
+.num-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.num-btn {
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: #FAFAFA;
+  border: none;
+  font-size: 18px;
+  color: #666;
+  cursor: pointer;
+  transition: all .2s;
+}
+.num-btn:active { background: #E8E8E8; }
+.num-btn.minus { border-right: 1px solid #E0E0E0; }
+.num-btn.plus { border-left: 1px solid #E0E0E0; }
+.num-value {
+  width: 56px; height: 44px;
+  text-align: center;
+  border: none;
+  font-size: 14px;
+  font-family: inherit;
+  -moz-appearance: textfield;
+}
+.num-value::-webkit-inner-spin-button,
+.num-value::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* Button styles */
+.btn-primary {
+  min-height: 44px;
+  padding: 10px 20px;
+  background: #1890FF;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all .2s;
+}
+.btn-primary:active { background: #096DD9; transform: scale(.97); }
+.btn-secondary {
+  min-height: 44px;
+  padding: 10px 20px;
+  background: #F5F5F5;
+  color: #333;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all .2s;
+}
+.btn-secondary:active { background: #E8E8E8; }
+
+/* Checkbox */
+.checkbox-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  cursor: pointer;
+}
+.checkbox-custom {
+  width: 20px; height: 20px;
+  border: 2px solid #D9D9D9;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.checkbox-custom.checked {
+  background: #1890FF;
+  border-color: #1890FF;
+}
+.checkbox-custom.checked::after {
+  content: '✓';
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+}
+.checkbox-label { font-size: 13px; color: #666; }
+
+/* Textarea */
+.form-textarea {
+  width: 100%;
+  min-height: 88px;
+  padding: 10px 12px;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  line-height: 1.5;
+}
+.form-textarea:focus {
+  outline: none;
+  border-color: #000;
+  box-shadow: 0 0 0 2px rgba(0,0,0,.08);
+}
+.form-textarea::placeholder { color: #BFBFBF; }
+
+/* Inline row for small fields */
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+.form-row .form-item { flex: 1; }
+
+/* Info hint text */
+.hint-text {
+  font-size: 12px;
+  color: #999;
+  margin-top: -4px;
+}
+
+/* Expandable section toggle */
+.section-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  cursor: pointer;
+  user-select: none;
+}
+.section-toggle-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+.section-toggle-icon {
+  font-size: 12px;
+  color: #999;
+  transition: transform .25s;
+}
+.section-toggle-icon.expanded { transform: rotate(180deg); }
+.collapsible-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s ease;
+}
+.collapsible-body.expanded { max-height: 2000px; }
+
+/* ====== Bottom Fixed Bar ====== */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 10px 16px;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  display: flex;
+  gap: 12px;
+  box-shadow: 0 -2px 12px rgba(0,0,0,.08);
+  z-index: 100;
+}
+.bottom-bar .btn-save {
+  flex: 1;
+  min-height: 48px;
+  background: linear-gradient(135deg, #000000 0%, #333 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all .2s;
+}
+.bottom-bar .btn-save:active { transform: scale(.98); opacity: .9; }
+
+/* ====== Member info card (shown after search) ====== */
+.member-info-card {
+  background: #F8F9FA;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  display: none;
+}
+.member-info-card.show { display: block; }
+.member-info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 13px;
+}
+.member-info-key { color: #888; }
+.member-info-val { color: #333; font-weight: 500; }
+
+/* Toast notification */
+.toast {
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: rgba(0,0,0,.78);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  z-index: 999;
+  opacity: 0;
+  transition: all .3s;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Add more demand link */
+.add-more-link {
+  text-align: center;
+  padding: 14px;
+  color: #1890FF;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.add-more-link:active { opacity: .7; }
+
+/* Passenger type grid */
+.passenger-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 4px 0;
+}
+.passenger-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+}
+.passenger-label {
+  font-size: 13px;
+  color: #666;
+  min-width: 70px;
+  white-space: nowrap;
+}
+.passenger-item .num-input-group { flex: 1; }
+
+/* Validation error */
+.form-input.error,
+.form-select.error {
+  border-color: #FF4D4F;
+}
+.error-msg {
+  font-size: 11px;
+  color: #FF4D4F;
+  margin-top: 2px;
+}
+
+/* ====== City Ambassador Field (conditional) ====== */
+.city-ambassador-wrap { display: none; }
+.city-ambassador-wrap.show { display: block; }
+.city-ambassador-input {
+  flex: 1;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #FAFAFA;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #333;
+  transition: all .2s;
+}
+.city-ambassador-input:active { background: #F0F0F0; }
+.city-ambassador-input .placeholder { color: #BFBFBF; }
+.city-ambassador-input .arrow { color: #999; font-size: 12px; }
+
+/* ====== Member Query Popup (full-screen slide) ====== */
+.popup-mask {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,.45);
+  opacity: 0; pointer-events: none;
+  transition: opacity .25s;
+}
+.popup-mask.show { opacity: 1; pointer-events: auto; }
+.member-popup {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  max-height: 90vh;
+  background: #fff;
+  border-radius: 16px 16px 0 0;
+  z-index: 10000;
+  transform: translateY(100%);
+  transition: transform .3s cubic-bezier(.32,.72,0,1);
+  display: flex;
+  flex-direction: column;
+}
+.member-popup.show { transform: translateY(0); }
+.mp-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid #F0F0F0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.mp-drag-bar {
+  width: 36px; height: 4px;
+  background: #D9D9D9;
+  border-radius: 2px;
+  margin: 0 auto 8px;
+}
+.mp-title {
+  font-size: 15px; font-weight:600; color:#000; flex:1; text-align:center;
+}
+.mp-close-btn {
+  width: 32px; height: 32px;
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  color:#999; cursor:pointer; font-size:18px;
+  background: #F5F5F5;
+}
+.mp-search-area {
+  padding: 10px 16px;
+  border-bottom: 1px solid #F0F0F0;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.mp-search-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mp-search-label {
+  font-size: 13px; color:#666; white-space:nowrap; min-width:60px;
+}
+.mp-search-type {
+  flex:1;
+  min-height: 36px;
+  padding: 7px 28px 7px 10px;
+  border: 1px solid #E0E0E0;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 8px center;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.mp-search-input-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mp-search-input {
+  flex:1; height:36px; padding: 0 10px;
+  border: 1px solid #E0E0E0; border-radius:6px;
+  font-size:13px; font-family:inherit;
+}
+.mp-search-btn {
+  height:36px; padding:0 14px;
+  background: #1890FF; color:#fff; border:none; border-radius:6px;
+  font-size:13px; font-weight:500; font-family:inherit; cursor:pointer;
+  white-space: nowrap;
+}
+.mp-reset-btn {
+  height:36px; padding:0 12px;
+  background: #F5F5F5; color:#666; border:1px solid #D9D9D9; border-radius:6px;
+  font-size:13px; font-family:inherit; cursor:pointer; white-space:nowrap;
+}
+
+/* Result list */
+.mp-list-wrap {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.mp-result-item {
+  padding: 13px 16px;
+  border-bottom: 1px solid #F5F5F5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background .15s;
+}
+.mp-result-item:active { background: #F8F9FA; }
+.mp-radio {
+  width: 20px; height:20px;
+  border:2px solid #D9D9D9; border-radius:50%;
+  flex-shrink: 0;
+  display:flex; align-items:center; justify-content:center;
+  transition: all .15s;
+}
+.mp-result-item.selected .mp-radio {
+  border-color: #1890FF;
+  background: #1890FF;
+}
+.mp-result-item.selected .mp-radio::after {
+  content:'';
+  width:8px; height:8px;
+  background:#fff; border-radius:50%;
+}
+.mp-info { flex:1; min-width:0; }
+.mp-name-row {
+  font-size: 14px; font-weight:500; color:#333;
+  display:flex; align-items:center; gap:6px;
+}
+.mp-name-row .mp-gender {
+  font-size:11px; color:#888; font-weight:400;
+  padding:1px 6px; background:#F0F0F0; border-radius:4px;
+}
+.mp-detail-row {
+  font-size:12px; color:#999; margin-top:3px;
+  display: flex; flex-wrap: wrap; gap: 6px 12px;
+}
+.mp-detail-row span { white-space: nowrap; }
+.mp-empty {
+  text-align:center; padding:40px 16px; color:#BFBFBF; font-size:13px;
+}
+
+/* Popup footer */
+.mp-footer {
+  padding: 10px 16px;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  border-top: 1px solid #F0F0F0;
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.mp-cancel-btn {
+  flex:1; height:44px;
+  background: #F5F5F5; color:#666; border:1px solid #D9D9D9; border-radius:10px;
+  font-size:15px; font-weight:500; font-family:inherit; cursor:pointer;
+}
+.mp-confirm-btn {
+  flex:1; height:44px;
+  background: linear-gradient(135deg, #1890FF 0%, #096DD9 100%);
+  color:#fff; border:none; border-radius:10px;
+  font-size:15px; font-weight:600; font-family:inherit; cursor:pointer;
+}
+
+/* ====== Referrer Query Popup ====== */
+.ref-popup-mask {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,.45);
+  opacity: 0; pointer-events: none;
+  transition: opacity .25s;
+}
+.ref-popup-mask.show { opacity: 1; pointer-events: auto; }
+.ref-popup {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  max-height: 85vh;
+  background: #fff;
+  border-radius: 16px 16px 0 0;
+  z-index: 10000;
+  transform: translateY(100%);
+  transition: transform .3s cubic-bezier(.32,.72,0,1);
+  display: flex;
+  flex-direction: column;
+}
+.ref-popup.show { transform: translateY(0); }
+.ref-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid #F0F0F0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.ref-drag-bar {
+  width: 36px; height: 4px;
+  background: #D9D9D9;
+  border-radius: 2px;
+  margin: 0 auto 8px;
+}
+.ref-title {
+  font-size: 15px; font-weight:600; color:#000; flex:1; text-align:center;
+}
+.ref-close-btn {
+  width: 32px; height: 32px;
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  color:#999; cursor:pointer; font-size:18px;
+  background: #F5F5F5;
+}
+
+/* Ref form body */
+.ref-body {
+  padding: 14px 16px;
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.ref-field {
+  margin-bottom: 14px;
+}
+.ref-label {
+  font-size: 13px; color:#666; margin-bottom:6px; display:flex; align-items:center; gap:4px;
+}
+.ref-label .req { color:#FF4D4F; }
+.ref-input-row {
+  display:flex; align-items:center; gap:8px;
+}
+.ref-input {
+  flex:1; min-height:44px; padding:10px 12px;
+  border: 1px solid #E0E0E0; border-radius:8px;
+  font-size:14px; font-family:inherit;
+}
+.ref-input:focus {
+  outline:none; border-color:#000; box-shadow: 0 0 0 2px rgba(0,0,0,.08);
+}
+.ref-input::placeholder { color:#BFBFBF; }
+
+.ref-clear-btn {
+  width:30px; height:30px; min-width:30px;
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  color:#999; cursor:pointer; font-size:14px;
+  background:#F0F0F0; flex-shrink:0;
+}
+.ref-clear-btn:active { background:#E0E0E0; }
+
+.ref-check-btn {
+  height:44px; padding:0 14px; white-space:nowrap;
+  background:#fff; color:#1890FF; border:1px solid #1890FF; border-radius:8px;
+  font-size:13px; font-weight:500; font-family:inherit; cursor:pointer;
+  display:flex; align-items:center; gap:4px;
+  transition: all .2s;
+}
+.ref-check-btn:active { background:#E6F7FF; transform: scale(.97); }
+
+.ref-readonly-val {
+  min-height:44px; padding:10px 12px;
+  background:#F8F9FA; border:1px solid #E8E8E8; border-radius:8px;
+  font-size:14px; color:#333; display:flex; align-items:center;
+}
+
+.ref-footer {
+  padding: 10px 16px;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  border-top: 1px solid #F0F0F0;
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.ref-cancel-btn {
+  flex:1; height:44px;
+  background: #F5F5F5; color:#666; border:1px solid #D9D9D9; border-radius:10px;
+  font-size:15px; font-weight:500; font-family:inherit; cursor:pointer;
+}
+.ref-ok-btn {
+  flex:1; height:44px;
+  background: linear-gradient(135deg, #1890FF 0%, #096DD9 100%);
+  color:#fff; border:none; border-radius:10px;
+  font-size:15px; font-weight:600; font-family:inherit; cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-back" onclick="goBack()">‹</div>
+  <div class="header-title">咨询单新建</div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+
+  <!-- 查找预订人 -->
+  <div class="form-card">
+    <div class="card-header">
+      <span class="icon">👤</span> 查找预订人
+    </div>
+    <div class="card-body">
+      <div class="form-item">
+        <label class="form-label"><span class="required">*</span> 客户类型</label>
+        <select class="form-select placeholder" id="customerType" onchange="onCustomerTypeChange()">
+          <option value="">请选择客户类型</option>
+          <option value="personal">个人客户</option>
+          <option value="company">企业客户</option>
+          <option value="agent">代理商</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-item">
+          <label class="form-label"><span class="required">*</span> 手机号</label>
+          <input type="tel" class="form-input" id="phone" placeholder="输入手机号" maxlength="11">
+        </div>
+        <div class="form-item">
+          <label class="form-label">邮箱</label>
+          <input type="email" class="form-input" id="email" placeholder="选填">
+        </div>
+      </div>
+      <div class="form-item" style="border-bottom:none;">
+        <button class="btn-primary" style="width:100%;" onclick="searchMember()">
+          🔍 查找会员
+        </button>
+      </div>
+      <!-- 会员信息展示 -->
+      <div class="member-info-card" id="memberInfoCard">
+        <div class="member-info-row"><span class="member-info-key">手机号:</span><span class="member-info-val" id="infoPhone">-</span></div>
+        <div class="member-info-row"><span class="member-info-key">姓名:</span><span class="member-info-val" id="infoName">-</span></div>
+        <div class="member-info-row"><span class="member-info-key">昵称:</span><span class="member-info-val" id="infoNickname">-</span></div>
+        <div class="member-info-row"><span class="member-info-key">国籍:</span><span class="member-info-val" id="infoNationality">-</span></div>
+        <div class="member-info-row"><span class="member-info-key">证件类型:</span><span class="member-info-val" id="infoIdType">-</span></div>
+        <div class="member-info-row"><span class="member-info-key">证件号:</span><span class="member-info-val" id="infoIdNo">-</span></div>
+        <div class="member-info-row"><span class="member-info-key">性别:</span><span class="member-info-val" id="infoGender">-</span></div>
+        <div class="member-info-row"><span class="member-info-key">会员等级:</span><span class="member-info-val" id="infoLevel">-</span></div>
+        <div class="member-info-row"><span class="member-info-key">常住地:</span><span class="member-info-val" id="infoLocation">-</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 单据来源 -->
+  <div class="form-card">
+    <div class="card-header">
+      <span class="icon">📋</span> 单据来源
+    </div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-item">
+          <label class="form-label"><span class="required">*</span> 来源</label>
+          <select class="form-select placeholder" id="source" onchange="onSourceChange()">
+            <option value="">请选择</option>
+            <option value="personal">个人</option>
+            <option value="wechat">微信</option>
+            <option value="phone">电话</option>
+            <option value="web">官网</option>
+            <option value="app">APP</option>
+            <option value="offline">线下</option>
+            <option value="other">其他</option>
+          </select>
+        </div>
+        <div class="form-item">
+          <label class="form-label"><span class="required">*</span> 子来源</label>
+          <select class="form-select placeholder" id="subSource" onchange="onSubSourceChange()">
+            <option value="">请选择</option>
+            <option value="city-ambassador-referral">城市大使-推荐客</option>
+            <option value="ad">广告投放</option>
+            <option value="friend">朋友推荐</option>
+            <option value="repeat">回头客</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-item">
+        <label class="form-label">推荐人</label>
+        <div class="form-input-wrap">
+          <input type="text" class="form-input" id="referrer" placeholder="输入推荐人">
+          <button class="btn-primary" onclick="searchReferrer()">查找</button>
+        </div>
+      </div>
+      <div class="form-item city-ambassador-wrap" id="cityAmbassadorWrap">
+        <label class="form-label"><span class="required">*</span> 关联城市大使</label>
+        <div class="city-ambassador-input" onclick="openMemberPopup()">
+          <span id="ambassadorDisplay" class="placeholder">点击选择城市大使</span>
+          <span class="arrow">›</span>
+        </div>
+      </div>
+      <div class="form-item">
+        <label class="form-label"><span class="required">*</span> 归属销售</label>
+        <select class="form-select placeholder" id="salesPerson" onchange="onSalesChange()">
+          <option value="">选择销售员</option>
+          <option value="zhangsan">张三（华北区）</option>
+          <option value="lisi">李四（华南区）</option>
+          <option value="wangwu">王五（西南区）</option>
+          <option value="zhaoliu">赵六（华东区）</option>
+          <option value="sunqi">孙七（会员部）</option>
+        </select>
+        <div class="hint-text" id="salesHint"></div>
+      </div>
+      <div class="form-item" style="border-bottom:none;">
+        <label class="checkbox-wrap" onclick="toggleCheckbox(this)">
+          <span class="checkbox-custom"></span>
+          <span class="checkbox-label">无销售员</span>
+        </label>
+        <div class="hint-text">勾选后此单将不归属任何销售员，请注意填写备注说明</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 行程意向 -->
+  <div class="form-card">
+    <div class="card-header">
+      <span class="icon">✈️</span> 行程意向
+    </div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-item">
+          <label class="form-label"><span class="required">*</span> 出发地</label>
+          <select class="form-select placeholder" id="departureCity">
+            <option value="">请选择</option>
+            <option value="beijing">北京</option>
+            <option value="shanghai">上海</option>
+            <option value="guangzhou">广州</option>
+            <option value="shenzhen">深圳</option>
+            <option value="chengdu">成都</option>
+            <option value="other">其他城市</option>
+          </select>
+        </div>
+        <div class="form-item">
+          <label class="form-label"><span class="required">*</span> 目的地</label>
+          <select class="form-select placeholder" id="destinationCity">
+            <option value="">请选择目的地</option>
+            <option value="lhasa">拉萨</option>
+            <option value="shangrila">香格里拉</option>
+            <option value="meili">梅里</option>
+            <option value="yading">亚丁</option>
+            <option value="tibet">西藏全线</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-item">
+          <label class="form-label"><span class="required">*</span> 出发日期</label>
+          <input type="date" class="form-input" id="departDate" onchange="onDateChange(this)">
+        </div>
+        <div class="form-item">
+          <label class="form-label"><span class="required">*</span> 出行天数</label>
+          <div class="num-input-group">
+            <button class="num-btn minus" onclick="changeNum('tripDays', -1)">−</button>
+            <input type="number" class="num-value" id="tripDays" value="1" min="1" max="30">
+            <button class="num-btn plus" onclick="changeNum('tripDays', 1)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="form-item">
+        <label class="form-label">酒店</label>
+        <select class="form-select placeholder" id="hotelPreference">
+          <option value="">酒店/全部</option>
+          <option value="luxury">松赞系列</option>
+          <option value="premium">高端精品</option>
+          <option value="comfort">舒适型</option>
+          <option value="economy">经济型</option>
+          <option value="any">不限</option>
+        </select>
+      </div>
+      <div class="form-item">
+        <label class="form-label">产品名称</label>
+        <select class="form-select placeholder" id="productName">
+          <option value="">产品名称</option>
+          <option value="tibet-culture">藏文化之旅</option>
+          <option value="meili-snow">梅里雪山</option>
+          <option value="shangrila-deep">香格里拉深度游</option>
+          <option value="yading-hiking">亚丁徒步</option>
+          <option value="custom">定制行程</option>
+        </select>
+      </div>
+
+      <!-- 出行人数 -->
+      <div class="form-item">
+        <label class="form-label"><span class="required">*</span> 出行人数</label>
+        <div class="passenger-grid">
+          <div class="passenger-item">
+            <span class="passenger-label">成人 👤</span>
+            <div class="num-input-group">
+              <button class="num-btn minus" onclick="changeNum('adultCount', -1)">−</button>
+              <input type="number" class="num-value" id="adultCount" value="0" min="0" max="99">
+              <button class="num-btn plus" onclick="changeNum('adultCount', 1)">+</button>
+            </div>
+          </div>
+          <div class="passenger-item">
+            <span class="passenger-label">大童 🧑</span>
+            <div class="num-input-group">
+              <button class="num-btn minus" onclick="changeNum('bigChildCount', -1)">−</button>
+              <input type="number" class="num-value" id="bigChildCount" value="0" min="0" max="99">
+              <button class="num-btn plus" onclick="changeNum('bigChildCount', 1)">+</button>
+            </div>
+          </div>
+          <div class="passenger-item">
+            <span class="passenger-label">中童 🧒</span>
+            <div class="num-input-group">
+              <button class="num-btn minus" onclick="changeNum('midChildCount', -1)">−</button>
+              <input type="number" class="num-value" id="midChildCount" value="0" min="0" max="99">
+              <button class="num-btn plus" onclick="changeNum('midChildCount', 1)">+</button>
+            </div>
+          </div>
+          <div class="passenger-item">
+            <span class="passenger-label">幼童 👶</span>
+            <div class="num-input-group">
+              <button class="num-btn minus" onclick="changeNum('smallChildCount', -1)">−</button>
+              <input type="number" class="num-value" id="smallChildCount" value="0" min="0" max="99">
+              <button class="num-btn plus" onclick="changeNum('smallChildCount', 1)">+</button>
+            </div>
+          </div>
+          <div class="passenger-item">
+            <span class="passenger-label">外籍客人</span>
+            <div class="num-input-group">
+              <button class="num-btn minus" onclick="changeNum('foreignerCount', -1)">−</button>
+              <input type="number" class="num-value" id="foreignerCount" value="0" min="0" max="99">
+              <button class="num-btn plus" onclick="changeNum('foreignerCount', 1)">+</button>
+            </div>
+          </div>
+          <div class="passenger-item">
+            <span class="passenger-label">港台客人</span>
+            <div class="num-input-group">
+              <button class="num-btn minus" onclick="changeNum('hkTwCount', -1)">−</button>
+              <input type="number" class="num-value" id="hkTwCount" value="0" min="0" max="99">
+              <button class="num-btn plus" onclick="changeNum('hkTwCount', 1)">+</button>
+            </div>
+          </div>
+          <div class="passenger-item">
+            <span class="passenger-label">60岁以上老人</span>
+            <div class="num-input-group">
+              <button class="num-btn minus" onclick="changeNum('elderlyCount', -1)">−</button>
+              <input type="number" class="num-value" id="elderlyCount" value="0" min="0" max="99">
+              <button class="num-btn plus" onclick="changeNum('elderlyCount', 1)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item">
+        <label class="form-label">异地接送</label>
+        <select class="form-select placeholder" id="pickupService">
+          <option value="">异地接送</option>
+          <option value="airport-airport">机场接送</option>
+          <option value="station-station">火车站接送</option>
+          <option value="custom">自定义地点</option>
+          <option value="none">不需要</option>
+        </select>
+      </div>
+      <div class="form-item" style="border-bottom:none;">
+        <label class="form-label">产品意向</label>
+        <select class="form-select placeholder" id="productIntent">
+          <option value="">产品意向</option>
+          <option value="culture">文化体验</option>
+          <option value="nature">自然风光</option>
+          <option value="hiking">徒步探险</option>
+          <option value="photography">摄影创作</option>
+          <option value="family">亲子度假</option>
+          <option value="wellness">身心疗愈</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- 更多需求 (Collapsible) -->
+  <div class="form-card">
+    <div class="section-toggle" onclick="toggleSection('moreDemand')">
+      <span class="section-toggle-text">更多需求</span>
+      <span class="section-toggle-icon" id="moreDemandIcon">▼ 展开更多需求</span>
+    </div>
+    <div class="collapsible-body" id="moreDemandBody">
+      <div class="card-body" style="border-top:1px solid #f0f0f0;">
+        <div class="form-item">
+          <label class="form-label">指定活动</label>
+          <select class="form-select placeholder" id="specifiedActivity">
+            <option value="">指定活动</option>
+            <option value="thangka">唐卡绘画</option>
+            <option value="tea">品茶体验</option>
+            <option value="meditation">冥想禅修</option>
+            <option value="cooking">烹饪课程</option>
+          </select>
+        </div>
+        <div class="form-item">
+          <label class="form-label">指定酒店</label>
+          <select class="form-select placeholder" id="specifiedHotel">
+            <option value="">指定酒店</option>
+            <option value="linzhi">松赞林芝山居</option>
+            <option value="meili">松赞梅里山居</option>
+            <option value="shangrila">松赞香格里拉林卡</option>
+            <option value="la">松赞拉萨林卡</option>
+          </select>
+        </div>
+        <div class="form-item">
+          <label class="form-label">指定餐食</label>
+          <select class="form-select placeholder" id="specifiedMeal">
+            <option value="">指定餐食</option>
+            <option value="vegetarian">全素</option>
+            <option value="halal">清真</option>
+            <option value="low-fat">低脂</option>
+            <option value="diabetic">糖尿病餐</option>
+          </select>
+        </div>
+        <div class="form-item">
+          <label class="form-label">指定司机</label>
+          <select class="form-select placeholder" id="specifiedDriver">
+            <option value="">指定司机</option>
+            <option value="driver1">司机A（藏语流利）</option>
+            <option value="driver2">司机B（英语流利）</option>
+            <option value="driver3">司机C（经验丰富）</option>
+          </select>
+        </div>
+        <div class="form-item">
+          <label class="form-label">排房要求</label>
+          <select class="form-select placeholder" id="roomArrangement">
+            <option value="">排房要求</option>
+            <option value="same-floor">同楼层</option>
+            <option value="adjacent">相邻房间</option>
+            <option value="connecting">连通房</option>
+            <option value="quiet">安静楼层</option>
+          </select>
+        </div>
+        <div class="form-item">
+          <label class="form-label">客房布置</label>
+          <select class="form-select placeholder" id="roomDecoration">
+            <option value="">客房布置</option>
+            <option value="birthday">生日布置</option>
+            <option value="anniversary">纪念日布置</option>
+            <option value="honeymoon">蜜月布置</option>
+            <option value="kids">儿童主题</option>
+          </select>
+        </div>
+        <div class="form-item">
+          <label class="form-label">拼团需求</label>
+          <select class="form-select placeholder" id="groupJoin">
+            <option value="">拼团需求</option>
+            <option value="join-existing">加入现有团</option>
+            <option value="private">独立成团</option>
+            <option value="semi-private">半定制小团</option>
+          </select>
+        </div>
+        <div class="form-item" style="border-bottom:none;">
+          <label class="form-label">客人需求描述</label>
+          <textarea class="form-textarea" id="guestRequirements" placeholder="详细描述客人的特殊需求、偏好或其他要求..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 咨询单信息 -->
+  <div class="form-card">
+    <div class="card-header">
+      <span class="icon">📝</span> 咨询单信息
+    </div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-item">
+          <label class="form-label">优先级</label>
+          <select class="form-select" id="priority">
+            <option value="normal">一般</option>
+            <option value="urgent">紧急</option>
+            <option value="vip">VIP</option>
+          </select>
+        </div>
+        <div class="form-item">
+          <label class="form-label">客人意愿</label>
+          <select class="form-select" id="guestIntent">
+            <option value="general">一般</option>
+            <option value="strong">强烈</option>
+            <option value="just-looking">随便看看</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Member Query Popup -->
+<div class="popup-mask" id="memberPopupMask" onclick="closeMemberPopup()"></div>
+<div class="member-popup" id="memberPopup">
+  <div class="mp-header">
+    <div>
+      <div class="mp-drag-bar"></div>
+    </div>
+    <span class="mp-title">会员查询</span>
+    <div class="mp-close-btn" onclick="closeMemberPopup()">✕</div>
+  </div>
+  <div class="mp-search-area">
+    <div class="mp-search-row">
+      <span class="mp-search-label">查询类型:</span>
+      <select class="mp-search-type" id="mqSearchType">
+        <option value="smart">智能检索</option>
+        <option value="name">按姓名</option>
+        <option value="phone">按手机号</option>
+      </select>
+    </div>
+    <div class="mp-search-row">
+      <span class="mp-search-label">关键字:</span>
+      <div class="mp-search-input-wrap">
+        <input type="text" class="mp-search-input" id="mqKeyword" placeholder="输入关键字查询">
+        <button class="mp-reset-btn" onclick="resetMemberQuery()">↻ 重置</button>
+        <button class="mp-search-btn" onclick="doMemberQuery()">🔍 查询</button>
+      </div>
+    </div>
+  </div>
+  <div class="mp-list-wrap" id="mqResultList">
+    <div class="mp-empty">请输入关键字后点击查询</div>
+  </div>
+  <div class="mp-footer">
+    <button class="mp-cancel-btn" onclick="closeMemberPopup()">取消</button>
+    <button class="mp-confirm-btn" onclick="confirmAmbassador()">确定</button>
+  </div>
+</div>
+
+<!-- Referrer Query Popup -->
+<div class="ref-popup-mask" id="referrerPopupMask" onclick="closeReferrerPopup()"></div>
+<div class="ref-popup" id="referrerPopup">
+  <div class="ref-header">
+    <div><div class="ref-drag-bar"></div></div>
+    <span class="ref-title">推荐人</span>
+    <div class="ref-close-btn" onclick="closeReferrerPopup()">✕</div>
+  </div>
+  <div class="ref-body">
+    <!-- 手机号 -->
+    <div class="ref-field">
+      <label class="ref-label">手机号:</label>
+      <div class="ref-input-row">
+        <input type="tel" class="ref-input" id="refPhone" placeholder="输入手机号" maxlength="11" oninput="onRefPhoneInput()">
+        <div class="ref-clear-btn" id="refClearPhone" style="display:none;" onclick="clearRefPhone()">✕</div>
+        <button class="ref-check-btn" onclick="checkIsMember()">检查是否会员</button>
+      </div>
+    </div>
+
+    <!-- 邮箱 -->
+    <div class="ref-field">
+      <label class="ref-label">邮箱:</label>
+      <input type="email" class="ref-input" id="refEmail" placeholder="选填">
+    </div>
+
+    <!-- 姓名（必填） -->
+    <div class="ref-field">
+      <label class="ref-label"><span class="req">*</span> 姓名:</label>
+      <input type="text" class="ref-input" id="refName" placeholder="请输入推荐人姓名">
+    </div>
+
+    <!-- 会员等级（只读，检查后显示） -->
+    <div class="ref-field" id="refLevelWrap" style="display:none;">
+      <label class="ref-label">会员等级:</label>
+      <div class="ref-readonly-val" id="refLevelVal">-</div>
+    </div>
+  </div>
+  <div class="ref-footer">
+    <button class="ref-cancel-btn" onclick="closeReferrerPopup()">取消</button>
+    <button class="ref-ok-btn" onclick="confirmReferrer()">确定</button>
+  </div>
+</div>
+
+<!-- Bottom Bar -->
+<div class="bottom-bar">
+  <button class="btn-save" onclick="submitForm()">✓ 保存咨询单</button>
+</div>
+
+<script>
+// ====== Utility ======
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function goBack() {
+  if (confirm('确定要返回吗？未保存的数据将会丢失。')) {
+    history.back();
+  }
+}
+
+// ====== Number Input Control ======
+function changeNum(id, delta) {
+  const el = document.getElementById(id);
+  let val = parseInt(el.value || '0') + delta;
+  if (val < 0) val = 0;
+  if (val > 99) val = 99;
+  el.value = val;
+}
+
+// ====== Checkbox Toggle ======
+function toggleCheckbox(labelEl) {
+  const cb = labelEl.querySelector('.checkbox-custom');
+  cb.classList.toggle('checked');
+}
+
+// ====== Collapsible Section ======
+let sectionExpanded = {};
+function toggleSection(id) {
+  const body = document.getElementById(id + 'Body');
+  const icon = document.getElementById(id + 'Icon');
+  sectionExpanded[id] = !sectionExpanded[id];
+  body.classList.toggle('expanded', sectionExpanded[id]);
+  icon.classList.toggle('expanded', sectionExpanded[id]);
+  icon.textContent = sectionExpanded[id] ? '▲ 收起更多需求' : '▼ 展开更多需求';
+}
+
+// ====== Search Member ======
+function searchMember() {
+  const phone = document.getElementById('phone').value.trim();
+  if (!phone) {
+    showToast('⚠️ 请输入手机号');
+    document.getElementById('phone').classList.add('error');
+    return;
+  }
+  // 手机号格式校验
+  if (!/^1\d{10}$/.test(phone)) {
+    showToast('⚠️ 手机号格式不正确');
+    return;
+  }
+  document.getElementById('phone').classList.remove('error');
+
+  // 模拟查找
+  showToast('正在查找会员...');
+  setTimeout(() => {
+    // 模拟找到会员数据
+    document.getElementById('memberInfoCard').classList.add('show');
+    document.getElementById('infoPhone').textContent = phone;
+    document.getElementById('infoName').textContent = '张**';
+    document.getElementById('infoNickname').textContent = '旅行达人';
+    document.getElementById('infoNationality').textContent = '中国';
+    document.getElementById('infoIdType').textContent = '身份证';
+    document.getElementById('infoIdNo').textContent = '310***********1234';
+    document.getElementById('infoGender').textContent = '女';
+    document.getElementById('infoLevel').textContent = '绿绒蒿';
+    document.getElementById('infoLocation').textContent = '上海市';
+    showToast('✅ 已找到会员信息');
+  }, 800);
+}
+
+// ====== Referrer Query Popup ======
+let referrerData = null; // { phone, email, name, level }
+
+function searchReferrer() {
+  openReferrerPopup();
+}
+
+function openReferrerPopup() {
+  document.getElementById('referrerPopupMask').classList.add('show');
+  document.getElementById('referrerPopup').classList.add('show');
+  // 预填已有值
+  const existing = document.getElementById('referrer').value.trim();
+  if (existing) {
+    document.getElementById('refName').value = existing;
+  }
+  setTimeout(() => {
+    if (!document.getElementById('refName').value) {
+      document.getElementById('refName').focus();
+    }
+  }, 300);
+}
+
+function closeReferrerPopup() {
+  document.getElementById('referrerPopupMask').classList.remove('show');
+  document.getElementById('referrerPopup').classList.remove('show');
+}
+
+function onRefPhoneInput() {
+  const val = document.getElementById('refPhone').value;
+  document.getElementById('refClearPhone').style.display = val ? 'flex' : 'none';
+}
+
+function clearRefPhone() {
+  document.getElementById('refPhone').value = '';
+  document.getElementById('refClearPhone').style.display = 'none';
+  document.getElementById('refLevelWrap').style.display = 'none';
+  document.getElementById('refLevelVal').textContent = '-';
+  document.getElementById('refPhone').focus();
+}
+
+function checkIsMember() {
+  const phone = document.getElementById('refPhone').value.trim();
+  if (!phone || !/^1\d{10}$/.test(phone)) {
+    showToast('⚠️ 请输入正确的手机号');
+    return;
+  }
+
+  showToast('正在检查会员...');
+  setTimeout(() => {
+    // 模拟：根据手机号返回会员信息（与 PC 端一致，13678767674 → 韩磊 → 格桑）
+    const mockMembers = {
+      '13678767674': { name: '韩磊', level: '格桑' },
+      '13600083880': { name: '13600083880', level: '-' },
+      '13600922009': { name: '13600922009', level: '-' },
+      '13636354254': { name: '杨希', level: '雪莲' },
+      '13601758292': { name: '13601758292', level: '-' },
+      '13601103604': { name: '温鑫柱', level: '绿绒蒿' },
+      '13611305228': { name: '齐华', level: '金刚' },
+    };
+
+    const info = mockMembers[phone];
+    if (info && info.name !== '-') {
+      document.getElementById('refLevelWrap').style.display = '';
+      document.getElementById('refLevelVal').textContent = info.level;
+      // 自动回填姓名（如果为空）
+      if (!document.getElementById('refName').value.trim()) {
+        document.getElementById('refName').value = info.name;
+      }
+      showToast(`✅ 已找到会员：${info.name}（${info.level}）`);
+    } else {
+      document.getElementById('refLevelWrap').style.display = '';
+      document.getElementById('refLevelVal').textContent = '非会员';
+      showToast('⚠️ 该手机号未找到对应会员');
+    }
+  }, 600);
+}
+
+function confirmReferrer() {
+  const name = document.getElementById('refName').value.trim();
+  if (!name) {
+    showToast('⚠️ 请输入推荐人姓名');
+    document.getElementById('refName').focus();
+    return;
+  }
+
+  const phone = document.getElementById('refPhone').value.trim();
+  const email = document.getElementById('refEmail').value.trim();
+  const levelEl = document.getElementById('refLevelVal');
+
+  // 保存数据
+  referrerData = {
+    name: name,
+    phone: phone,
+    email: email,
+    level: levelEl.textContent || '-'
+  };
+
+  // 回填到表单推荐人字段
+  document.getElementById('referrer').value = name;
+
+  closeReferrerPopup();
+  showToast(`✅ 推荐人已关联：${name}${levelEl.textContent ? '（' + levelEl.textContent + '）' : ''}`);
+}
+
+// ====== Source / SubSource conditional: City Ambassador ======
+function onSourceChange() {
+  checkCityAmbassadorVisibility();
+}
+
+function onSubSourceChange() {
+  checkCityAmbassadorVisibility();
+}
+
+function checkCityAmbassadorVisibility() {
+  const source = document.getElementById('source').value;
+  const subSource = document.getElementById('subSource').value;
+  const wrap = document.getElementById('cityAmbassadorWrap');
+  // 当 来源=个人 且 子来源=城市大使-推荐客 时显示
+  if (source === 'personal' && subSource === 'city-ambassador-referral') {
+    wrap.classList.add('show');
+  } else {
+    wrap.classList.remove('show');
+  }
+}
+
+// ====== Member Query Popup (City Ambassador) ======
+let selectedAmbassador = null; // { name, gender, phone, email, idCard, id }
+
+function openMemberPopup() {
+  document.getElementById('memberPopupMask').classList.add('show');
+  document.getElementById('memberPopup').classList.add('show');
+  // 聚焦搜索框
+  setTimeout(() => document.getElementById('mqKeyword').focus(), 300);
+}
+
+function closeMemberPopup() {
+  document.getElementById('memberPopupMask').classList.remove('show');
+  document.getElementById('memberPopup').classList.remove('show');
+}
+
+function doMemberQuery() {
+  const keyword = document.getElementById('mqKeyword').value.trim();
+  const searchType = document.getElementById('mqSearchType').value;
+  if (!keyword) {
+    showToast('⚠️ 请输入查询关键字');
+    return;
+  }
+  const listEl = document.getElementById('mqResultList');
+  listEl.innerHTML = '<div class="mp-empty">⏳ 查询中...</div>';
+
+  // 模拟数据（与 PC 端截图一致）
+  setTimeout(() => {
+    const mockData = [
+      { id:1, name:'韩磊', gender:'未知', phone:'13678767674', email:'', idCard:'' },
+      { id:2, name:'13600083880', gender:'未知', phone:'13600083880', email:'710133795@qq.com', idCard:'' },
+      { id:3, name:'13600922009', gender:'未知', phone:'13600922009', email:'', idCard:'' },
+      { id:4, name:'杨希', gender:'未知', phone:'13636354254', email:'', idCard:'3702031984110110326' },
+      { id:5, name:'13601758292', gender:'未知', phone:'13601758292', email:'', idCard:'' },
+      { id:6, name:'温鑫柱', gender:'男',   phone:'13601103604', email:'wendoc@163.com', idCard:'11010419820125123X' },
+      { id:7, name:'齐华', gender:'女',   phone:'13611305228', email:'', idCard:'' },
+      { id:8, name:'13651720056', gender:'未知', phone:'13651720056', email:'', idCard:'' },
+      { id:9, name:'韩磊', gender:'女',   phone:'13912345678', email:'hanlei@test.com', idCard:'' },
+      { id:10, name:'李明', gender:'男',   phone:'13899887766', email:'', idCard:'110101199001011234' },
+      { id:11, name:'张芳', gender:'女',   phone:'13566778899', email:'zhangfang@163.com', idCard:'' },
+    ];
+
+    // 简单过滤
+    let filtered = mockData.filter(m =>
+      m.name.includes(keyword) || m.phone.includes(keyword) || (m.email && m.email.includes(keyword))
+    );
+
+    if (filtered.length === 0) {
+      listEl.innerHTML = '<div class="mp-empty">未找到匹配的会员</div>';
+      return;
+    }
+
+    let html = '';
+    filtered.forEach((m, i) => {
+      const isSelected = selectedAmbassador && selectedAmbassador.id === m.id;
+      html += `<div class="mp-result-item${isSelected ? ' selected' : ''}" onclick="selectAmbassador(${m.id})">
+        <div class="mp-radio"></div>
+        <div class="mp-info">
+          <div class="mp-name-row">${m.name} <span class="mp-gender">${m.gender}</span></div>
+          <div class="mp-detail-row">
+            ${m.phone ? `<span>📱 ${m.phone}</span>` : ''}
+            ${m.email ? `<span>📧 ${m.email}</span>` : ''}
+            ${m.idCard ? `<span>🪪 ${m.idCard}</span>` : ''}
+          </div>
+        </div>
+      </div>`;
+    });
+    listEl.innerHTML = html;
+
+    // 分页提示
+    listEl.innerHTML += `
+      <div style="text-align:center;padding:10px;font-size:12px;color:#999;">
+        共 ${filtered.length} 条
+      </div>`;
+  }, 400);
+}
+
+function selectAmbassador(id) {
+  // 从 mockData 中找到对应记录
+  const allMock = [
+    { id:1, name:'韩磊', gender:'未知', phone:'13678767674', email:'', idCard:'' },
+    { id:2, name:'13600083880', gender:'未知', phone:'13600083880', email:'710133795@qq.com', idCard:'' },
+    { id:3, name:'13600922009', gender:'未知', phone:'13600922009', email:'', idCard:'' },
+    { id:4, name:'杨希', gender:'未知', phone:'13636354254', email:'', idCard:'3702031984110110326' },
+    { id:5, name:'13601758292', gender:'未知', phone:'13601758292', email:'', idCard:'' },
+    { id:6, name:'温鑫柱', gender:'男',   phone:'13601103604', email:'wendoc@163.com', idCard:'11010419820125123X' },
+    { id:7, name:'齐华', gender:'女',   phone:'13611305228', email:'', idCard:'' },
+    { id:8, name:'13651720056', gender:'未知', phone:'13651720056', email:'', idCard:'' },
+    { id:9, name:'韩磊', gender:'女',   phone:'13912345678', email:'hanlei@test.com', idCard:'' },
+    { id:10, name:'李明', gender:'男',   phone:'13899887766', email:'', idCard:'110101199001011234' },
+    { id:11, name:'张芳', gender:'女',   phone:'13566778899', email:'zhangfang@163.com', idCard:'' },
+  ];
+  selectedAmbassador = allMock.find(m => m.id === id);
+
+  // 更新选中态 UI
+  document.querySelectorAll('.mp-result-item').forEach(el => el.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+}
+
+function resetMemberQuery() {
+  document.getElementById('mqKeyword').value = '';
+  document.getElementById('mqResultList').innerHTML = '<div class="mp-empty">请输入关键字后点击查询</div>';
+  selectedAmbassador = null;
+}
+
+function confirmAmbassador() {
+  if (!selectedAmbassador) {
+    showToast('⚠️ 请先选择一位城市大使');
+    return;
+  }
+  // 更新表单显示
+  const displayEl = document.getElementById('ambassadorDisplay');
+  displayEl.textContent = selectedAmbassador.name;
+  displayEl.classList.remove('placeholder');
+
+  closeMemberPopup();
+  showToast(`✅ 已关联城市大使：${selectedAmbassador.name}`);
+}
+
+// ====== Event Handlers ======
+function onCustomerTypeChange() {
+  const v = document.getElementById('customerType').value;
+  console.log('客户类型变更:', v);
+}
+
+function onSalesChange() {
+  const el = document.getElementById('salesPerson');
+  const hint = document.getElementById('salesHint');
+  const selected = el.options[el.selectedIndex];
+  hint.textContent = el.value ? `当前销售: ${selected.textContent}` : '';
+}
+
+function onDateChange(input) {
+  const today = new Date().toISOString().split('T')[0];
+  if (input.value && input.value < today) {
+    showToast('⚠️ 出发日期不能早于今天');
+  }
+}
+
+// ====== Form Validation ======
+function validateForm() {
+  const errors = [];
+  const requiredFields = [
+    { id: 'customerType', label: '客户类型' },
+    { id: 'phone', label: '手机号' },
+    { id: 'source', label: '来源' },
+    { id: 'subSource', label: '子来源' },
+    { id: 'salesPerson', label: '归属销售' },
+    { id: 'departureCity', label: '出发地' },
+    { id: 'destinationCity', label: '目的地' },
+    { id: 'departDate', label: '出发日期' },
+  ];
+
+  requiredFields.forEach(f => {
+    const el = document.getElementById(f.id);
+    if (!el.value) {
+      errors.push(f.label);
+      el.classList.add('error');
+    } else {
+      el.classList.remove('error');
+    }
+  });
+
+  // 出行人数校验
+  const totalPassengers =
+    parseInt(document.getElementById('adultCount').value || '0') +
+    parseInt(document.getElementById('bigChildCount').value || '0') +
+    parseInt(document.getElementById('midChildCount').value || '0') +
+    parseInt(document.getElementById('smallChildCount').value || '0');
+
+  if (totalPassengers === 0) {
+    errors.push('出行人数至少为1人');
+  }
+
+  // 手机号格式
+  const phone = document.getElementById('phone').value;
+  if (phone && !/^1\d{10}$/.test(phone)) {
+    errors.push('手机号格式不正确');
+  }
+
+  // 关联城市大使校验（当条件显示时必填）
+  const ambWrap = document.getElementById('cityAmbassadorWrap');
+  if (ambWrap.classList.contains('show') && !selectedAmbassador) {
+    errors.push('关联城市大使');
+  }
+
+  return errors;
+}
+
+// ====== Submit ======
+function submitForm() {
+  const errors = validateForm();
+  if (errors.length > 0) {
+    showToast('⚠️ 请完善必填项: ' + errors.slice(0, 3).join(', ') + (errors.length > 3 ? '...' : ''));
+    // 滚动到第一个错误字段
+    const firstError = document.querySelector('.form-input.error, .form-select.error');
+    if (firstError) {
+      firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      firstError.focus?.();
+    }
+    return;
+  }
+
+  const data = collectFormData();
+  console.log('提交数据:', JSON.stringify(data, null, 2));
+
+  // 显示提交中状态
+  const btn = document.querySelector('.btn-save');
+  btn.textContent = '⏳ 提交中...';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    btn.textContent = '✓ 提交咨询单';
+    btn.disabled = false;
+    showToast('✅ 咨询单提交成功！');
+    // 实际场景这里会跳转或刷新
+  }, 1200);
+}
+
+// ====== Collect All Form Data ======
+function collectFormData() {
+  return {
+    // 预订人
+    customerType: document.getElementById('customerType').value,
+    phone: document.getElementById('phone').value,
+    email: document.getElementById('email').value,
+
+    // 单据来源
+    source: document.getElementById('source').value,
+    subSource: document.getElementById('subSource').value,
+    referrer: referrerData ? { name: referrerData.name, phone: referrerData.phone, email: referrerData.email, level: referrerData.level } : document.getElementById('referrer').value || null,
+    cityAmbassador: selectedAmbassador ? { id: selectedAmbassador.id, name: selectedAmbassador.name, phone: selectedAmbassador.phone } : null,
+    salesPerson: document.getElementById('salesPerson').value,
+    noSalesPerson: document.querySelector('.checkbox-custom.checked') !== null,
+
+    // 行程意向
+    departureCity: document.getElementById('departureCity').value,
+    destinationCity: document.getElementById('destinationCity').value,
+    departDate: document.getElementById('departDate').value,
+    tripDays: document.getElementById('tripDays').value,
+    hotelPreference: document.getElementById('hotelPreference').value,
+    productName: document.getElementById('productName').value,
+
+    // 人数
+    adultCount: document.getElementById('adultCount').value,
+    bigChildCount: document.getElementById('bigChildCount').value,
+    midChildCount: document.getElementById('midChildCount').value,
+    smallChildCount: document.getElementById('smallChildCount').value,
+    foreignerCount: document.getElementById('foreignerCount').value,
+    hkTwCount: document.getElementById('hkTwCount').value,
+    elderlyCount: document.getElementById('elderlyCount').value,
+
+    // 其他
+    pickupService: document.getElementById('pickupService').value,
+    productIntent: document.getElementById('productIntent').value,
+
+    // 更多需求
+    specifiedActivity: document.getElementById('specifiedActivity').value,
+    specifiedHotel: document.getElementById('specifiedHotel').value,
+    specifiedMeal: document.getElementById('specifiedMeal').value,
+    specifiedDriver: document.getElementById('specifiedDriver').value,
+    roomArrangement: document.getElementById('roomArrangement').value,
+    roomDecoration: document.getElementById('roomDecoration').value,
+    groupJoin: document.getElementById('groupJoin').value,
+    guestRequirements: document.getElementById('guestRequirements').value,
+
+    // 咨询单信息
+    priority: document.getElementById('priority').value,
+    guestIntent: document.getElementById('guestIntent').value,
+  };
+}
+
+// ====== Init: set default date to tomorrow ======
+(function init() {
+  const d = new Date();
+  d.setDate(d.getDate() + 7); // 默认一周后
+  const dateStr = d.toISOString().split('T')[0];
+  document.getElementById('departDate').value = dateStr;
+})();
+</script>
+
+</body>
+</html>

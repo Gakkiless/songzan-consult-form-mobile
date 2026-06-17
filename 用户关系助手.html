@@ -11,19 +11,19 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingF
 /* ====== 顶栏 ====== */
 .top-bar { background: #fff; border-bottom: 1px solid #e8e8e8; padding: 0 24px; display: flex; align-items: center; height: 48px; gap: 16px; position: sticky; top: 0; z-index: 100; }
 .top-logo { font-size: 15px; font-weight: 600; color: #333; white-space: nowrap; }
-.top-logo em { font-style: normal; color: #1890ff; }
+.top-logo em { font-style: normal; color: #000000; }
 .top-spacer { flex: 1; }
 
 /* 用户头像 */
 .user-avatar { display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
 .user-avatar:hover { background: #F5F5F5; }
 .user-avatar .name { font-size: 13px; color: #333; font-weight: 500; }
-.user-avatar .icon { width: 28px; height: 28px; border-radius: 50%; background: #1890ff; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
+.user-avatar .icon { width: 28px; height: 28px; border-radius: 50%; background: #000000; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
 
 /* 销售切换 */
 .sales-switcher { position: relative; }
 .sales-switcher-btn { display: flex; align-items: center; gap: 6px; padding: 4px 12px; border: 1px solid #d9d9d9; border-radius: 6px; cursor: pointer; font-size: 13px; color: #333; background: #fff; transition: all .2s; }
-.sales-switcher-btn:hover { border-color: #1890ff; color: #1890ff; }
+.sales-switcher-btn:hover { border-color: #000000; color: #000000; }
 .sales-switcher-btn .current-sales { font-weight: 500; max-width: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sales-switcher-btn .arrow { font-size: 10px; color: #999; transition: transform .2s; }
 .sales-switcher-btn.open .arrow { transform: rotate(180deg); }
@@ -32,21 +32,21 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingF
 .sales-dropdown-header { padding: 8px 12px; font-size: 11px; color: #999; border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; background: #fff; z-index: 1; }
 .sales-dropdown-item { display: flex; align-items: center; gap: 8px; padding: 8px 12px; cursor: pointer; font-size: 13px; color: #333; transition: background .15s; }
 .sales-dropdown-item:hover { background: #F5F5F5; }
-.sales-dropdown-item.active { color: #1890ff; font-weight: 500; background: #E6F7FF; }
+.sales-dropdown-item.active { color: #000000; font-weight: 500; background: #f5f5f5; }
 .sales-dropdown-item .sales-avatar { width: 24px; height: 24px; border-radius: 50%; background: #f0f0f0; color: #666; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; flex-shrink: 0; }
-.sales-dropdown-item.active .sales-avatar { background: #1890ff; color: #fff; }
+.sales-dropdown-item.active .sales-avatar { background: #000000; color: #fff; }
 .sales-dropdown-item .sales-info { flex: 1; min-width: 0; }
 .sales-dropdown-item .sales-name { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sales-dropdown-item .sales-region { font-size: 11px; color: #999; }
-.sales-dropdown-item.active .sales-region { color: #69c0ff; }
+.sales-dropdown-item.active .sales-region { color: #8c8c8c; }
 
 /* ====== 快捷入口条 ====== */
 .shortcut-bar { background: #fff; border-bottom: 1px solid #e8e8e8; padding: 14px 24px; display: flex; align-items: center; gap: 16px; }
 .shortcut-label { font-size: 13px; color: #999; white-space: nowrap; }
 .shortcut-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 24px; border: 1px solid #d9d9d9; border-radius: 6px; font-size: 14px; color: #333; cursor: pointer; background: #fff; transition: .2s; font-family: inherit; }
-.shortcut-btn:hover { color: #1890ff; border-color: #1890ff; }
-.shortcut-btn.primary { background: #1890ff; color: #fff; border-color: #1890ff; }
-.shortcut-btn.primary:hover { background: #40a9ff; border-color: #40a9ff; }
+.shortcut-btn:hover { color: #000000; border-color: #000000; }
+.shortcut-btn.primary { background: #000000; color: #fff; border-color: #000000; }
+.shortcut-btn.primary:hover { background: #595959; border-color: #595959; }
 
 /* ====== 主内容区 ====== */
 .page-container { max-width: 1440px; margin: 0 auto; padding: 16px 24px; }
@@ -59,7 +59,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingF
 /* ====== 上方：待办事项 ====== */
 .todo-section { margin-bottom: 0; }
 .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.section-title { font-size: 15px; font-weight: 600; border-left: 3px solid #1890ff; padding-left: 8px; display: flex; align-items: center; gap: 8px; }
+.section-title { font-size: 15px; font-weight: 600; border-left: 3px solid #000000; padding-left: 8px; display: flex; align-items: center; gap: 8px; }
 .badge { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; border-radius: 10px; font-size: 11px; font-weight: 600; padding: 0 6px; }
 .badge-red { background: #F5222D; color: #fff; }
 .badge-orange { background: #FA8C16; color: #fff; }
@@ -67,16 +67,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingF
 /* 待办筛选 */
 .todo-filters { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; align-items: center; }
 .filter-tag { padding: 4px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; border: 1px solid #d9d9d9; background: #fff; color: #666; transition: .2s; }
-.filter-tag:hover { color: #1890ff; border-color: #1890ff; }
-.filter-tag.active { background: #1890ff; color: #fff; border-color: #1890ff; }
+.filter-tag:hover { color: #000000; border-color: #000000; }
+.filter-tag.active { background: #000000; color: #fff; border-color: #000000; }
 .filter-sep { width: 1px; height: 16px; background: #e8e8e8; }
 
 /* 标签筛选 */
 .tag-filter-group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .tag-filter-label { font-size: 12px; color: #999; }
 .tag-chip { padding: 2px 10px; border-radius: 12px; font-size: 11px; cursor: pointer; border: 1px solid #e8e8e8; background: #fff; color: #666; transition: .2s; white-space: nowrap; }
-.tag-chip:hover { border-color: #1890ff; color: #1890ff; }
-.tag-chip.active { border-color: #1890ff; color: #1890ff; background: #E6F7FF; }
+.tag-chip:hover { border-color: #000000; color: #000000; }
+.tag-chip.active { border-color: #000000; color: #000000; background: #f5f5f5; }
 
 /* 待办卡片列表 — 单列纵向排列 */
 .todo-card-list { display: grid; grid-template-columns: 1fr; gap: 12px; max-height: 800px; overflow-y: auto; padding-right: 4px; }
@@ -84,17 +84,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingF
 .todo-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,.08); }
 .todo-card.overdue { border-left: 3px solid #F5222D; background: #FFF1F0; }
 .todo-card.today { border-left: 3px solid #FA8C16; background: #FFF7E6; }
-.todo-card.upcoming { border-left: 3px solid #1890FF; }
+.todo-card.upcoming { border-left: 3px solid #000000; }
 
 .todo-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
 .todo-member-info { display: flex; align-items: center; gap: 8px; }
 .todo-member { font-size: 14px; font-weight: 600; color: #333; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .todo-member .card-tag { font-size: 11px; color: #999; font-weight: 400; }
-.todo-sales { font-size: 11px; color: #1890ff; background: #E6F7FF; padding: 1px 6px; border-radius: 3px; }
+.todo-sales { font-size: 11px; color: #000000; background: #f5f5f5; padding: 1px 6px; border-radius: 3px; }
 .todo-status { font-size: 11px; padding: 2px 8px; border-radius: 3px; font-weight: 500; white-space: nowrap; }
 .todo-status.overdue { background: #FFF1F0; color: #F5222D; border: 1px solid #FFCCC7; }
 .todo-status.today { background: #FFF7E6; color: #FA8C16; border: 1px solid #FFD591; }
-.todo-status.upcoming { background: #E6F7FF; color: #1890FF; border: 1px solid #91D5FF; }
+.todo-status.upcoming { background: #f5f5f5; color: #000000; border: 1px solid #91D5FF; }
 
 .todo-content { font-size: 13px; color: #666; margin-bottom: 8px; line-height: 1.6; }
 
@@ -103,12 +103,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingF
 .customer-type-tag { font-size: 10px; padding: 1px 6px; border-radius: 2px; font-weight: 500; }
 .type-vip { background: #FFF1F0; color: #CF1322; border: 1px solid #FFCCC7; }
 .type-key { background: #FFF7E6; color: #AD6800; border: 1px solid #FFD591; }
-.type-active { background: #E6F7FF; color: #096DD9; border: 1px solid #91D5FF; }
+.type-active { background: #f5f5f5; color: #096DD9; border: 1px solid #91D5FF; }
 .type-normal { background: #F5F5F5; color: #666; border: 1px solid #D9D9D9; }
 .type-sleep { background: #F0F0F0; color: #999; border: 1px solid #D9D9D9; }
 
 /* 兴趣标签（卡片内） */
-.interest-tag { font-size: 10px; padding: 1px 6px; border-radius: 10px; background: #F9F0FF; color: #722ED1; }
+.interest-tag { font-size: 10px; padding: 1px 6px; border-radius: 10px; background: #F9F0FF; color: #531dab; }
 .follow-status-tag { font-size: 10px; padding: 1px 6px; border-radius: 10px; }
 .follow-need { background: #FFF1F0; color: #F5222D; }
 .follow-soon { background: #FFF7E6; color: #FA8C16; }
@@ -116,8 +116,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingF
 
 .todo-card-footer { display: flex; align-items: center; justify-content: space-between; }
 .todo-meta { font-size: 11px; color: #999; display: flex; gap: 12px; flex-wrap: wrap; }
-.todo-action { font-size: 12px; color: #1890ff; cursor: pointer; padding: 2px 8px; border-radius: 3px; }
-.todo-action:hover { background: #E6F7FF; }
+.todo-action { font-size: 12px; color: #000000; cursor: pointer; padding: 2px 8px; border-radius: 3px; }
+.todo-action:hover { background: #f5f5f5; }
 
 .todo-empty { text-align: center; padding: 32px; color: #999; font-size: 13px; background: #fff; border-radius: 6px; border: 1px dashed #d9d9d9; }
 
@@ -128,17 +128,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingF
 .record-stats { display: flex; gap: 20px; align-items: center; }
 .record-stat-item { text-align: center; }
 .record-stat-item.clickable { cursor: pointer; border-radius: 6px; padding: 6px 12px; transition: .15s; }
-.record-stat-item.clickable:hover { background: rgba(24,144,255,.08); transform: translateY(-1px); }
+.record-stat-item.clickable:hover { background: rgba(0,0,0,.08); transform: translateY(-1px); }
 .record-stat-num { font-size: 20px; font-weight: 600; line-height: 1.2; }
 .record-stat-num.green { color: #52C41A; }
-.record-stat-num.blue { color: #1890FF; }
+.record-stat-num.blue { color: #000000; }
 .record-stat-label { font-size: 11px; color: #999; margin-top: 2px; }
 
 /* 筛选栏 */
 .filter-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
 .filter-bar label { font-size: 12px; color: #666; white-space: nowrap; }
 .filter-input { padding: 4px 10px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 12px; height: 28px; font-family: inherit; }
-.filter-input:focus { outline: none; border-color: #1890ff; }
+.filter-input:focus { outline: none; border-color: #000000; }
 .filter-select { padding: 4px 8px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 12px; height: 28px; font-family: inherit; cursor: pointer; }
 
 /* 表格 */
@@ -151,7 +151,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingF
 .member-cell { display: flex; align-items: center; gap: 8px; min-width: 150px; }
 .member-avatar { width: 30px; height: 30px; border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
 .member-info { line-height: 1.4; }
-.member-name { font-size: 13px; color: #1890ff; font-weight: 500; text-decoration: none; cursor: pointer; }
+.member-name { font-size: 13px; color: #000000; font-weight: 500; text-decoration: none; cursor: pointer; }
 .member-name:hover { text-decoration: underline; }
 .member-id { font-size: 11px; color: #999; }
 .member-tags-cell { display: flex; flex-direction: column; gap: 3px; min-width: 120px; }
@@ -165,16 +165,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingF
 .tag-wechat { background: #F6FFED; color: #389E0D; }
 
 /* 操作 */
-.action-link { color: #1890ff; cursor: pointer; font-size: 12px; white-space: nowrap; }
+.action-link { color: #000000; cursor: pointer; font-size: 12px; white-space: nowrap; }
 .action-link:hover { text-decoration: underline; }
 .action-divider { color: #E8E8E8; margin: 0 4px; }
 
 /* 按钮组 */
 .btn-group { display: flex; gap: 8px; }
 .btn { padding: 5px 16px; font-size: 13px; border: 1px solid #d9d9d9; background: #fff; color: #333; cursor: pointer; border-radius: 4px; font-family: inherit; transition: .2s; }
-.btn:hover { color: #1890ff; border-color: #1890ff; }
-.btn-primary { background: #1890ff; color: #fff; border-color: #1890ff; }
-.btn-primary:hover { background: #40a9ff; border-color: #40a9ff; color: #fff; }
+.btn:hover { color: #000000; border-color: #000000; }
+.btn-primary { background: #000000; color: #fff; border-color: #000000; }
+.btn-primary:hover { background: #595959; border-color: #595959; color: #fff; }
 .btn-sm { padding: 3px 10px; font-size: 12px; }
 
 /* 分页 */
@@ -182,8 +182,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingF
 .page-sizes { display: flex; align-items: center; gap: 8px; }
 .page-info { display: flex; align-items: center; gap: 6px; }
 .page-btn { padding: 4px 10px; border: 1px solid #d9d9d9; border-radius: 4px; background: #fff; cursor: pointer; font-size: 12px; font-family: inherit; color: #333; }
-.page-btn.active { border-color: #1890ff; color: #1890ff; }
-.page-btn:hover { color: #1890ff; border-color: #1890ff; }
+.page-btn.active { border-color: #000000; color: #000000; }
+.page-btn:hover { color: #000000; border-color: #000000; }
 
 /* ====== 弹窗（新增维护记录）====== */
 .modal-mask { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,.45); z-index: 1000; justify-content: center; align-items: center; }
@@ -202,7 +202,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingF
 .form-label .req { color: #F5222D; margin-left: 2px; }
 .form-label .tip { font-size: 11px; color: #999; font-weight: 400; margin-left: 8px; }
 .m-input { width: 100%; padding: 6px 12px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 13px; height: 32px; font-family: inherit; }
-.m-input:focus { outline: none; border-color: #1890ff; box-shadow: 0 0 0 2px rgba(24,144,255,.15); }
+.m-input:focus { outline: none; border-color: #000000; box-shadow: 0 0 0 2px rgba(0,0,0,.12); }
 textarea.m-input { min-height: 60px; resize: vertical; height: auto; }
 select.m-input { cursor: pointer; }
 .m-hint { font-size: 11px; color: #999; margin-top: 4px; }
@@ -216,20 +216,20 @@ select.m-input { cursor: pointer; }
 .log-table th { background: #FAFAFA; padding: 8px 12px; text-align: left; font-weight: 500; color: #666; border-bottom: 1px solid #e8e8e8; }
 .log-table td { padding: 8px 12px; border-bottom: 1px solid #F0F0F0; }
 .type-add { color: #52C41A; font-size: 11px; }
-.type-edit { color: #1890ff; font-size: 11px; }
+.type-edit { color: #000000; font-size: 11px; }
 .type-del { color: #F5222D; font-size: 11px; }
 
 /* ====== 会员查询弹窗 ====== */
 .search-modal { width: 800px; }
 .search-bar { display: flex; gap: 10px; margin-bottom: 14px; align-items: center; }
 .search-bar .m-input { height: 34px; font-size: 13px; }
-.search-bar .m-input:focus { border-color: #1890ff; box-shadow: 0 0 0 2px rgba(24,144,255,.15); }
+.search-bar .m-input:focus { border-color: #000000; box-shadow: 0 0 0 2px rgba(0,0,0,.12); }
 .search-result-count { font-size: 12px; color: #999; margin-bottom: 10px; }
 .search-list { max-height: 280px; overflow-y: auto; border: 1px solid #e8e8e8; border-radius: 4px; }
 .search-list-item { display: flex; align-items: center; padding: 10px 14px; border-bottom: 1px solid #F0F0F0; cursor: pointer; transition: .15s; }
-.search-list-item:hover { background: #E6F7FF; }
+.search-list-item:hover { background: #f5f5f5; }
 .search-list-item:last-child { border-bottom: none; }
-.search-list-item.active { background: #E6F7FF; border-left: 3px solid #1890ff; }
+.search-list-item.active { background: #f5f5f5; border-left: 3px solid #000000; }
 .search-list-avatar { width: 36px; height: 36px; border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; flex-shrink: 0; }
 .search-list-info { flex: 1; margin-left: 10px; }
 .search-list-name { font-size: 14px; font-weight: 600; color: #333; display: flex; align-items: center; gap: 6px; }
@@ -240,7 +240,7 @@ select.m-input { cursor: pointer; }
 
 /* 会员详情面板 */
 .member-detail { border: 1px solid #e8e8e8; border-radius: 6px; overflow: hidden; margin-top: 14px; }
-.detail-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 16px 20px; color: #fff; display: flex; align-items: center; gap: 14px; }
+.detail-header { background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%); padding: 16px 20px; color: #fff; display: flex; align-items: center; gap: 14px; }
 .detail-avatar { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,.25); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 600; }
 .detail-name { font-size: 18px; font-weight: 600; }
 .detail-sub { font-size: 12px; opacity: .85; margin-top: 2px; }
@@ -254,7 +254,7 @@ select.m-input { cursor: pointer; }
 .detail-section { margin-top: 14px; }
 .detail-section-title { font-size: 13px; font-weight: 600; color: #333; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #F0F0F0; }
 .detail-relation { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 12px; }
-.detail-relation .name { color: #1890ff; cursor: pointer; }
+.detail-relation .name { color: #000000; cursor: pointer; }
 .detail-relation .name:hover { text-decoration: underline; }
 .detail-relation .rel-type { color: #999; background: #F5F5F5; padding: 1px 6px; border-radius: 3px; font-size: 11px; }
 .detail-actions { margin-top: 16px; padding-top: 14px; border-top: 1px solid #e8e8e8; display: flex; gap: 10px; justify-content: flex-end; }
@@ -262,8 +262,8 @@ select.m-input { cursor: pointer; }
 .btn-claim:hover { background: #73D13D; border-color: #73D13D; color: #fff; }
 .btn-claimed { background: #F5F5F5; color: #999; border-color: #D9D9D9; cursor: not-allowed; }
 .btn-claimed:hover { background: #F5F5F5; border-color: #D9D9D9; color: #999; }
-.btn-goto { background: #1890ff; color: #fff; border-color: #1890ff; }
-.btn-goto:hover { background: #40a9ff; border-color: #40a9ff; color: #fff; }
+.btn-goto { background: #000000; color: #fff; border-color: #000000; }
+.btn-goto:hover { background: #595959; border-color: #595959; color: #fff; }
 
 /* ====== 标签体系扩展 ====== */
 /* 出行人关系标签 */
@@ -296,16 +296,16 @@ select.m-input { cursor: pointer; }
 /* 内联编辑 */
 .edit-icon { font-size: 11px; cursor: pointer; opacity: 0.55; transition: opacity .15s; user-select: none; }
 .edit-icon:hover { opacity: 1; }
-.inline-edit-input { font-size: 13px; padding: 2px 6px; border: 1px solid #1890ff; border-radius: 3px; outline: none; width: 140px; font-family: inherit; }
-.edit-save-btn { font-size: 11px; padding: 2px 8px; background: #1890ff; color: #fff; border-radius: 3px; cursor: pointer; margin-left: 4px; user-select: none; }
-.edit-save-btn:hover { background: #40a9ff; }
+.inline-edit-input { font-size: 13px; padding: 2px 6px; border: 1px solid #000000; border-radius: 3px; outline: none; width: 140px; font-family: inherit; }
+.edit-save-btn { font-size: 11px; padding: 2px 8px; background: #000000; color: #fff; border-radius: 3px; cursor: pointer; margin-left: 4px; user-select: none; }
+.edit-save-btn:hover { background: #595959; }
 .edit-cancel-btn { font-size: 11px; padding: 2px 6px; color: #999; cursor: pointer; margin-left: 2px; user-select: none; }
 .edit-cancel-btn:hover { color: #333; }
 /* 字段变更日志 */
 .change-log-item { display: flex; align-items: baseline; gap: 6px; font-size: 11px; padding: 4px 0; border-bottom: 1px dashed #F0F0F0; color: #555; }
 .change-log-item:last-child { border-bottom: none; }
 .change-log-time { color: #999; white-space: nowrap; flex-shrink: 0; }
-.change-log-field { color: #1890ff; font-weight: 500; flex-shrink: 0; }
+.change-log-field { color: #000000; font-weight: 500; flex-shrink: 0; }
 .change-log-arrow { color: #999; flex-shrink: 0; }
 .change-log-old { text-decoration: line-through; color: #999; }
 .change-log-new { color: #333; font-weight: 500; }
@@ -410,7 +410,7 @@ select.m-input { cursor: pointer; }
         <div class="todo-filters">
           <span class="filter-tag active" onclick="switchTodoTab(this,'pending')" style="color:#F5222D;border-color:#FFCCC7;">已过期 <b>5</b></span>
           <span class="filter-tag" onclick="switchTodoTab(this,'today')" style="color:#FA8C16;border-color:#FFD591;">今日到期 <b>3</b></span>
-          <span class="filter-tag" onclick="switchTodoTab(this,'upcoming')" style="color:#1890FF;border-color:#91D5FF;">即将到期 <b>8</b></span>
+          <span class="filter-tag" onclick="switchTodoTab(this,'upcoming')" style="color:#000000;border-color:#91D5FF;">即将到期 <b>8</b></span>
           <span class="filter-tag" onclick="switchTodoTab(this,'done')" style="color:#52C41A;border-color:#B7EB8F;">标记完成 <b>4</b></span>
           <span class="filter-tag" onclick="switchTodoTab(this,'all')" style="color:#333;border-color:#d9d9d9;">全部 <b>20</b></span>
         </div>
@@ -749,19 +749,23 @@ select.m-input { cursor: pointer; }
           <div style="display:flex;align-items:center;gap:16px;">
             <div class="record-stats">
               <div class="record-stat-item clickable" onclick="showGroupDetail('repurchase')">
-                <div class="record-stat-num" style="color:#F5222D;">8</div>
+                <div class="record-stat-num" style="color:#F5222D;" id="stat-repurchase">8</div>
                 <div class="record-stat-label">当年复购非核心-优先维护</div>
               </div>
               <div class="record-stat-item clickable" onclick="showGroupDetail('firstbuy')">
-                <div class="record-stat-num" style="color:#FA8C16;">23</div>
+                <div class="record-stat-num" style="color:#FA8C16;" id="stat-firstbuy">23</div>
                 <div class="record-stat-label">当年首购非核心-建议维护</div>
               </div>
-              <div class="record-stat-item">
-                <div class="record-stat-num green">156</div>
-                <div class="record-stat-label">名下会员数</div>
+              <div class="record-stat-item clickable" onclick="showGroupDetail('core')">
+                <div class="record-stat-num green" id="stat-core">156</div>
+                <div class="record-stat-label">我的核心客户</div>
+              </div>
+              <div class="record-stat-item clickable" onclick="showGroupDetail('asset')">
+                <div class="record-stat-num" style="color:#000000;" id="stat-asset">0</div>
+                <div class="record-stat-label">我的客户资产</div>
               </div>
               <div class="record-stat-item">
-                <div class="record-stat-num blue">42</div>
+                <div class="record-stat-num blue" id="stat-month">42</div>
                 <div class="record-stat-label">本月维护次数</div>
               </div>
             </div>
@@ -807,7 +811,7 @@ select.m-input { cursor: pointer; }
           </thead>
           <tbody id="recordTableBody">
             <tr data-rid="r1" data-sales="廖文娟" data-travel-season="秋季（9-11月）" data-travel-group="夫妻出行" data-travel-budget="20,000-50,000" data-travel-days="7-10天" data-travel-pref="自然风光">
-              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">1</td>
+              <td style="color:#000000;font-size:12px;white-space:nowrap;">1</td>
               <td style="color:#999;font-size:12px;">MD80003456</td>
               <td style="color:#999;font-size:12px;">2026-04-17 16:32:15</td>
               <td>
@@ -829,7 +833,7 @@ select.m-input { cursor: pointer; }
             </tr>
 
             <tr data-rid="r2" data-sales="曾卓">
-              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">2</td>
+              <td style="color:#000000;font-size:12px;white-space:nowrap;">2</td>
               <td style="color:#999;font-size:12px;">MD80005678</td>
               <td style="color:#999;font-size:12px;">2026-04-16 14:05:22</td>
               <td>
@@ -851,7 +855,7 @@ select.m-input { cursor: pointer; }
             </tr>
 
             <tr data-rid="r3" data-sales="王翊" data-travel-season="冬季（12-2月）" data-travel-group="夫妻出行" data-travel-budget="50,000以上" data-travel-days="7-10天" data-travel-pref="奢享度假">
-              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">3</td>
+              <td style="color:#000000;font-size:12px;white-space:nowrap;">3</td>
               <td style="color:#999;font-size:12px;">MD80008888</td>
               <td style="color:#999;font-size:12px;">2026-04-16 10:18:05</td>
               <td>
@@ -873,7 +877,7 @@ select.m-input { cursor: pointer; }
             </tr>
 
             <tr data-rid="r4" data-sales="郑文婷">
-              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">4</td>
+              <td style="color:#000000;font-size:12px;white-space:nowrap;">4</td>
               <td style="color:#999;font-size:12px;">MD80007890</td>
               <td style="color:#999;font-size:12px;">2026-04-15 11:23:08</td>
               <td>
@@ -895,7 +899,7 @@ select.m-input { cursor: pointer; }
             </tr>
 
             <tr data-rid="r5" data-sales="苏凝影" data-travel-season="夏季（6-8月）" data-travel-group="朋友结伴" data-travel-budget="10,000-20,000" data-travel-days="11-15天" data-travel-pref="户外徒步">
-              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">5</td>
+              <td style="color:#000000;font-size:12px;white-space:nowrap;">5</td>
               <td style="color:#999;font-size:12px;">MD80009012</td>
               <td style="color:#999;font-size:12px;">2026-04-13 09:15:33</td>
               <td>
@@ -917,12 +921,12 @@ select.m-input { cursor: pointer; }
             </tr>
 
             <tr data-rid="r6" data-sales="赵岍" data-travel-season="夏季（6-8月）" data-travel-group="朋友结伴" data-travel-budget="10,000-20,000" data-travel-days="7-10天" data-travel-pref="自然风光">
-              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">6</td>
+              <td style="color:#000000;font-size:12px;white-space:nowrap;">6</td>
               <td style="color:#999;font-size:12px;">MD80001234</td>
               <td style="color:#999;font-size:12px;">2026-04-12 14:05:22</td>
               <td>
                 <div class="member-cell">
-                  <div class="member-avatar" style="background:#1890ff;">王</div>
+                  <div class="member-avatar" style="background:#000000;">王</div>
                   <div class="member-info">
                     <a class="member-name">王建明</a>
                     <div class="member-id">138****5678 · 金刚</div>
@@ -939,12 +943,12 @@ select.m-input { cursor: pointer; }
             </tr>
 
             <tr data-rid="r7" data-sales="王倩">
-              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">7</td>
+              <td style="color:#000000;font-size:12px;white-space:nowrap;">7</td>
               <td style="color:#999;font-size:12px;">MD80002345</td>
               <td style="color:#999;font-size:12px;">2026-04-10 10:30:41</td>
               <td>
                 <div class="member-cell">
-                  <div class="member-avatar" style="background:#722ED1;">孙</div>
+                  <div class="member-avatar" style="background:#531dab;">孙</div>
                   <div class="member-info">
                     <a class="member-name">孙丽华</a>
                     <div class="member-id">139****1234 · 金刚</div>
@@ -961,7 +965,7 @@ select.m-input { cursor: pointer; }
             </tr>
 
             <tr data-rid="r8" data-sales="张金鸿" data-travel-season="春季（3-5月）" data-travel-group="朋友结伴" data-travel-budget="20,000-50,000" data-travel-days="11-15天" data-travel-pref="户外徒步">
-              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">8</td>
+              <td style="color:#000000;font-size:12px;white-space:nowrap;">8</td>
               <td style="color:#999;font-size:12px;">MD80004567</td>
               <td style="color:#999;font-size:12px;">2026-04-08 16:42:19</td>
               <td>
@@ -983,7 +987,7 @@ select.m-input { cursor: pointer; }
             </tr>
 
             <tr data-rid="r9" data-sales="张嵩">
-              <td style="color:#1890ff;font-size:12px;white-space:nowrap;">9</td>
+              <td style="color:#000000;font-size:12px;white-space:nowrap;">9</td>
               <td style="color:#999;font-size:12px;">MD80009999</td>
               <td style="color:#999;font-size:12px;">2026-04-05 09:00:00</td>
               <td>
@@ -1041,7 +1045,7 @@ select.m-input { cursor: pointer; }
     <div class="modal-body">
       <!-- 当前会员（由会员查询带入，不可修改） -->
       <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#F6FFED;border:1px solid #B7EB8F;border-radius:6px;margin-bottom:16px;">
-        <div class="member-avatar" style="background:#1890ff;width:32px;height:32px;font-size:13px;" id="modalAvatar">王</div>
+        <div class="member-avatar" style="background:#000000;width:32px;height:32px;font-size:13px;" id="modalAvatar">王</div>
         <div>
           <div style="font-size:14px;font-weight:600;color:#333;" id="modalMemberName">王建明</div>
           <div style="font-size:11px;color:#999;" id="modalMemberMeta">MD80001234 · 金刚 · VIP客户</div>
@@ -1179,7 +1183,7 @@ select.m-input { cursor: pointer; }
         </thead>
         <tbody id="logTableBody">
           <tr data-rid="r1" data-sales="廖文娟">
-            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">1</td>
+            <td style="color:#000000;font-size:12px;white-space:nowrap;">1</td>
             <td>2026-04-17 16:32</td>
             <td>赵岍</td>
             <td><span class="type-add">新增</span></td>
@@ -1188,7 +1192,7 @@ select.m-input { cursor: pointer; }
             <td>新增维护记录：电话回访 — 客户咨询来古冰川行程</td>
           </tr>
           <tr data-rid="r2" data-sales="曾卓">
-            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">2</td>
+            <td style="color:#000000;font-size:12px;white-space:nowrap;">2</td>
             <td>2026-04-16 14:05</td>
             <td>廖文娟</td>
             <td><span class="type-add">新增</span></td>
@@ -1197,7 +1201,7 @@ select.m-input { cursor: pointer; }
             <td>新增维护记录：微信沟通 — 客户咨询暑期亲子路线</td>
           </tr>
           <tr data-rid="r3" data-sales="王翊">
-            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">3</td>
+            <td style="color:#000000;font-size:12px;white-space:nowrap;">3</td>
             <td>2026-04-16 10:18</td>
             <td>张金鸿</td>
             <td><span class="type-add">新增</span></td>
@@ -1206,7 +1210,7 @@ select.m-input { cursor: pointer; }
             <td>新增维护记录：线下拜访 — 客户到店体验高端定制</td>
           </tr>
           <tr data-rid="r4" data-sales="郑文婷">
-            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">4</td>
+            <td style="color:#000000;font-size:12px;white-space:nowrap;">4</td>
             <td>2026-04-15 11:23</td>
             <td>杨慧中</td>
             <td><span class="type-add">新增</span></td>
@@ -1215,7 +1219,7 @@ select.m-input { cursor: pointer; }
             <td>新增维护记录：电话回访 — 跟进会员续费意向</td>
           </tr>
           <tr data-rid="r5" data-sales="苏凝影">
-            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">5</td>
+            <td style="color:#000000;font-size:12px;white-space:nowrap;">5</td>
             <td>2026-04-13 09:15</td>
             <td>苏凝影</td>
             <td><span class="type-add">新增</span></td>
@@ -1224,7 +1228,7 @@ select.m-input { cursor: pointer; }
             <td>新增维护记录：微信沟通 — 南迦巴瓦徒步路线确认</td>
           </tr>
           <tr data-rid="r6" data-sales="赵岍">
-            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">6</td>
+            <td style="color:#000000;font-size:12px;white-space:nowrap;">6</td>
             <td>2026-04-12 14:05</td>
             <td>赵岍</td>
             <td><span class="type-add">新增</span></td>
@@ -1233,7 +1237,7 @@ select.m-input { cursor: pointer; }
             <td>新增维护记录：线下拜访 — 梅里雪山路线沟通</td>
           </tr>
           <tr data-rid="r7" data-sales="王倩">
-            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">7</td>
+            <td style="color:#000000;font-size:12px;white-space:nowrap;">7</td>
             <td>2026-04-10 10:30</td>
             <td>李海燕</td>
             <td><span class="type-add">新增</span></td>
@@ -1242,7 +1246,7 @@ select.m-input { cursor: pointer; }
             <td>新增维护记录：线下拜访 — 客户想了解藏东新线路</td>
           </tr>
           <tr data-rid="r8" data-sales="张金鸿">
-            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">8</td>
+            <td style="color:#000000;font-size:12px;white-space:nowrap;">8</td>
             <td>2026-04-08 16:42</td>
             <td>张金鸿</td>
             <td><span class="type-add">新增</span></td>
@@ -1251,7 +1255,7 @@ select.m-input { cursor: pointer; }
             <td>新增维护记录：电话回访 — 藏东自驾线路成团评估</td>
           </tr>
           <tr data-rid="r9" data-sales="张嵩">
-            <td style="color:#1890ff;font-size:12px;white-space:nowrap;">9</td>
+            <td style="color:#000000;font-size:12px;white-space:nowrap;">9</td>
             <td>2026-04-05 09:00</td>
             <td>李海燕</td>
             <td><span class="type-add">新增</span></td>
@@ -1369,7 +1373,7 @@ select.m-input { cursor: pointer; }
             </div>
             <div class="detail-field">
               <div class="detail-field-label">最近维护日期</div>
-              <div class="detail-field-value" id="detailLastMaint" style="color:#1890ff;">—</div>
+              <div class="detail-field-value" id="detailLastMaint" style="color:#000000;">—</div>
             </div>
             <div class="detail-field">
               <div class="detail-field-label">最近联系</div>
@@ -1409,7 +1413,7 @@ select.m-input { cursor: pointer; }
     <div class="modal-body" style="padding:20px 24px;">
       <!-- 会员信息行 -->
       <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:#FAFAFA;border-radius:6px;margin-bottom:16px;">
-        <div id="dtAvatar" style="width:36px;height:36px;border-radius:50%;background:#1890FF;color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">王</div>
+        <div id="dtAvatar" style="width:36px;height:36px;border-radius:50%;background:#000000;color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">王</div>
         <div>
           <div style="font-size:14px;font-weight:600;color:#333;" id="dtName">王建明 <span style="font-size:12px;color:#999;font-weight:400;">MD80001234 · 金刚</span></div>
           <div style="font-size:12px;color:#999;margin-top:2px;" id="dtPhone">138****5678</div>
@@ -1417,7 +1421,7 @@ select.m-input { cursor: pointer; }
       </div>
       <!-- 基础信息 -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin-bottom:16px;">
-        <div><span style="font-size:12px;color:#999;">维护记录ID</span><div style="font-size:13px;color:#1890ff;margin-top:2px;font-weight:500;" id="dtRecordId">—</div></div>
+        <div><span style="font-size:12px;color:#999;">维护记录ID</span><div style="font-size:13px;color:#000000;margin-top:2px;font-weight:500;" id="dtRecordId">—</div></div>
         <div><span style="font-size:12px;color:#999;">维护日期</span><div style="font-size:13px;color:#333;margin-top:2px;" id="dtDate">2026-04-17</div></div>
         <div><span style="font-size:12px;color:#999;">维护行为</span><div style="font-size:13px;margin-top:2px;" id="dtBehavior"></div></div>
         <div><span style="font-size:12px;color:#999;">更新时间</span><div style="font-size:13px;color:#999;margin-top:2px;" id="dtUpdated">2026-04-17 16:32:15</div></div>
@@ -1464,7 +1468,7 @@ select.m-input { cursor: pointer; }
     <div class="modal-body">
       <!-- 会员信息（只读展示） -->
       <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:#FAFAFA;border-radius:6px;margin-bottom:20px;">
-        <div id="editAvatar" style="width:36px;height:36px;border-radius:50%;background:#1890FF;color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">王</div>
+        <div id="editAvatar" style="width:36px;height:36px;border-radius:50%;background:#000000;color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">王</div>
         <div>
           <div style="font-size:14px;font-weight:600;color:#333;" id="editName">王建明 <span style="font-size:12px;color:#999;font-weight:400;">MD80001234 · 金刚</span></div>
           <div style="font-size:12px;color:#999;margin-top:2px;" id="editPhone">138****5678</div>
@@ -1509,18 +1513,77 @@ select.m-input { cursor: pointer; }
 
 <!-- ====== 客户分组明细弹窗 ====== -->
 <div class="modal-mask" id="groupDetailModal">
-  <div class="modal" style="width:960px;">
+  <div class="modal" style="width:1100px;">
     <div class="modal-header">
       <span class="modal-title" id="groupDetailTitle">📋 客户明细</span>
       <button class="modal-close" onclick="closeGroupDetailModal()">✕</button>
     </div>
     <div class="modal-body" style="padding:16px 20px;">
+      <!-- 搜索栏 -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
+        <input type="text" id="groupSearchInput" placeholder="搜索会员名称/卡号/手机号" style="flex:1;min-width:240px;height:34px;padding:0 12px;border:1px solid #d9d9d9;border-radius:6px;font-size:13px;font-family:inherit;outline:none;" oninput="applyGroupFilter()">
+        <button class="btn btn-sm" onclick="resetGroupFilter()" style="height:34px;">重置</button>
+        <span style="font-size:12px;color:#999;" id="groupResultCount">共 0 条</span>
+      </div>
+      <!-- 多选筛选栏 -->
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+        <!-- 会员等级 -->
+        <div class="gd-filter" data-key="level">
+          <div class="gd-filter-label">会员等级</div>
+          <div class="gd-filter-box" onclick="toggleGdFilter(this)">
+            <span class="gd-filter-ph">全部</span><span class="gd-filter-arrow">▾</span>
+          </div>
+          <div class="gd-filter-pop">
+            <label><input type="checkbox" value="金刚"> 金刚</label>
+            <label><input type="checkbox" value="莲"> 莲</label>
+            <label><input type="checkbox" value="雪莲"> 雪莲</label>
+            <label><input type="checkbox" value="绿绒蒿"> 绿绒蒿</label>
+            <label><input type="checkbox" value="格桑"> 格桑</label>
+          </div>
+        </div>
+        <!-- 客户类型 -->
+        <div class="gd-filter" data-key="custType">
+          <div class="gd-filter-label">客户类型</div>
+          <div class="gd-filter-box" onclick="toggleGdFilter(this)">
+            <span class="gd-filter-ph">全部</span><span class="gd-filter-arrow">▾</span>
+          </div>
+          <div class="gd-filter-pop">
+            <label><input type="checkbox" value="存量激活客"> 存量激活客</label>
+            <label><input type="checkbox" value="标准忠诚客"> 标准忠诚客</label>
+          </div>
+        </div>
+        <!-- 会员属性 -->
+        <div class="gd-filter" data-key="memberAttr">
+          <div class="gd-filter-label">会员属性</div>
+          <div class="gd-filter-box" onclick="toggleGdFilter(this)">
+            <span class="gd-filter-ph">全部</span><span class="gd-filter-arrow">▾</span>
+          </div>
+          <div class="gd-filter-pop">
+            <label><input type="checkbox" value="老会员"> 老会员</label>
+            <label><input type="checkbox" value="新会员"> 新会员</label>
+          </div>
+        </div>
+        <!-- 客户属性 -->
+        <div class="gd-filter" data-key="custAttr">
+          <div class="gd-filter-label">客户属性</div>
+          <div class="gd-filter-box" onclick="toggleGdFilter(this)">
+            <span class="gd-filter-ph">全部</span><span class="gd-filter-arrow">▾</span>
+          </div>
+          <div class="gd-filter-pop">
+            <label><input type="checkbox" value="老客"> 老客</label>
+            <label><input type="checkbox" value="新客"> 新客</label>
+          </div>
+        </div>
+      </div>
       <!-- 表格 -->
-      <div style="max-height:55vh;overflow-y:auto;border:1px solid #e8e8e8;border-radius:4px;">
+      <div style="max-height:48vh;overflow-y:auto;border:1px solid #e8e8e8;border-radius:4px;">
         <table class="log-table" id="groupTable" style="width:100%;border-collapse:collapse;font-size:12px;">
           <thead>
             <tr style="position:sticky;top:0;z-index:1;">
               <th style="background:#FAFAFA;padding:10px 10px;text-align:left;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">会员卡号</th>
+              <th style="background:#FAFAFA;padding:10px 10px;text-align:left;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">会员名称</th>
+              <th style="background:#FAFAFA;padding:10px 10px;text-align:left;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">手机号</th>
+              <th style="background:#FAFAFA;padding:10px 10px;text-align:left;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">会员等级</th>
               <th style="background:#FAFAFA;padding:10px 10px;text-align:left;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">注册时间</th>
               <th style="background:#FAFAFA;padding:10px 10px;text-align:left;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">客户类型</th>
               <th style="background:#FAFAFA;padding:10px 10px;text-align:left;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">销售员</th>
@@ -1543,6 +1606,39 @@ select.m-input { cursor: pointer; }
   </div>
 </div>
 
+<style>
+.gd-filter { position:relative; }
+.gd-filter-label { font-size:11px; color:#999; margin-bottom:4px; }
+.gd-filter-box {
+  display:flex; align-items:center; justify-content:space-between;
+  min-width:120px; height:32px; padding:0 10px;
+  border:1px solid #d9d9d9; border-radius:6px;
+  background:#fff; cursor:pointer; font-size:13px;
+  transition:border-color .2s;
+}
+.gd-filter-box:hover { border-color:#000000; }
+.gd-filter-box.active { border-color:#000000; box-shadow:0 0 0 2px rgba(0,0,0,.08); }
+.gd-filter-ph { color:#999; font-size:13px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; }
+.gd-filter-ph.has-val { color:#000000; font-weight:500; }
+.gd-filter-arrow { font-size:10px; color:#999; margin-left:6px; transition:transform .2s; }
+.gd-filter-box.active .gd-filter-arrow { transform:rotate(180deg); }
+.gd-filter-pop {
+  display:none; position:absolute; top:calc(100% + 4px); left:0; z-index:10;
+  min-width:140px; padding:8px;
+  background:#fff; border:1px solid #e8e8e8; border-radius:6px;
+  box-shadow:0 4px 16px rgba(0,0,0,.12);
+  max-height:200px; overflow-y:auto;
+}
+.gd-filter-pop.show { display:block; }
+.gd-filter-pop label {
+  display:flex; align-items:center; gap:6px;
+  padding:5px 6px; font-size:13px; color:#333;
+  cursor:pointer; border-radius:4px; transition:background .15s;
+}
+.gd-filter-pop label:hover { background:#fafafa; }
+.gd-filter-pop input[type="checkbox"] { accent-color:#000000; cursor:pointer; }
+</style>
+
 <script>
 function openModal() { document.getElementById('addModal').classList.add('show'); }
 function closeModal() { document.getElementById('addModal').classList.remove('show'); }
@@ -1553,6 +1649,13 @@ function closeEditModal() { document.getElementById('editModal').classList.remov
 function closeGroupDetailModal() { document.getElementById('groupDetailModal').classList.remove('show'); }
 
 // ============ 客户分组明细弹窗 ============
+// 会员等级/姓名/手机号映射表（根据 memberId 关联 memberDB）
+function getMemberExtra(memberId) {
+  var m = (typeof memberDB !== 'undefined') ? memberDB.find(function(x){return x.id===memberId;}) : null;
+  if (!m) return { name:'—', phone:'—', level:'—' };
+  return { name: m.name, phone: m.phone, level: m.level };
+}
+
 var groupDetailData = {
   repurchase: [
     { cardNo:'MD80001234', memberId:'wjm', regDate:'2024-03-15', custType:'存量激活客', sales:'李明辉', memberAttr:'老会员', custAttr:'老客', yearFreq:3, orderAmt:58600, travelAmt:42800, isRepurchase:'是', regFirstGap:12 },
@@ -1591,30 +1694,165 @@ var groupDetailData = {
   ]
 };
 
+// 'core' 和 'asset' 类型由 memberDB 动态生成
+function buildCoreData() {
+  if (typeof memberDB === 'undefined' || !currentSales) return [];
+  return memberDB.filter(function(m){ return m.sales === currentSales; }).map(function(m){
+    return {
+      cardNo: m.card, memberId: m.id, regDate: '—', custType: m.type || '标准忠诚客',
+      sales: m.sales, memberAttr: '老会员', custAttr: '老客',
+      yearFreq: 2, orderAmt: parseInt((m.amount||'').replace(/[^\d]/g,''))||0,
+      travelAmt: 0, isRepurchase: '是', regFirstGap: 0
+    };
+  });
+}
+
+function buildAssetData() {
+  if (typeof memberDB === 'undefined' || !currentSales) return [];
+  return memberDB.filter(function(m){
+    return (!m.sales || m.sales === '') && m.contactSales === currentSales;
+  }).map(function(m){
+    return {
+      cardNo: m.card, memberId: m.id, regDate: '—', custType: m.type || '标准忠诚客',
+      sales: '（暂无归属）', memberAttr: '新会员', custAttr: '新客',
+      yearFreq: 0, orderAmt: parseInt((m.amount||'').replace(/[^\d]/g,''))||0,
+      travelAmt: 0, isRepurchase: '否', regFirstGap: 0
+    };
+  });
+}
+
 var currentGroupType = '';
+var groupFilterState = { keyword:'', level:[], custType:[], memberAttr:[], custAttr:[] };
 
 function showGroupDetail(type) {
   currentGroupType = type;
-  var title = type === 'repurchase' ? '当年复购非核心-优先维护' : '当年首购非核心-建议维护';
-  document.getElementById('groupDetailTitle').textContent = '📋 ' + title + ' — 客户明细';
-  renderGroupTable(groupDetailData[type]);
+  var titleMap = {
+    'repurchase': '当年复购非核心-优先维护',
+    'firstbuy': '当年首购非核心-建议维护',
+    'core': '我的核心客户',
+    'asset': '我的客户资产'
+  };
+  document.getElementById('groupDetailTitle').textContent = '📋 ' + (titleMap[type]||'客户明细') + ' — 客户明细';
+  // 重置筛选
+  groupFilterState = { keyword:'', level:[], custType:[], memberAttr:[], custAttr:[] };
+  document.getElementById('groupSearchInput').value = '';
+  document.querySelectorAll('.gd-filter').forEach(function(f){
+    f.querySelector('.gd-filter-ph').textContent = '全部';
+    f.querySelector('.gd-filter-ph').classList.remove('has-val');
+    f.querySelectorAll('input[type="checkbox"]').forEach(function(c){ c.checked = false; });
+  });
+  applyGroupFilter();
   document.getElementById('groupDetailModal').classList.add('show');
 }
+
+function getCurrentGroupData() {
+  if (currentGroupType === 'core') return buildCoreData();
+  if (currentGroupType === 'asset') return buildAssetData();
+  return groupDetailData[currentGroupType] || [];
+}
+
+function applyGroupFilter() {
+  var kw = document.getElementById('groupSearchInput').value.trim().toLowerCase();
+  groupFilterState.keyword = kw;
+  // 收集多选筛选
+  document.querySelectorAll('.gd-filter').forEach(function(f){
+    var key = f.dataset.key;
+    var vals = [];
+    f.querySelectorAll('input[type="checkbox"]:checked').forEach(function(c){ vals.push(c.value); });
+    groupFilterState[key] = vals;
+    // 更新显示
+    var ph = f.querySelector('.gd-filter-ph');
+    if (vals.length === 0) {
+      ph.textContent = '全部'; ph.classList.remove('has-val');
+    } else if (vals.length === 1) {
+      ph.textContent = vals[0]; ph.classList.add('has-val');
+    } else {
+      ph.textContent = '已选 ' + vals.length + ' 项'; ph.classList.add('has-val');
+    }
+  });
+  var source = getCurrentGroupData();
+  var filtered = source.filter(function(r){
+    // 搜索
+    if (kw) {
+      var extra = getMemberExtra(r.memberId);
+      var nameMatch = extra.name.toLowerCase().includes(kw);
+      var cardMatch = r.cardNo.toLowerCase().includes(kw);
+      var phoneMatch = extra.phone.toLowerCase().includes(kw);
+      if (!(nameMatch || cardMatch || phoneMatch)) return false;
+    }
+    // 会员等级筛选
+    if (groupFilterState.level.length > 0) {
+      var extra = getMemberExtra(r.memberId);
+      if (groupFilterState.level.indexOf(extra.level) === -1) return false;
+    }
+    // 客户类型
+    if (groupFilterState.custType.length > 0 && groupFilterState.custType.indexOf(r.custType) === -1) return false;
+    // 会员属性
+    if (groupFilterState.memberAttr.length > 0 && groupFilterState.memberAttr.indexOf(r.memberAttr) === -1) return false;
+    // 客户属性
+    if (groupFilterState.custAttr.length > 0 && groupFilterState.custAttr.indexOf(r.custAttr) === -1) return false;
+    return true;
+  });
+  renderGroupTable(filtered);
+  document.getElementById('groupResultCount').textContent = '共 ' + filtered.length + ' 条 / 总 ' + source.length + ' 条';
+}
+
+function resetGroupFilter() {
+  groupFilterState = { keyword:'', level:[], custType:[], memberAttr:[], custAttr:[] };
+  document.getElementById('groupSearchInput').value = '';
+  document.querySelectorAll('.gd-filter').forEach(function(f){
+    f.querySelector('.gd-filter-ph').textContent = '全部';
+    f.querySelector('.gd-filter-ph').classList.remove('has-val');
+    f.querySelectorAll('input[type="checkbox"]').forEach(function(c){ c.checked = false; });
+  });
+  applyGroupFilter();
+}
+
+function toggleGdFilter(box) {
+  var filter = box.closest('.gd-filter');
+  var pop = filter.querySelector('.gd-filter-pop');
+  var isOpen = pop.classList.contains('show');
+  // 关闭其他
+  document.querySelectorAll('.gd-filter-pop').forEach(function(p){ p.classList.remove('show'); });
+  document.querySelectorAll('.gd-filter-box').forEach(function(b){ b.classList.remove('active'); });
+  if (!isOpen) {
+    pop.classList.add('show');
+    box.classList.add('active');
+  }
+}
+
+// 点击外部关闭筛选下拉
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.gd-filter')) {
+    document.querySelectorAll('.gd-filter-pop').forEach(function(p){ p.classList.remove('show'); });
+    document.querySelectorAll('.gd-filter-box').forEach(function(b){ b.classList.remove('active'); });
+  }
+});
 
 function renderGroupTable(data) {
   var tbody = document.getElementById('groupTableBody');
   if (!data || data.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="11" style="text-align:center;padding:40px 0;color:#999;">暂无匹配数据</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="14" style="text-align:center;padding:40px 0;color:#999;">暂无匹配数据</td></tr>';
     return;
   }
   var html = '';
   data.forEach(function(r) {
-    var custTypeColor = r.custType === '存量激活客' ? '#722ED1' : '#1890FF';
+    var extra = getMemberExtra(r.memberId);
+    var custTypeColor = r.custType === '存量激活客' ? '#531dab' : '#000000';
     var memberAttrColor = r.memberAttr === '老会员' ? '#FA8C16' : '#52C41A';
-    var custAttrColor = r.custAttr === '老客' ? '#FA8C16' : '#1890FF';
+    var custAttrColor = r.custAttr === '老客' ? '#FA8C16' : '#000000';
     var repurchaseColor = r.isRepurchase === '是' ? '#52C41A' : '#F5222D';
-    html += '<tr style="cursor:pointer;" onclick="openMemberFromGroup(\'' + r.memberId + '\')" onmouseenter="this.style.background=\'#E6F7FF\'" onmouseleave="this.style.background=\'\'">' +
-      '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;font-family:monospace;color:#1890ff;">' + r.cardNo + '</td>' +
+    var levelColor = '#000000';
+    if (extra.level === '金刚') levelColor = '#000000';
+    else if (extra.level === '莲') levelColor = '#531dab';
+    else if (extra.level === '雪莲') levelColor = '#08979C';
+    else if (extra.level === '绿绒蒿') levelColor = '#C41D7F';
+    else if (extra.level === '格桑') levelColor = '#999';
+    html += '<tr style="cursor:pointer;" onclick="openMemberFromGroup(\'' + r.memberId + '\')" onmouseenter="this.style.background=\'#f5f5f5\'" onmouseleave="this.style.background=\'\'">' +
+      '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;font-family:monospace;color:#000000;">' + r.cardNo + '</td>' +
+      '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;font-weight:500;">' + extra.name + '</td>' +
+      '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;font-family:monospace;color:#666;">' + extra.phone + '</td>' +
+      '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;"><span style="font-size:11px;padding:1px 8px;border-radius:10px;background:' + levelColor + '12;color:' + levelColor + ';">' + extra.level + '</span></td>' +
       '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;">' + r.regDate + '</td>' +
       '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;"><span style="font-size:11px;padding:1px 8px;border-radius:10px;background:' + custTypeColor + '12;color:' + custTypeColor + ';">' + r.custType + '</span></td>' +
       '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;">' + r.sales + '</td>' +
@@ -1630,22 +1868,21 @@ function renderGroupTable(data) {
   tbody.innerHTML = html;
 }
 
-function filterGroupTable() {
-  var source = groupDetailData[currentGroupType];
-  renderGroupTable(source);
-}
+function filterGroupTable() { applyGroupFilter(); }
 
 function exportGroupTable() {
-  var source = groupDetailData[currentGroupType];
-  var headers = ['会员卡号','注册时间','客户类型','销售员','会员属性','客户属性','本年消费频次','当年下单金额','当年出行金额','是否复购','注册_首购间隔天数'];
+  var source = getCurrentGroupData();
+  var headers = ['会员卡号','会员名称','手机号','会员等级','注册时间','客户类型','销售员','会员属性','客户属性','本年消费频次','当年下单金额','当年出行金额','是否复购','注册_首购间隔天数'];
   var csv = '\uFEFF' + headers.join(',') + '\n';
   source.forEach(function(r) {
-    csv += [r.cardNo, r.regDate, r.custType, r.sales, r.memberAttr, r.custAttr, r.yearFreq, r.orderAmt, r.travelAmt, r.isRepurchase, r.regFirstGap].join(',') + '\n';
+    var extra = getMemberExtra(r.memberId);
+    csv += [r.cardNo, extra.name, extra.phone, extra.level, r.regDate, r.custType, r.sales, r.memberAttr, r.custAttr, r.yearFreq, r.orderAmt, r.travelAmt, r.isRepurchase, r.regFirstGap].join(',') + '\n';
   });
   var blob = new Blob([csv], { type:'text/csv;charset=utf-8;' });
   var a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = (currentGroupType === 'repurchase' ? '当年复购非核心-优先维护' : '当年首购非核心-建议维护') + '_客户明细.csv';
+  var fnameMap = { 'repurchase':'当年复购非核心-优先维护', 'firstbuy':'当年首购非核心-建议维护', 'core':'我的核心客户', 'asset':'我的客户资产' };
+  a.download = (fnameMap[currentGroupType] || '客户明细') + '_客户明细.csv';
   a.click();
 }
 
@@ -1671,7 +1908,7 @@ function getRowData(tr) {
     card: tds[1] ? tds[1].textContent.trim() : '',
     updated: tds[2] ? tds[2].textContent.trim() : '',
     avatarText: avatarEl ? avatarEl.textContent.trim() : '',
-    avatarBg: avatarEl ? avatarEl.style.background : '#1890FF',
+    avatarBg: avatarEl ? avatarEl.style.background : '#000000',
     name: nameEl ? nameEl.textContent.trim() : '',
     memberId: memberIdEl ? memberIdEl.textContent.trim() : '',
     date: tds[4] ? tds[4].textContent.trim() : '',
@@ -1800,7 +2037,7 @@ function toggleEditReminder() {
   var on = document.getElementById('editReminderToggle').checked;
   document.getElementById('editReminderFields').style.display = on ? 'block' : 'none';
   var dot = document.getElementById('editToggleDot');
-  dot.previousElementSibling.style.background = on ? '#1677ff' : '#ccc';
+  dot.previousElementSibling.style.background = on ? '#000000' : '#ccc';
   dot.style.transform = on ? 'translateX(16px)' : '';
 }
 
@@ -1860,7 +2097,7 @@ function toggleReminderFields() {
   document.getElementById('reminderFields').style.display = on ? 'block' : 'none';
   var dot = document.getElementById('toggleDot');
   var track = dot.previousElementSibling;
-  if (on) { track.style.background = '#1677ff'; dot.style.transform = 'translateX(16px)'; }
+  if (on) { track.style.background = '#000000'; dot.style.transform = 'translateX(16px)'; }
   else { track.style.background = '#ccc'; dot.style.transform = 'translateX(0)'; }
 }
 
@@ -1932,8 +2169,8 @@ let selectedMemberId = null;
 
 // 模拟会员数据库
 const memberDB = [
-  { id:'wjm', name:'王建明', card:'MD80001234', level:'金刚', phone:'138****5678', city:'北京 · 朝阳区', ambassador:'是', type:'VIP客户', typeClass:'type-vip', follow:'需跟进 · 8天未联系', followClass:'follow-need', tags:['🏔️ 自然风光','🥾 户外徒步'], travelTags:['夫妻出行','朋友结伴'], prefTags:['素食偏好','高原经验丰富'], matchRate:85, matchDetail:[{tag:'自然风光',rate:92},{tag:'户外徒步',rate:78}], amount:'¥286,500', lastOrder:'2026-03-20', expiry:'2026-12-31', lastContact:'8天前 · 线下拜访', sales:'赵岍', color:'#1890ff', relations:[{name:'王小红',rel:'配偶',card:'MD80006789',level:'莲'},{name:'王子轩',rel:'子女',card:'MD80011234',level:'格桑'}], equityRelated:['王小红'], pointsTransfer:['王小红'], referrer:['周明'], referee:['王子轩'], lastMaint:'2026-04-12' },
-  { id:'slh', name:'孙丽华', card:'MD80002345', level:'金刚', phone:'139****1234', city:'上海 · 静安区', ambassador:'未知', type:'VIP客户', typeClass:'type-vip', follow:'正常 · 5天前联系', followClass:'follow-ok', tags:['🏛️ 人文历史','🍜 美食体验'], travelTags:['闺蜜出行'], prefTags:['忌辣','摄影器材需求'], matchRate:72, matchDetail:[{tag:'人文历史',rate:80},{tag:'美食体验',rate:64}], amount:'¥512,000', lastOrder:'2026-04-10', expiry:'2027-06-30', lastContact:'5天前 · 线下拜访', sales:'王倩', color:'#722ED1', relations:[{name:'孙建国',rel:'配偶',card:'MD80004500',level:'雪莲'}], equityRelated:[], pointsTransfer:['孙建国'], referrer:[], referee:[], lastMaint:'2026-04-10' },
+  { id:'wjm', name:'王建明', card:'MD80001234', level:'金刚', phone:'138****5678', city:'北京 · 朝阳区', ambassador:'是', type:'VIP客户', typeClass:'type-vip', follow:'需跟进 · 8天未联系', followClass:'follow-need', tags:['🏔️ 自然风光','🥾 户外徒步'], travelTags:['夫妻出行','朋友结伴'], prefTags:['素食偏好','高原经验丰富'], matchRate:85, matchDetail:[{tag:'自然风光',rate:92},{tag:'户外徒步',rate:78}], amount:'¥286,500', lastOrder:'2026-03-20', expiry:'2026-12-31', lastContact:'8天前 · 线下拜访', sales:'赵岍', color:'#000000', relations:[{name:'王小红',rel:'配偶',card:'MD80006789',level:'莲'},{name:'王子轩',rel:'子女',card:'MD80011234',level:'格桑'}], equityRelated:['王小红'], pointsTransfer:['王小红'], referrer:['周明'], referee:['王子轩'], lastMaint:'2026-04-12' },
+  { id:'slh', name:'孙丽华', card:'MD80002345', level:'金刚', phone:'139****1234', city:'上海 · 静安区', ambassador:'未知', type:'VIP客户', typeClass:'type-vip', follow:'正常 · 5天前联系', followClass:'follow-ok', tags:['🏛️ 人文历史','🍜 美食体验'], travelTags:['闺蜜出行'], prefTags:['忌辣','摄影器材需求'], matchRate:72, matchDetail:[{tag:'人文历史',rate:80},{tag:'美食体验',rate:64}], amount:'¥512,000', lastOrder:'2026-04-10', expiry:'2027-06-30', lastContact:'5天前 · 线下拜访', sales:'王倩', color:'#531dab', relations:[{name:'孙建国',rel:'配偶',card:'MD80004500',level:'雪莲'}], equityRelated:[], pointsTransfer:['孙建国'], referrer:[], referee:[], lastMaint:'2026-04-10' },
   { id:'zyz', name:'赵雅芝', card:'MD80003456', level:'绿绒蒿', phone:'135****9876', city:'深圳 · 南山区', ambassador:'否', type:'VIP客户', typeClass:'type-vip', follow:'正常 · 2天前联系', followClass:'follow-ok', tags:['🏔️ 自然风光','📷 摄影采风'], travelTags:['夫妻出行'], prefTags:['高原经验丰富'], matchRate:90, matchDetail:[{tag:'自然风光',rate:95},{tag:'摄影采风',rate:85}], amount:'¥378,900', lastOrder:'2026-04-15', expiry:'2027-03-15', lastContact:'2天前 · 电话回访', sales:'廖文娟', color:'#C41D7F', relations:[], equityRelated:[], pointsTransfer:[], referrer:['林芳'], referee:[], lastMaint:'2026-04-17' },
   { id:'lt', name:'李婷', card:'MD80005678', level:'莲', phone:'136****4321', city:'成都 · 锦江区', ambassador:'否', type:'重点客户', typeClass:'type-key', follow:'需跟进 · 5天未联系', followClass:'follow-need', tags:['👨‍👩‍👧 亲子出行','🏔️ 自然风光'], travelTags:['亲子出行'], prefTags:['儿童餐需求','无高原经验'], matchRate:65, matchDetail:[{tag:'亲子出行',rate:70},{tag:'自然风光',rate:60}], amount:'¥152,800', lastOrder:'2026-04-11', expiry:'2027-01-20', lastContact:'5天前 · 微信沟通', sales:'曾卓', color:'#C41D7F', relations:[{name:'李子豪',rel:'子女',card:'MD80008888',level:'格桑'},{name:'张明远',rel:'配偶',card:'MD80007777',level:'雪莲'}], equityRelated:['张明远'], pointsTransfer:[], referrer:['马晓芸'], referee:[], lastMaint:'2026-04-16' },
   { id:'yf', name:'杨帆', card:'MD80004567', level:'雪莲', phone:'137****8765', city:'广州 · 天河区', ambassador:'否', type:'活跃客户', typeClass:'type-active', follow:'正常 · 7天前联系', followClass:'follow-ok', tags:['🥾 户外徒步','🏔️ 自然风光'], travelTags:['朋友结伴'], prefTags:['露营经验','自带装备'], matchRate:78, matchDetail:[{tag:'户外徒步',rate:82},{tag:'自然风光',rate:74}], amount:'¥98,700', lastOrder:'2026-03-25', expiry:'2026-11-10', lastContact:'7天前 · 电话回访', sales:'张金鸿', color:'#FA8C16', relations:[], equityRelated:[], pointsTransfer:[], referrer:[], referee:['陈志强'], lastMaint:'2026-04-08' },
@@ -1943,9 +2180,9 @@ const memberDB = [
   { id:'czq', name:'陈志强', card:'MD80009012', level:'雪莲', phone:'186****1111', city:'武汉 · 武昌区', ambassador:'否', type:'活跃客户', typeClass:'type-active', follow:'即将到期 · 3天', followClass:'follow-soon', tags:['🥾 户外徒步','📷 摄影采风'], travelTags:['朋友结伴'], prefTags:['露营经验','高原经验丰富'], matchRate:68, matchDetail:[{tag:'户外徒步',rate:72},{tag:'摄影采风',rate:64}], amount:'¥89,600', lastOrder:'2026-04-13', expiry:'2026-10-08', lastContact:'3天前 · 微信沟通', sales:'苏凝影', color:'#AD6800', relations:[], equityRelated:[], pointsTransfer:[], referrer:['杨帆'], referee:[], lastMaint:'2026-04-13' },
   { id:'zw', name:'张伟', card:'MD80009999', level:'格桑', phone:'150****6666', city:'西安 · 雁塔区', ambassador:'未知', type:'沉睡客户', typeClass:'type-sleep', follow:'需跟进 · 45天未联系', followClass:'follow-need', tags:['♨️ 雪山温泉'], travelTags:['独自出行'], prefTags:['预算敏感'], matchRate:30, matchDetail:[{tag:'雪山温泉',rate:30}], amount:'¥18,200', lastOrder:'2026-03-02', expiry:'2026-07-01', lastContact:'45天前 · 电话回访', sales:'张嵩', color:'#999', relations:[], equityRelated:[], pointsTransfer:[], referrer:[], referee:[], lastMaint:'2026-04-05' },
   // 无销售员的会员（可认领）
-  { id:'mx', name:'马晓芸', card:'MD80011111', level:'莲', phone:'131****7777', city:'昆明 · 盘龙区', ambassador:'否', type:'VIP客户', typeClass:'type-vip', follow:'需跟进 · 12天未联系', followClass:'follow-need', tags:['🏔️ 自然风光','🏛️ 人文历史','♨️ 雪山温泉'], travelTags:['夫妻出行','父母同游'], prefTags:['素食偏好','忌辣','高原经验丰富'], matchRate:76, matchDetail:[{tag:'自然风光',rate:80},{tag:'人文历史',rate:72},{tag:'雪山温泉',rate:76}], amount:'¥356,000', lastOrder:'2026-03-05', expiry:'2027-02-28', lastContact:'12天前 · 微信沟通', sales:null, color:'#CF1322', relations:[{name:'马建国',rel:'配偶',card:'MD80012222',level:'雪莲'}], equityRelated:[], pointsTransfer:[], referrer:[], referee:['李婷'], lastMaint:'2026-04-14' },
-  { id:'xw', name:'许文强', card:'MD80012222', level:'雪莲', phone:'132****8888', city:'昆明 · 五华区', ambassador:'未知', type:'活跃客户', typeClass:'type-active', follow:'正常 · 3天前联系', followClass:'follow-ok', tags:['📷 摄影采风','🥾 户外徒步'], travelTags:['朋友结伴'], prefTags:['摄影器材需求','自带装备'], matchRate:60, matchDetail:[{tag:'摄影采风',rate:65},{tag:'户外徒步',rate:55}], amount:'¥68,500', lastOrder:'2026-04-14', expiry:'2026-12-10', lastContact:'3天前 · 活动邀约', sales:null, color:'#AD6800', relations:[{name:'马晓芸',rel:'配偶',card:'MD80011111',level:'莲'}], equityRelated:[], pointsTransfer:[], referrer:[], referee:[], lastMaint:'—' },
-  { id:'lf', name:'林芳', card:'MD80013333', level:'绿绒蒿', phone:'188****4444', city:'拉萨 · 城关区', ambassador:'是', type:'重点客户', typeClass:'type-key', follow:'需跟进 · 15天未联系', followClass:'follow-need', tags:['💎 奢享度假','🍜 美食体验','🏛️ 人文历史'], travelTags:['闺蜜出行'], prefTags:['私厨定制','红酒偏好','忌辣'], matchRate:88, matchDetail:[{tag:'奢享度假',rate:92},{tag:'美食体验',rate:84},{tag:'人文历史',rate:88}], amount:'¥198,000', lastOrder:'2026-02-20', expiry:'2027-08-30', lastContact:'15天前 · 线下拜访', sales:null, color:'#C41D7F', relations:[], equityRelated:['马晓芸'], pointsTransfer:[], referrer:[], referee:['赵雅芝'], lastMaint:'—' },
+  { id:'mx', name:'马晓芸', card:'MD80011111', level:'莲', phone:'131****7777', city:'昆明 · 盘龙区', ambassador:'否', type:'VIP客户', typeClass:'type-vip', follow:'需跟进 · 12天未联系', followClass:'follow-need', tags:['🏔️ 自然风光','🏛️ 人文历史','♨️ 雪山温泉'], travelTags:['夫妻出行','父母同游'], prefTags:['素食偏好','忌辣','高原经验丰富'], matchRate:76, matchDetail:[{tag:'自然风光',rate:80},{tag:'人文历史',rate:72},{tag:'雪山温泉',rate:76}], amount:'¥356,000', lastOrder:'2026-03-05', expiry:'2027-02-28', lastContact:'12天前 · 微信沟通', sales:null, contactSales:'赵岍', color:'#CF1322', relations:[{name:'马建国',rel:'配偶',card:'MD80012222',level:'雪莲'}], equityRelated:[], pointsTransfer:[], referrer:[], referee:['李婷'], lastMaint:'2026-04-14' },
+  { id:'xw', name:'许文强', card:'MD80012222', level:'雪莲', phone:'132****8888', city:'昆明 · 五华区', ambassador:'未知', type:'活跃客户', typeClass:'type-active', follow:'正常 · 3天前联系', followClass:'follow-ok', tags:['📷 摄影采风','🥾 户外徒步'], travelTags:['朋友结伴'], prefTags:['摄影器材需求','自带装备'], matchRate:60, matchDetail:[{tag:'摄影采风',rate:65},{tag:'户外徒步',rate:55}], amount:'¥68,500', lastOrder:'2026-04-14', expiry:'2026-12-10', lastContact:'3天前 · 活动邀约', sales:null, contactSales:'王倩', color:'#AD6800', relations:[{name:'马晓芸',rel:'配偶',card:'MD80011111',level:'莲'}], equityRelated:[], pointsTransfer:[], referrer:[], referee:[], lastMaint:'—' },
+  { id:'lf', name:'林芳', card:'MD80013333', level:'绿绒蒿', phone:'188****4444', city:'拉萨 · 城关区', ambassador:'是', type:'重点客户', typeClass:'type-key', follow:'需跟进 · 15天未联系', followClass:'follow-need', tags:['💎 奢享度假','🍜 美食体验','🏛️ 人文历史'], travelTags:['闺蜜出行'], prefTags:['私厨定制','红酒偏好','忌辣'], matchRate:88, matchDetail:[{tag:'奢享度假',rate:92},{tag:'美食体验',rate:84},{tag:'人文历史',rate:88}], amount:'¥198,000', lastOrder:'2026-02-20', expiry:'2027-08-30', lastContact:'15天前 · 线下拜访', sales:null, contactSales:'赵岍', color:'#C41D7F', relations:[], equityRelated:['马晓芸'], pointsTransfer:[], referrer:[], referee:['赵雅芝'], lastMaint:'—' },
 ];
 
 function openSearchModal() {
@@ -2020,7 +2257,7 @@ function selectMember(id) {
 
   // 收起搜索结果列表，展开详情面板
   document.getElementById('searchList').style.display = 'none';
-  document.getElementById('searchCount').innerHTML = '<span style="cursor:pointer;color:#1890ff;font-size:12px;" onclick="backToSearchResults()">← 返回搜索结果</span>';
+  document.getElementById('searchCount').innerHTML = '<span style="cursor:pointer;color:#000000;font-size:12px;" onclick="backToSearchResults()">← 返回搜索结果</span>';
 
   // 填充详情
   document.getElementById('detailAvatar').textContent = m.name[0];
@@ -2299,18 +2536,26 @@ function updateStats(visibleCount) {
   });
   memberCount = seenMembers.size;
 
-  // 如果选中了具体销售，从memberDB统计
+  // 我的核心客户数：归属销售=当前销售
+  var coreCount = 0;
+  var assetCount = 0;
   if (currentSales) {
-    memberCount = memberDB.filter(function(m) { return m.sales === currentSales; }).length;
+    coreCount = memberDB.filter(function(m) { return m.sales === currentSales; }).length;
+    assetCount = memberDB.filter(function(m) {
+      return (!m.sales || m.sales === '') && m.contactSales === currentSales;
+    }).length;
   } else {
-    memberCount = memberDB.filter(function(m) { return m.sales; }).length;
+    coreCount = memberDB.filter(function(m) { return m.sales; }).length;
+    assetCount = memberDB.filter(function(m) { return (!m.sales || m.sales === '') && m.contactSales; }).length;
   }
 
-  var statNums = document.querySelectorAll('.record-stat-num');
-  if (statNums.length >= 2) {
-    statNums[0].textContent = memberCount;
-    statNums[1].textContent = visibleCount;
-  }
+  // 更新统计数字（使用 ID 精确匹配）
+  var coreEl = document.getElementById('stat-core');
+  var assetEl = document.getElementById('stat-asset');
+  var monthEl = document.getElementById('stat-month');
+  if (coreEl) coreEl.textContent = coreCount;
+  if (assetEl) assetEl.textContent = assetCount;
+  if (monthEl) monthEl.textContent = visibleCount;
 }
 
 function updateTabBadges() {

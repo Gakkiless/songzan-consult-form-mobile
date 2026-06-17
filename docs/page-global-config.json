@@ -1,0 +1,14 @@
+{
+  "slideStyle": "Business",
+  "colorScheme": "松赞商务蓝橙",
+  "primaryColor": "#1B3A6B",
+  "accentColor1": "#E67C00",
+  "accentColor2": "#2E86C1",
+  "neutralColor": "#5F6368",
+  "background": {
+    "type": "color",
+    "value": "#FFFFFF"
+  },
+  "fontTitle": "'Noto Sans SC', 'Inter', sans-serif",
+  "fontBody": "'Noto Sans SC', 'Inter', sans-serif"
+}

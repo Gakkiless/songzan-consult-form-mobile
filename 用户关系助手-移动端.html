@@ -1,0 +1,2174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>松赞用户关系助手</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingFang SC", sans-serif;
+  background: #F5F6F8;
+  color: #333;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+/* ====== Header ====== */
+.header {
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-logo {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+}
+.header-spacer { flex: 1; }
+
+/* Sales switcher mobile */
+.sales-switcher { position:relative; }
+.sales-btn {
+  display:flex; align-items:center; gap:4px;
+  padding: 5px 10px;
+  background: rgba(255,255,255,.15);
+  border-radius: 16px;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  border: 1px solid rgba(255,255,255,.25);
+  backdrop-filter: blur(4px);
+}
+.sales-btn .arrow {
+  font-size: 9px;
+  transition: transform .2s;
+}
+.sales-btn.open .arrow { transform: rotate(180deg); }
+.sales-dropdown {
+  display:none;
+  position:fixed;
+  top: 50px;
+  left: 8px;
+  right: 8px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.18);
+  max-height: 60vh;
+  overflow-y:auto;
+  z-index:200;
+}
+.sales-dropdown.show { display:block; }
+.sales-dropdown-header {
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #999;
+  border-bottom: 1px solid #F0F0F0;
+  position: sticky;
+  top: 0;
+  background: #fff;
+}
+.sales-item {
+  display:flex; align-items:center; gap:10px;
+  padding: 11px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  border-bottom: 1px solid #F5F5F5;
+  transition: background .15s;
+}
+.sales-item:active { background: #f5f5f5; }
+.sales-item.active { background: #f5f5f5; color: #000000; font-weight: 600; }
+.sales-item .s-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: #F0F0F0;
+  color: #666;
+  display:flex; align-items:center; justify-content:center;
+  font-size: 13px; font-weight: 600;
+  flex-shrink: 0;
+}
+.sales-item.active .s-avatar { background: #000000; color: #fff; }
+.sales-info { flex:1; min-width:0; }
+.sales-name { font-size: 14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sales-region { font-size: 11px; color: #999; }
+
+/* ====== Shortcuts ====== */
+.shortcuts {
+  display: flex;
+  gap: 8px;
+  padding: 12px 12px;
+  background: #fff;
+  border-bottom: 1px solid #EEE;
+}
+.shortcut-btn {
+  flex: 1;
+  padding: 10px 0;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  display: flex; align-items:center; justify-content:center; gap:5px;
+  transition: all .2s;
+}
+.shortcut-btn.primary {
+  background: #000000;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+.shortcut-btn.primary:active { background: #1a1a1a; transform: scale(.97); }
+.shortcut-btn.secondary {
+  background: #F5F5F5;
+  color: #333;
+}
+.shortcut-btn.secondary:active { background: #E8E8E8; }
+
+/* ====== Section Tabs ====== */
+.section-tabs {
+  display: flex;
+  background: #fff;
+  border-bottom: 1px solid #EEE;
+  padding: 0 12px;
+  gap: 0;
+  position: sticky;
+  top: 48px;
+  z-index: 99;
+}
+.section-tab {
+  flex: 1;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #999;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all .2s;
+}
+.section-tab.active {
+  color: #000000;
+  border-bottom-color: #000000;
+  font-weight: 600;
+}
+
+/* ====== Section Panels ====== */
+.section-panel { display: none; }
+.section-panel.active { display: block; }
+
+/* ====== Todo Filters ====== */
+.todo-filters {
+  display: flex;
+  gap: 6px;
+  padding: 10px 12px;
+  background: #fff;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.todo-filters::-webkit-scrollbar { display: none; }
+.filter-chip {
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #E0E0E0;
+  background: #fff;
+  color: #666;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all .2s;
+}
+.filter-chip.active { border-color: transparent; }
+.filter-chip.pending.active { background: #F5222D; color: #fff; }
+.filter-chip.today-chip.active { background: #FA8C16; color: #fff; }
+.filter-chip.upcoming-chip.active { background: #000000; color: #fff; }
+.filter-chip.done-chip.active { background: #52C41A; color: #fff; }
+.filter-chip.all-chip.active { background: #333; color: #fff; }
+
+/* ====== Todo Cards ====== */
+.todo-list { padding: 8px 12px; }
+.todo-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  cursor: pointer;
+  transition: all .2s;
+  border-left: 4px solid transparent;
+}
+.todo-card:active { background: #FAFAFA; transform: scale(.99); }
+.todo-card.overdue { border-left-color: #F5222D; background: #FFF8F7; }
+.todo-card.today { border-left-color: #FA8C16; background: #FFFBF5; }
+.todo-card.upcoming { border-left-color: #000000; }
+
+.todo-card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
+.todo-member { font-size: 14px; font-weight: 600; color: #333; }
+.todo-member .card-tag { font-size: 10px; color: #999; font-weight: 400; margin-left: 4px; }
+.todo-status-tag {
+  font-size: 10px; padding: 2px 8px; border-radius: 10px;
+  font-weight: 500; white-space: nowrap; flex-shrink: 0;
+}
+.todo-status-tag.pending { background: #FFF1F0; color: #F5222D; }
+.todo-status-tag.today-status { background: #FFF7E6; color: #FA8C16; }
+.todo-status-tag.upcoming-status { background: #f5f5f5; color: #000000; }
+
+.todo-card-tags { display:flex; gap:4px; flex-wrap:wrap; margin-bottom:6px; }
+.tag-travel { font-size: 10px; padding: 1px 8px; border-radius: 10px; background: #E6FFFB; color: #08979C; }
+.tag-follow-need { font-size: 10px; padding: 1px 8px; border-radius: 10px; background: #FFF1F0; color: #F5222D; }
+.tag-follow-soon { font-size: 10px; padding: 1px 8px; border-radius: 10px; background: #FFF7E6; color: #FA8C16; }
+.tag-follow-ok { font-size: 10px; padding: 1px 8px; border-radius: 10px; background: #F6FFED; color: #52C41A; }
+
+.todo-content { font-size: 13px; color: #666; margin-bottom: 8px; line-height: 1.5; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.todo-card-footer { display:flex; align-items:center; justify-content:space-between; }
+.todo-meta { font-size: 11px; color: #999; display:flex; gap:10px; flex-wrap:wrap; }
+.todo-action {
+  font-size: 12px; color: #000000; cursor: pointer;
+  padding: 3px 10px; border-radius: 12px; flex-shrink:0;
+  background: #f5f5f5; font-weight: 500;
+}
+.todo-action:active { background: #e8e8e8; }
+.todo-empty { text-align:center; padding: 40px; color: #999; font-size: 13px; }
+
+/* ====== Record Stats ====== */
+.record-stats-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 12px;
+  background: #fff;
+}
+.stat-card {
+  background: #F8F9FC;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .2s;
+}
+.stat-card:active { background: #EFF2F9; }
+.stat-num { font-size: 22px; font-weight: 700; line-height: 1.2; }
+.stat-num.red { color: #F5222D; }
+.stat-num.orange { color: #FA8C16; }
+.stat-num.green { color: #52C41A; }
+.stat-num.blue { color: #000000; }
+.stat-label { font-size: 11px; color: #999; margin-top: 4px; }
+
+/* ====== Filter Bar Mobile ====== */
+.filter-bar-m {
+  display: flex;
+  gap: 6px;
+  padding: 10px 12px;
+  background: #fff;
+  border-top: 1px solid #F0F0F0;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.filter-bar-m input, .filter-bar-m select {
+  height: 32px;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  font-size: 13px;
+  padding: 0 8px;
+  font-family: inherit;
+  background: #fff;
+  flex: 1;
+  min-width: 80px;
+}
+.filter-bar-m input:focus, .filter-bar-m select:focus {
+  outline: none;
+  border-color: #000000;
+}
+.filter-bar-m .btn-sm {
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.btn-primary { background: #000000; color: #fff; }
+.btn-primary:active { background: #1a1a1a; }
+.btn-ghost { background: #F5F5F5; color: #666; }
+.btn-ghost:active { background: #E8E8E8; }
+
+/* ====== Record Cards (replaces table) ====== */
+.record-list { padding: 0 12px 12px; background: #fff; }
+.record-card {
+  background: #FAFAFA;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 8px;
+  border: 1px solid #F0F0F0;
+}
+.record-card-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.record-card-row:last-child { margin-bottom: 0; }
+.record-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex; align-items:center; justify-content:center;
+  font-size: 14px; font-weight: 600;
+  flex-shrink: 0;
+}
+.record-info { flex:1; min-width:0; }
+.record-name { font-size: 14px; font-weight: 600; color: #333; }
+.record-meta { font-size: 11px; color: #999; margin-top: 1px; display:flex; gap:8px; flex-wrap:wrap; }
+.record-date { font-size: 12px; color: #999; white-space: nowrap; }
+.record-behavior {
+  font-size: 10px; padding: 2px 8px; border-radius: 10px;
+  font-weight: 500; white-space: nowrap;
+}
+.behavior-visit { background: #FFF7E6; color: #AD6800; }
+.behavior-phone { background: #E6FFFB; color: #08979C; }
+.behavior-event { background: #FFF0F6; color: #C41D7F; }
+.behavior-wechat { background: #F6FFED; color: #389E0D; }
+.record-feedback {
+  font-size: 13px; color: #666;
+  line-height: 1.5;
+  margin-top: 6px;
+  padding: 8px 10px;
+  background: #fff;
+  border-radius: 6px;
+}
+.record-reminder {
+  font-size: 12px; color: #FA8C16;
+  margin-top: 4px;
+  padding: 6px 10px;
+  background: #FFF7E6;
+  border-radius: 6px;
+  display: flex; align-items:center; gap: 4px;
+}
+.record-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #F0F0F0;
+  font-size: 13px;
+}
+.record-actions span { color: #000000; cursor: pointer; font-weight: 500; }
+.record-actions span:active { color: #1a1a1a; }
+
+/* Pagination */
+.pagination-m {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px;
+  background: #fff;
+}
+.page-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #D9D9D9;
+  cursor: pointer;
+  transition: all .2s;
+}
+.page-dot.active { background: #000000; width: 20px; border-radius: 4px; }
+
+/* ====== Fullscreen Modal ====== */
+.modal-fs {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  z-index: 1000;
+  flex-direction: column;
+  animation: slideUp .3s ease;
+}
+.modal-fs.show { display: flex; }
+@keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
+
+.modal-fs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #F0F0F0;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.modal-fs-title { font-size: 16px; font-weight: 600; }
+.modal-fs-close {
+  width: 32px; height: 32px;
+  border: none; background: #F5F5F5;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items:center; justify-content:center;
+  color: #666;
+}
+.modal-fs-body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 16px;
+}
+.modal-fs-footer {
+  padding: 12px 16px;
+  border-top: 1px solid #F0F0F0;
+  display: flex;
+  gap: 10px;
+}
+.modal-fs-footer .btn {
+  flex: 1;
+  height: 44px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  transition: all .2s;
+}
+.modal-fs-footer .btn:active { transform: scale(.97); }
+.btn-cancel { background: #F5F5F5; color: #333; }
+.btn-submit { background: #000000; color: #fff; }
+
+/* ====== Search ====== */
+.search-bar-m {
+  display: flex; gap: 8px; margin-bottom: 14px;
+}
+.search-bar-m input {
+  flex: 1; height: 40px;
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+  padding: 0 12px;
+  font-size: 14px;
+  font-family: inherit;
+}
+.search-bar-m input:focus { outline:none; border-color:#000000; }
+.search-bar-m button {
+  height: 40px; padding: 0 16px;
+  border-radius: 10px; font-size: 14px;
+  background: #000000; color: #fff;
+  border: none; cursor: pointer; font-family: inherit;
+}
+
+.search-result-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px;
+  border-bottom: 1px solid #F5F5F5;
+  cursor: pointer;
+  transition: background .15s;
+  border-radius: 8px;
+}
+.search-result-item:active { background: #f5f5f5; }
+.search-result-item.active { background: #f5f5f5; border-left: 3px solid #000000; }
+.sr-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex; align-items:center; justify-content:center;
+  font-size: 15px; font-weight: 600;
+  flex-shrink: 0;
+}
+.sr-info { flex:1; min-width:0; }
+.sr-name { font-size: 15px; font-weight: 600; color: #333; }
+.sr-meta { font-size: 11px; color: #999; margin-top:2px; display:flex; gap:8px; flex-wrap:wrap; }
+.search-empty { text-align:center; padding:40px 0; color:#999; font-size:14px; }
+
+/* Member detail in modal */
+.member-detail-card {
+  border: 1px solid #F0F0F0;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 14px;
+}
+.md-header {
+  background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+  padding: 16px;
+  color: #fff;
+  display: flex; align-items: center; gap: 12px;
+}
+.md-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.25);
+  display: flex; align-items:center; justify-content:center;
+  font-size: 18px; font-weight: 600;
+}
+.md-name { font-size: 18px; font-weight: 600; }
+.md-sub { font-size: 12px; opacity: .85; margin-top:2px; }
+.md-sales-tag {
+  background: rgba(255,255,255,.2);
+  padding: 2px 10px; border-radius: 10px;
+  font-size: 11px; margin-top:4px; display:inline-block;
+}
+.md-sales-tag.una { background: rgba(255,77,79,.35); }
+.md-body { padding: 14px; }
+.md-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; }
+.md-field-label { font-size: 11px; color: #999; }
+.md-field-value { font-size: 13px; color: #333; font-weight: 500; margin-top:2px; }
+.md-section { margin-top: 14px; }
+.md-section-title { font-size: 13px; font-weight: 600; color: #333; margin-bottom:8px; padding-bottom:4px; border-bottom:1px solid #F0F0F0; }
+.md-actions {
+  margin-top: 14px; padding-top: 12px;
+  border-top: 1px solid #F0F0F0;
+  display: flex; gap: 8px;
+}
+.md-actions .btn {
+  flex: 1; height: 40px;
+  border-radius: 10px; font-size: 14px; font-weight: 500;
+  cursor: pointer; border: none; font-family: inherit;
+}
+.btn-claim { background: #52C41A; color: #fff; }
+.btn-claim:active { background: #389E0D; }
+.btn-maintain { background: #000000; color: #fff; }
+.btn-maintain:active { background: #1a1a1a; }
+
+/* Form */
+.form-group { margin-bottom: 14px; }
+.form-label-m {
+  display: block; font-size: 13px; color: #333;
+  margin-bottom: 6px; font-weight: 500;
+}
+.form-label-m .req { color: #F5222D; }
+.form-input-m {
+  width: 100%; height: 40px;
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+  padding: 0 12px;
+  font-size: 14px;
+  font-family: inherit;
+}
+.form-input-m:focus { outline:none; border-color:#000000; }
+.form-textarea-m {
+  width: 100%;
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 64px;
+}
+.form-textarea-m:focus { outline:none; border-color:#000000; }
+.form-row-m { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* Info highlight box */
+.info-box {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 14px;
+  background: #F6FFED;
+  border: 1px solid #B7EB8F;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+.info-box-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex; align-items:center; justify-content:center;
+  font-size: 13px; font-weight: 600;
+  flex-shrink: 0;
+}
+.info-box-name { font-size: 14px; font-weight: 600; color: #333; }
+.info-box-meta { font-size: 11px; color: #999; }
+
+/* Reminder box */
+.reminder-box {
+  background: #FFF7E6;
+  border: 1px solid #FFD591;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-top: 12px;
+}
+
+/* Log table in modal */
+.log-list { }
+.log-item {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  padding: 10px 0;
+  border-bottom: 1px solid #F5F5F5;
+  font-size: 12px;
+  align-items: baseline;
+}
+.log-item .log-type { font-size: 11px; padding: 1px 6px; border-radius: 3px; font-weight: 500; }
+.log-type-add { background: #F6FFED; color: #52C41A; }
+.log-type-edit { background: #f5f5f5; color: #000000; }
+.log-type-del { background: #FFF1F0; color: #F5222D; }
+
+/* Inline edit */
+.edit-icon { font-size:11px; cursor:pointer; opacity:.55; margin-left:6px; }
+.edit-icon:active { opacity:1; }
+.inline-input {
+  font-size:13px; padding:4px 8px;
+  border:1px solid #000000; border-radius:6px;
+  outline:none; width:120px; font-family:inherit;
+}
+.edit-save {
+  font-size:12px; padding:4px 10px;
+  background:#000000; color:#fff;
+  border-radius:6px; cursor:pointer; margin-left:4px;
+}
+.edit-cancel {
+  font-size:12px; padding:4px 8px;
+  color:#999; cursor:pointer; margin-left:2px;
+}
+
+/* Change log */
+.change-log-item {
+  display:flex; align-items:baseline; gap:4px;
+  font-size:11px; padding:3px 0;
+  border-bottom:1px dashed #F0F0F0;
+  flex-wrap:wrap;
+}
+.change-log-time { color:#999; white-space:nowrap; }
+.change-log-field { color:#000000; font-weight:500; }
+.change-log-arrow { color:#999; }
+.change-log-old { text-decoration:line-through; color:#999; }
+.change-log-new { color:#333; font-weight:500; }
+
+/* Group detail table in modal */
+.group-table-m {
+  width: 100%; border-collapse:collapse;
+  font-size: 11px;
+  min-width: 600px;
+}
+.group-table-m th {
+  background:#FAFAFA; padding:8px 6px;
+  text-align:left; font-weight:500; color:#666;
+  border-bottom:1px solid #F0F0F0;
+  white-space:nowrap;
+}
+.group-table-m td {
+  padding:7px 6px;
+  border-bottom:1px solid #F5F5F5;
+}
+.group-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border:1px solid #F0F0F0;
+  border-radius: 8px;
+}
+
+/* ====== Member Detail Modal — Ant Design Mobile ====== */
+.mdm-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 1100;
+  animation: fadeIn .25s ease;
+}
+.mdm-overlay.show { display: block; }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.mdm-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 1101;
+  display: none;
+  flex-direction: column;
+  background: #F5F6F8;
+  animation: mdmSlideUp .3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.mdm-sheet.show { display: flex; }
+@keyframes mdmSlideUp { from { transform:translateY(30px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+
+/* NavBar */
+.mdm-navbar {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 12px;
+  background: #fff;
+  border-bottom: 0.5px solid #E8E8E8;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  gap: 8px;
+}
+.mdm-back {
+  width: 36px; height: 36px;
+  border: none; background: none;
+  font-size: 22px; color: #000000;
+  cursor: pointer;
+  display: flex; align-items:center; justify-content:center;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.mdm-back:active { background: #F0F0F0; }
+.mdm-nav-title {
+  flex: 1;
+  font-size: 17px; font-weight: 600;
+  color: #333;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.mdm-body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 12px;
+}
+
+/* Card */
+.mdm-card {
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+/* Profile Header Card */
+.mdm-profile {
+  background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+  padding: 20px 16px;
+  color: #fff;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.mdm-profile-avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.2);
+  display: flex; align-items:center; justify-content:center;
+  font-size: 22px; font-weight: 700;
+  flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,.3);
+}
+.mdm-profile-info { flex: 1; min-width: 0; }
+.mdm-profile-name { font-size: 20px; font-weight: 700; line-height: 1.2; }
+.mdm-profile-meta { font-size: 13px; opacity: .85; margin-top: 2px; }
+.mdm-profile-badge {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  background: rgba(255,255,255,.2);
+  backdrop-filter: blur(4px);
+}
+.mdm-profile-badge.una { background: rgba(255,77,79,.35); }
+
+/* Card Sections */
+.mdm-card-body { padding: 16px; }
+.mdm-card-title {
+  font-size: 14px; font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 0.5px solid #F0F0F0;
+  display: flex; align-items:center; gap: 6px;
+}
+.mdm-card-title .icon { font-size: 16px; }
+
+/* Field Grid */
+.mdm-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 12px;
+}
+.mdm-field-label {
+  font-size: 12px; color: #999;
+  margin-bottom: 4px;
+}
+.mdm-field-value {
+  font-size: 14px; color: #333;
+  font-weight: 500;
+  word-break: break-all;
+}
+.mdm-field-value.amount { color: #CF1322; font-weight: 600; }
+.mdm-field-value.link { color: #000000; cursor: pointer; }
+
+/* Relation List */
+.mdm-rel-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 0;
+  border-bottom: 0.5px solid #F5F5F5;
+}
+.mdm-rel-item:last-child { border-bottom: none; }
+.mdm-rel-name {
+  color: #000000; cursor: pointer;
+  font-size: 14px; font-weight: 500;
+}
+.mdm-rel-name:active { color: #1a1a1a; }
+.mdm-rel-tag {
+  font-size: 10px; padding: 1px 8px; border-radius: 8px;
+  background: #F5F5F5; color: #666;
+}
+.mdm-rel-card {
+  font-size: 11px; color: #999;
+  font-family: "SF Mono", "Menlo", monospace;
+}
+
+/* Tag Row */
+.mdm-tags {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: 4px;
+}
+.mdm-tag {
+  font-size: 11px; padding: 2px 8px; border-radius: 8px;
+  background: #f5f5f5; color: #000000;
+  font-weight: 500;
+}
+.mdm-tag.warn { background: #FFF1F0; color: #F5222D; }
+
+/* Relation Section */
+.mdm-section {
+  padding: 0 0;
+}
+.mdm-section-row {
+  font-size: 13px; color: #333;
+  line-height: 1.8;
+}
+
+/* Empty */
+.mdm-empty {
+  font-size: 13px; color: #BFBFBF;
+  text-align: center;
+  padding: 12px 0;
+}
+
+/* Bottom Actions */
+.mdm-footer {
+  padding: 12px;
+  background: #fff;
+  border-top: 0.5px solid #E8E8E8;
+  display: flex; gap: 10px;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+.mdm-footer .btn {
+  flex: 1;
+  height: 44px;
+  border-radius: 22px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  transition: all .2s;
+  display: flex; align-items:center; justify-content:center; gap: 4px;
+}
+.mdm-footer .btn:active { transform: scale(.97); }
+.mdm-btn-claim {
+  background: #F6FFED; color: #52C41A;
+  border: 1px solid #B7EB8F !important;
+}
+.mdm-btn-claim:active { background: #D9F7BE; }
+.mdm-btn-claim:disabled {
+  background: #F5F5F5; color: #BFBFBF;
+  border-color: #F0F0F0 !important; cursor: default;
+}
+.mdm-btn-claim:disabled:active { transform: none; }
+.mdm-btn-add {
+  background: #000000; color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+.mdm-btn-add:active { background: #1a1a1a; }
+</style>
+</head>
+<body>
+
+<!-- ====== Header ====== -->
+<div class="header">
+  <div class="header-logo">松赞 · 客户维护</div>
+  <div class="header-spacer"></div>
+  <div class="sales-switcher" id="salesSwitcher">
+    <div class="sales-btn" onclick="toggleSalesDropdown()">
+      <span id="currentSalesLabel">赵岍</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="sales-dropdown" id="salesDropdown">
+      <div class="sales-dropdown-header">切换销售员视角</div>
+      <div class="sales-item active" onclick="switchSales(this, '全部', '')">
+        <div class="s-avatar">全</div>
+        <div class="sales-info"><div class="sales-name">全部</div><div class="sales-region">查看所有销售数据</div></div>
+      </div>
+      <div class="sales-item" onclick="switchSales(this, '赵岍', '赵岍')">
+        <div class="s-avatar">赵</div>
+        <div class="sales-info"><div class="sales-name">赵岍</div><div class="sales-region">华北</div></div>
+      </div>
+      <div class="sales-item" onclick="switchSales(this, '王倩', '王倩')">
+        <div class="s-avatar">王</div>
+        <div class="sales-info"><div class="sales-name">王倩</div><div class="sales-region">华北</div></div>
+      </div>
+      <div class="sales-item" onclick="switchSales(this, '廖文娟', '廖文娟')">
+        <div class="s-avatar">廖</div>
+        <div class="sales-info"><div class="sales-name">廖文娟</div><div class="sales-region">华南</div></div>
+      </div>
+      <div class="sales-item" onclick="switchSales(this, '曾卓', '曾卓')">
+        <div class="s-avatar">曾</div>
+        <div class="sales-info"><div class="sales-name">曾卓</div><div class="sales-region">西南</div></div>
+      </div>
+      <div class="sales-item" onclick="switchSales(this, '张金鸿', '张金鸿')">
+        <div class="s-avatar">张</div>
+        <div class="sales-info"><div class="sales-name">张金鸿</div><div class="sales-region">华南</div></div>
+      </div>
+      <div class="sales-item" onclick="switchSales(this, '曹晓昕', '曹晓昕')">
+        <div class="s-avatar">曹</div>
+        <div class="sales-info"><div class="sales-name">曹晓昕</div><div class="sales-region">华东</div></div>
+      </div>
+      <div class="sales-item" onclick="switchSales(this, '郑文婷', '郑文婷')">
+        <div class="s-avatar">郑</div>
+        <div class="sales-info"><div class="sales-name">郑文婷</div><div class="sales-region">西南</div></div>
+      </div>
+      <div class="sales-item" onclick="switchSales(this, '王翊', '王翊')">
+        <div class="s-avatar">王</div>
+        <div class="sales-info"><div class="sales-name">王翊</div><div class="sales-region">华东</div></div>
+      </div>
+      <div class="sales-item" onclick="switchSales(this, '苏凝影', '苏凝影')">
+        <div class="s-avatar">苏</div>
+        <div class="sales-info"><div class="sales-name">苏凝影</div><div class="sales-region">华中</div></div>
+      </div>
+      <div class="sales-item" onclick="switchSales(this, '张嵩', '张嵩')">
+        <div class="s-avatar">张</div>
+        <div class="sales-info"><div class="sales-name">张嵩</div><div class="sales-region">西北</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== Shortcuts ====== -->
+<div class="shortcuts">
+  <button class="shortcut-btn primary" onclick="openQuickMaintain()">⚡ 快速维护</button>
+  <button class="shortcut-btn secondary" onclick="openConsultModal()">+ 咨询单</button>
+  <button class="shortcut-btn secondary" onclick="openSearchModal()">🔍 会员查询</button>
+</div>
+
+<!-- ====== 维护记录 Section ====== -->
+<div id="panel-record">
+  <div class="record-stats-bar">
+    <div class="stat-card" onclick="showGroupDetail('repurchase')">
+      <div class="stat-num red" id="m-stat-repurchase">8</div>
+      <div class="stat-label">当年复购非核心</div>
+    </div>
+    <div class="stat-card" onclick="showGroupDetail('firstbuy')">
+      <div class="stat-num orange" id="m-stat-firstbuy">23</div>
+      <div class="stat-label">当年首购非核心</div>
+    </div>
+    <div class="stat-card" onclick="showGroupDetail('core')">
+      <div class="stat-num green" id="m-stat-core">156</div>
+      <div class="stat-label">我的核心客户</div>
+    </div>
+    <div class="stat-card" onclick="showGroupDetail('asset')">
+      <div class="stat-num" style="color:#000000;" id="m-stat-asset">0</div>
+      <div class="stat-label">我的客户资产</div>
+    </div>
+    <div class="stat-card" style="grid-column:span 2;">
+      <div class="stat-num blue" id="m-stat-month">42</div>
+      <div class="stat-label">本月维护次数</div>
+    </div>
+  </div>
+
+  <div class="filter-bar-m">
+    <input type="text" placeholder="搜索姓名/卡号">
+    <select><option>全部行为</option><option>线下拜访</option><option>电话回访</option><option>活动邀约</option><option>微信沟通</option></select>
+    <button class="btn-sm btn-primary">查询</button>
+  </div>
+
+  <div class="record-list" id="recordCardList">
+    <div class="record-card" data-sales="廖文娟" data-rid="r1">
+      <div class="record-card-row">
+        <div class="record-avatar" style="background:#C41D7F;">赵</div>
+        <div class="record-info">
+          <div class="record-name">赵雅芝 <span style="font-size:11px;color:#999;">#1</span></div>
+          <div class="record-meta">
+            <span>MD80003456</span>
+            <span>绿绒蒿</span>
+            <span>2026-04-17</span>
+          </div>
+        </div>
+        <span class="record-behavior behavior-phone">电话回访</span>
+      </div>
+      <div class="record-feedback">客户对来古冰川行程很感兴趣，询问国庆期间房态和价格</div>
+      <div class="record-reminder">⏰ 跟进报价反馈</div>
+      <div class="record-actions">
+        <span onclick="openDetailM(this)">查看</span>
+        <span onclick="openEditM(this)">编辑</span>
+      </div>
+    </div>
+
+    <div class="record-card" data-sales="曾卓" data-rid="r2">
+      <div class="record-card-row">
+        <div class="record-avatar" style="background:#C41D7F;">李</div>
+        <div class="record-info">
+          <div class="record-name">李婷 <span style="font-size:11px;color:#999;">#2</span></div>
+          <div class="record-meta"><span>MD80005678</span><span>莲</span><span>2026-04-16</span></div>
+        </div>
+        <span class="record-behavior behavior-wechat">微信沟通</span>
+      </div>
+      <div class="record-feedback">客户希望暑期带家人出行，想要拉萨-林芝-波密完整行程</div>
+      <div class="record-reminder">⏰ 跟进报价反馈</div>
+      <div class="record-actions"><span onclick="openDetailM(this)">查看</span><span onclick="openEditM(this)">编辑</span></div>
+    </div>
+
+    <div class="record-card" data-sales="王翊" data-rid="r3">
+      <div class="record-card-row">
+        <div class="record-avatar" style="background:#AD6800;">黄</div>
+        <div class="record-info">
+          <div class="record-name">黄丽娟 <span style="font-size:11px;color:#999;">#3</span></div>
+          <div class="record-meta"><span>MD80008888</span><span>雪莲</span><span>2026-04-16</span></div>
+        </div>
+        <span class="record-behavior behavior-visit">线下拜访</span>
+      </div>
+      <div class="record-feedback">客户到店体验，对林卡套房和私厨服务非常满意</div>
+      <div class="record-reminder">⏰ 跟进报价反馈</div>
+      <div class="record-actions"><span onclick="openDetailM(this)">查看</span><span onclick="openEditM(this)">编辑</span></div>
+    </div>
+
+    <div class="record-card" data-sales="郑文婷" data-rid="r4">
+      <div class="record-card-row">
+        <div class="record-avatar" style="background:#08979C;">刘</div>
+        <div class="record-info">
+          <div class="record-name">刘洋 <span style="font-size:11px;color:#999;">#4</span></div>
+          <div class="record-meta"><span>MD80007890</span><span>格桑</span><span>2026-04-15</span></div>
+        </div>
+        <span class="record-behavior behavior-phone">电话回访</span>
+      </div>
+      <div class="record-feedback">客户对续费有些犹豫，觉得当前会员权益使用不够充分</div>
+      <div class="record-reminder">⏰ 跟进报价反馈</div>
+      <div class="record-actions"><span onclick="openDetailM(this)">查看</span><span onclick="openEditM(this)">编辑</span></div>
+    </div>
+
+    <div class="record-card" data-sales="苏凝影" data-rid="r5">
+      <div class="record-card-row">
+        <div class="record-avatar" style="background:#AD6800;">陈</div>
+        <div class="record-info">
+          <div class="record-name">陈志强 <span style="font-size:11px;color:#999;">#5</span></div>
+          <div class="record-meta"><span>MD80009012</span><span>雪莲</span><span>2026-04-13</span></div>
+        </div>
+        <span class="record-behavior behavior-wechat">微信沟通</span>
+      </div>
+      <div class="record-feedback"></div>
+      <div class="record-reminder">⏰ 跟进报价反馈</div>
+      <div class="record-actions"><span onclick="openDetailM(this)">查看</span><span onclick="openEditM(this)">编辑</span></div>
+    </div>
+
+    <div class="record-card" data-sales="赵岍" data-rid="r6">
+      <div class="record-card-row">
+        <div class="record-avatar" style="background:#000000;">王</div>
+        <div class="record-info">
+          <div class="record-name">王建明 <span style="font-size:11px;color:#999;">#6</span></div>
+          <div class="record-meta"><span>MD80001234</span><span>金刚</span><span>2026-04-12</span></div>
+        </div>
+        <span class="record-behavior behavior-visit">线下拜访</span>
+      </div>
+      <div class="record-feedback"></div>
+      <div class="record-reminder">⏰ 跟进报价反馈</div>
+      <div class="record-actions"><span onclick="openDetailM(this)">查看</span><span onclick="openEditM(this)">编辑</span></div>
+    </div>
+
+    <div class="record-card" data-sales="王倩" data-rid="r7">
+      <div class="record-card-row">
+        <div class="record-avatar" style="background:#531dab;">孙</div>
+        <div class="record-info">
+          <div class="record-name">孙丽华 <span style="font-size:11px;color:#999;">#7</span></div>
+          <div class="record-meta"><span>MD80002345</span><span>金刚</span><span>2026-04-10</span></div>
+        </div>
+        <span class="record-behavior behavior-visit">线下拜访</span>
+      </div>
+      <div class="record-feedback">客户提到想了解新线路，对藏东方向感兴趣</div>
+      <div class="record-reminder">⏰ 跟进报价反馈</div>
+      <div class="record-actions"><span onclick="openDetailM(this)">查看</span><span onclick="openEditM(this)">编辑</span></div>
+    </div>
+
+    <div class="record-card" data-sales="张金鸿" data-rid="r8">
+      <div class="record-card-row">
+        <div class="record-avatar" style="background:#FA8C16;">杨</div>
+        <div class="record-info">
+          <div class="record-name">杨帆 <span style="font-size:11px;color:#999;">#8</span></div>
+          <div class="record-meta"><span>MD80004567</span><span>雪莲</span><span>2026-04-08</span></div>
+        </div>
+        <span class="record-behavior behavior-phone">电话回访</span>
+      </div>
+      <div class="record-feedback"></div>
+      <div class="record-reminder">⏰ 跟进报价反馈</div>
+      <div class="record-actions"><span onclick="openDetailM(this)">查看</span><span onclick="openEditM(this)">编辑</span></div>
+    </div>
+
+    <div class="record-card" data-sales="张嵩" data-rid="r9">
+      <div class="record-card-row">
+        <div class="record-avatar" style="background:#999;">张</div>
+        <div class="record-info">
+          <div class="record-name">张伟 <span style="font-size:11px;color:#999;">#9</span></div>
+          <div class="record-meta"><span>MD80009999</span><span>格桑</span><span>2026-04-05</span></div>
+        </div>
+        <span class="record-behavior behavior-phone">电话回访</span>
+      </div>
+      <div class="record-feedback">电话未接通，已留言。上次消费距今超过45天</div>
+      <div class="record-reminder">⏰ 跟进报价反馈</div>
+      <div class="record-actions"><span onclick="openDetailM(this)">查看</span><span onclick="openEditM(this)">编辑</span></div>
+    </div>
+  </div>
+
+  <div class="pagination-m">
+    <span class="page-dot active"></span>
+    <span class="page-dot"></span>
+    <span class="page-dot"></span>
+  </div>
+</div>
+
+<!-- ====== 会员查询弹窗 ====== -->
+<div class="modal-fs" id="searchModal">
+  <div class="modal-fs-header">
+    <span class="modal-fs-title">会员查询及维护</span>
+    <button class="modal-fs-close" onclick="closeSearchModal()">✕</button>
+  </div>
+  <div class="modal-fs-body">
+    <div class="search-bar-m">
+      <input type="text" id="searchInput" placeholder="姓名/卡号/手机号" onkeydown="if(event.key==='Enter')doSearch()">
+      <button onclick="doSearch()">搜索</button>
+    </div>
+    <div style="font-size:12px;color:#999;margin-bottom:8px;" id="searchCount">输入关键词开始搜索</div>
+    <div id="searchList">
+      <div class="search-empty">🔍<br>请输入会员信息进行搜索</div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 新增维护记录弹窗 ====== -->
+<div class="modal-fs" id="addModal">
+  <div class="modal-fs-header">
+    <span class="modal-fs-title">新增维护记录</span>
+    <button class="modal-fs-close" onclick="closeModal()">✕</button>
+  </div>
+  <div class="modal-fs-body">
+    <div class="info-box" onclick="openMaintainMemberPicker()" id="maintainInfoBox" style="cursor:pointer;">
+      <div class="info-box-avatar" id="modalAvatar" style="background:#000000;">王</div>
+      <div><div class="info-box-name" id="modalMemberName">王建明</div><div class="info-box-meta" id="modalMemberMeta">MD80001234·金刚</div></div>
+      <div style="margin-left:auto;color:#999;font-size:18px;">›</div>
+    </div>
+    <div class="form-row-m">
+      <div class="form-group">
+        <label class="form-label-m">维护日期 <span class="req">*</span></label>
+        <input type="date" class="form-input-m" value="2026-04-17">
+      </div>
+      <div class="form-group">
+        <label class="form-label-m">维护行为 <span class="req">*</span></label>
+        <select class="form-input-m">
+          <option>请选择</option><option>线下拜访</option><option>电话回访</option><option>活动邀约</option><option selected>微信沟通</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label-m">客户反馈 <span class="req">*</span></label>
+      <textarea class="form-textarea-m" placeholder="记录客户关键反馈、态度或需求..."></textarea>
+    </div>
+    <div style="font-size:14px;font-weight:600;color:#333;margin:16px 0 10px;padding-top:12px;border-top:1px dashed #e8e8e8;">📋 出行需求信息</div>
+    <div class="form-row-m">
+      <div class="form-group">
+        <label class="form-label-m">出行时节</label>
+        <select class="form-input-m">
+          <option>请选择</option><option>春季（3-5月）</option><option>夏季（6-8月）</option><option>秋季（9-11月）</option><option>冬季（12-2月）</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label-m">出行组合</label>
+        <select class="form-input-m">
+          <option>请选择</option><option>独自出行</option><option>情侣出行</option><option>亲子出行</option><option>朋友结伴</option><option>父母同游</option><option>大家庭</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row-m">
+      <div class="form-group">
+        <label class="form-label-m">人均预算</label>
+        <select class="form-input-m">
+          <option>请选择</option><option>5,000以下</option><option>5,000-10,000</option><option>10,000-20,000</option><option>20,000-50,000</option><option>50,000以上</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label-m">出行天数</label>
+        <select class="form-input-m">
+          <option>请选择</option><option>3天以内</option><option>4-6天</option><option>7-10天</option><option>11-15天</option><option>15天以上</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label-m">出行偏好</label>
+      <select class="form-input-m">
+        <option>请选择</option><option>自然风光</option><option>人文历史</option><option>奢享度假</option><option>户外徒步</option><option>摄影采风</option><option>亲子互动</option><option>美食体验</option><option>温泉养生</option>
+      </select>
+    </div>
+    <div style="font-size:14px;font-weight:600;color:#333;margin:16px 0 10px;padding-top:12px;border-top:1px dashed #e8e8e8;">⏰ 提醒事项</div>
+    <div class="reminder-box">
+      <div class="form-group" style="margin-bottom:10px;">
+        <label class="form-label-m">提醒日期 <span class="req">*</span></label>
+        <input type="date" class="form-input-m">
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label-m">提醒事项 <span class="req">*</span></label>
+        <textarea class="form-textarea-m" placeholder="如：确认客户是否预定、跟进报价反馈..." style="min-height:48px;"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="modal-fs-footer">
+    <button class="btn btn-cancel" onclick="closeModal()">取消</button>
+    <button class="btn btn-submit" onclick="closeModal()">提交</button>
+  </div>
+</div>
+
+<!-- ====== 维护记录-选择客户弹窗 ====== -->
+<div class="modal-fs" id="maintainPickerModal">
+  <div class="modal-fs-header">
+    <span class="modal-fs-title">选择客户</span>
+    <button class="modal-fs-close" onclick="closeMaintainPicker()">✕</button>
+  </div>
+  <div class="modal-fs-body">
+    <div class="search-bar-m">
+      <input type="text" id="pickerSearchInput" placeholder="搜索姓名/卡号/手机号" oninput="filterPickerList()">
+      <button onclick="filterPickerList()">搜索</button>
+    </div>
+    <div id="pickerMemberList"></div>
+  </div>
+</div>
+
+<!-- ====== 维护记录详情弹窗 ====== -->
+<div class="modal-fs" id="detailModal">
+  <div class="modal-fs-header">
+    <span class="modal-fs-title">维护记录详情</span>
+    <button class="modal-fs-close" onclick="closeDetailModal()">✕</button>
+  </div>
+  <div class="modal-fs-body" id="detailModalBody">
+  </div>
+  <div class="modal-fs-footer">
+    <button class="btn btn-cancel" onclick="closeDetailModal()">关闭</button>
+    <button class="btn btn-submit" id="dtEditBtn" onclick="switchToEditM()">编辑</button>
+  </div>
+</div>
+
+<!-- ====== 编辑维护记录弹窗 ====== -->
+<div class="modal-fs" id="editModal">
+  <div class="modal-fs-header">
+    <span class="modal-fs-title">编辑维护记录</span>
+    <button class="modal-fs-close" onclick="closeEditModal()">✕</button>
+  </div>
+  <div class="modal-fs-body">
+    <div class="info-box">
+      <div class="info-box-avatar" id="editAvatar" style="background:#000000;">王</div>
+      <div><div class="info-box-name" id="editName">王建明</div><div class="info-box-meta" id="editMeta">MD80001234·金刚</div></div>
+    </div>
+    <div class="form-row-m">
+      <div class="form-group">
+        <label class="form-label-m">维护日期 *</label>
+        <input type="date" class="form-input-m" id="editDate">
+      </div>
+      <div class="form-group">
+        <label class="form-label-m">维护行为 *</label>
+        <select class="form-input-m" id="editBehavior">
+          <option>线下拜访</option><option>电话回访</option><option>活动邀约</option><option>微信沟通</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label-m">客户反馈</label>
+      <textarea class="form-textarea-m" id="editFeedback"></textarea>
+    </div>
+    <div style="font-size:14px;font-weight:600;color:#333;margin:16px 0 10px;padding-top:12px;border-top:1px dashed #e8e8e8;">⏰ 提醒事项</div>
+    <div class="reminder-box">
+      <div class="form-group" style="margin-bottom:10px;">
+        <label class="form-label-m">提醒日期 *</label>
+        <input type="date" class="form-input-m" id="editReminderDate">
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label-m">提醒事项 *</label>
+        <textarea class="form-textarea-m" id="editReminderContent" placeholder="确认客户是否预定..."></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="modal-fs-footer">
+    <button class="btn btn-cancel" onclick="closeEditModal()">取消</button>
+    <button class="btn btn-submit" onclick="submitEditM()">保存更新</button>
+  </div>
+</div>
+
+<!-- ====== 操作日志弹窗 ====== -->
+<div class="modal-fs" id="logModal">
+  <div class="modal-fs-header">
+    <span class="modal-fs-title">操作日志</span>
+    <button class="modal-fs-close" onclick="hideLogModal()">✕</button>
+  </div>
+  <div class="modal-fs-body">
+    <div class="log-list" id="logList">
+      <div class="log-item"><span class="log-type log-type-add">新增</span> <span style="color:#999;">04-17 16:32·赵岍</span> 赵雅芝 — 新增维护记录：电话回访</div>
+      <div class="log-item"><span class="log-type log-type-add">新增</span> <span style="color:#999;">04-16 14:05·张金鸿</span> 李婷 — 新增维护记录：微信沟通</div>
+      <div class="log-item"><span class="log-type log-type-add">新增</span> <span style="color:#999;">04-16 10:18·张金鸿</span> 黄丽娟 — 新增维护记录：线下拜访</div>
+      <div class="log-item"><span class="log-type log-type-edit">编辑</span> <span style="color:#999;">04-15 11:23·杨慧中</span> 刘洋 — 更新客户反馈内容</div>
+      <div class="log-item"><span class="log-type log-type-add">新增</span> <span style="color:#999;">04-13 09:15·苏凝影</span> 陈志强 — 新增维护记录：微信沟通</div>
+      <div class="log-item"><span class="log-type log-type-add">新增</span> <span style="color:#999;">04-12 14:05·赵岍</span> 王建明 — 新增维护记录：线下拜访</div>
+      <div class="log-item"><span class="log-type log-type-add">新增</span> <span style="color:#999;">04-10 10:30·李海燕</span> 孙丽华 — 新增维护记录：线下拜访</div>
+      <div class="log-item"><span class="log-type log-type-add">新增</span> <span style="color:#999;">04-08 16:42·张金鸿</span> 杨帆 — 新增维护记录：电话回访</div>
+      <div class="log-item"><span class="log-type log-type-add">新增</span> <span style="color:#999;">04-05 09:00·李海燕</span> 张伟 — 新增维护记录：电话回访</div>
+    </div>
+  </div>
+  <div class="modal-fs-footer">
+    <button class="btn btn-cancel" onclick="hideLogModal()" style="flex:1;">关闭</button>
+  </div>
+</div>
+
+<!-- ====== 客户分组明细弹窗 ====== -->
+<div class="modal-fs" id="groupDetailModal">
+  <div class="modal-fs-header">
+    <span class="modal-fs-title" id="groupDetailTitle">客户明细</span>
+    <button class="modal-fs-close" onclick="closeGroupDetailModal()">✕</button>
+  </div>
+  <div class="modal-fs-body">
+    <!-- 搜索栏 -->
+    <div class="gd-m-search">
+      <input type="text" id="groupSearchInputM" placeholder="搜索会员名称/卡号/手机号" oninput="applyGroupFilterM()">
+    </div>
+    <!-- 筛选切换 -->
+    <div class="gd-m-filter-toggle" onclick="toggleGdFilterPanelM()">
+      <span>📋 筛选</span>
+      <span id="gdFilterCountM" style="font-size:11px;color:#999;">未选</span>
+      <span id="gdFilterArrowM" style="font-size:10px;transition:transform .2s;">▾</span>
+    </div>
+    <!-- 筛选面板 -->
+    <div class="gd-m-filter-panel" id="gdFilterPanelM">
+      <div class="gd-m-filter-group">
+        <div class="gd-m-filter-title">会员等级</div>
+        <div class="gd-m-chips" data-key="level">
+          <span class="gd-m-chip" onclick="toggleChipM(this)">金刚</span>
+          <span class="gd-m-chip" onclick="toggleChipM(this)">莲</span>
+          <span class="gd-m-chip" onclick="toggleChipM(this)">雪莲</span>
+          <span class="gd-m-chip" onclick="toggleChipM(this)">绿绒蒿</span>
+          <span class="gd-m-chip" onclick="toggleChipM(this)">格桑</span>
+        </div>
+      </div>
+      <div class="gd-m-filter-group">
+        <div class="gd-m-filter-title">客户类型</div>
+        <div class="gd-m-chips" data-key="custType">
+          <span class="gd-m-chip" onclick="toggleChipM(this)">存量激活客</span>
+          <span class="gd-m-chip" onclick="toggleChipM(this)">标准忠诚客</span>
+        </div>
+      </div>
+      <div class="gd-m-filter-group">
+        <div class="gd-m-filter-title">会员属性</div>
+        <div class="gd-m-chips" data-key="memberAttr">
+          <span class="gd-m-chip" onclick="toggleChipM(this)">老会员</span>
+          <span class="gd-m-chip" onclick="toggleChipM(this)">新会员</span>
+        </div>
+      </div>
+      <div class="gd-m-filter-group">
+        <div class="gd-m-filter-title">客户属性</div>
+        <div class="gd-m-chips" data-key="custAttr">
+          <span class="gd-m-chip" onclick="toggleChipM(this)">老客</span>
+          <span class="gd-m-chip" onclick="toggleChipM(this)">新客</span>
+        </div>
+      </div>
+      <button class="gd-m-reset" onclick="resetGroupFilterM()">重置全部筛选</button>
+    </div>
+    <!-- 结果统计 -->
+    <div class="gd-m-result-count" id="groupResultCountM">共 0 条</div>
+    <!-- 表格 -->
+    <div class="group-table-wrap">
+      <table class="group-table-m">
+        <thead><tr>
+          <th>会员卡号</th><th>会员名称</th><th>手机号</th><th>等级</th><th>注册时间</th><th>客户类型</th><th>销售员</th><th>会员属性</th><th>客户属性</th><th style="text-align:right">消费频次</th><th style="text-align:right">下单金额</th><th style="text-align:right">出行金额</th><th style="text-align:center">复购</th><th style="text-align:right">间隔天数</th>
+        </tr></thead>
+        <tbody id="groupTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal-fs-footer">
+    <button class="btn btn-cancel" onclick="closeGroupDetailModal()" style="flex:1;">关闭</button>
+  </div>
+</div>
+
+<style>
+.gd-m-search { margin-bottom:10px; }
+.gd-m-search input {
+  width:100%; height:38px; padding:0 12px;
+  border:1px solid #d9d9d9; border-radius:10px;
+  font-size:14px; font-family:inherit; outline:none;
+  background:#fff;
+}
+.gd-m-search input:focus { border-color:#000000; }
+.gd-m-filter-toggle {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 14px; background:#fff; border:1px solid #e8e8e8;
+  border-radius:10px; margin-bottom:8px; cursor:pointer;
+  font-size:14px; font-weight:500;
+}
+.gd-m-filter-toggle:active { background:#fafafa; }
+.gd-m-filter-toggle.open #gdFilterArrowM { transform:rotate(180deg); }
+.gd-m-filter-panel {
+  display:none; padding:12px 14px; background:#fff;
+  border:1px solid #e8e8e8; border-radius:10px; margin-bottom:10px;
+}
+.gd-m-filter-panel.show { display:block; }
+.gd-m-filter-group { margin-bottom:12px; }
+.gd-m-filter-group:last-of-type { margin-bottom:10px; }
+.gd-m-filter-title {
+  font-size:12px; color:#999; margin-bottom:6px; font-weight:500;
+}
+.gd-m-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.gd-m-chip {
+  padding:5px 12px; border:1px solid #d9d9d9; border-radius:16px;
+  font-size:12px; color:#666; cursor:pointer; background:#fff;
+  transition:all .15s; user-select:none;
+}
+.gd-m-chip.active {
+  background:#000000; color:#fff; border-color:#000000;
+}
+.gd-m-reset {
+  width:100%; padding:8px; margin-top:4px;
+  background:#f5f5f5; color:#666; border:none;
+  border-radius:8px; font-size:13px; cursor:pointer;
+  font-family:inherit;
+}
+.gd-m-reset:active { background:#e8e8e8; }
+.gd-m-result-count {
+  font-size:12px; color:#999; margin-bottom:8px; padding:0 4px;
+}
+</style>
+
+<!-- ====== 会员详情弹窗 (独立) ====== -->
+<div class="mdm-overlay" id="mdmOverlay"></div>
+<div class="mdm-sheet" id="mdmSheet">
+  <div class="mdm-navbar">
+    <button class="mdm-back" onclick="closeMemberDetail()">←</button>
+    <span class="mdm-nav-title" id="mdmTitle">会员详情</span>
+  </div>
+  <div class="mdm-body" id="mdmBody"></div>
+  <div class="mdm-footer" id="mdmFooter"></div>
+</div>
+
+<script>
+// ====== Detail & Edit (card-based) ======
+var _currentEditCard = null;
+
+function openDetailM(el) {
+  var card = el.closest('.record-card');
+  if (!card) return;
+  _currentEditCard = card;
+  var name = card.querySelector('.record-name').childNodes[0].textContent.trim();
+  var metaSpans = card.querySelectorAll('.record-meta span');
+  var behavior = card.querySelector('.record-behavior');
+  var feedback = card.querySelector('.record-feedback');
+  var reminder = card.querySelector('.record-reminder');
+  var avatar = card.querySelector('.record-avatar');
+
+  var html = '<div class="info-box"><div class="info-box-avatar" style="background:' + (avatar?avatar.style.background:'#000000') + ';">' + name[0] + '</div><div><div class="info-box-name">' + name + '</div><div class="info-box-meta">' + (metaSpans[0]?metaSpans[0].textContent:'') + ' · ' + (metaSpans[1]?metaSpans[1].textContent:'') + '</div></div></div>';
+  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin-bottom:14px;">';
+  html += '<div><div class="md-field-label">维护日期</div><div class="md-field-value">' + (metaSpans[2]?metaSpans[2].textContent:'') + '</div></div>';
+  html += '<div><div class="md-field-label">维护行为</div><div class="md-field-value">' + (behavior?behavior.textContent:'') + '</div></div>';
+  html += '</div>';
+  html += '<div class="md-field-label">客户反馈</div>';
+  html += '<div style="font-size:14px;color:#333;line-height:1.6;padding:10px;background:#FAFAFA;border-radius:8px;margin-top:4px;">' + (feedback&&feedback.textContent.trim()?feedback.textContent:'—') + '</div>';
+  if (reminder) {
+    html += '<div style="margin-top:14px;"><div class="md-field-label">事项提醒</div><div class="reminder-box" style="margin-top:4px;">' + reminder.innerHTML + '</div></div>';
+  }
+
+  document.getElementById('detailModalBody').innerHTML = html;
+  document.getElementById('detailModal').classList.add('show');
+}
+
+function openEditM(el) {
+  var card = el.closest('.record-card');
+  if (!card) return;
+  _currentEditCard = card;
+  var name = card.querySelector('.record-name').childNodes[0].textContent.trim();
+  var metaSpans = card.querySelectorAll('.record-meta span');
+  var behavior = card.querySelector('.record-behavior');
+  var feedback = card.querySelector('.record-feedback');
+  var avatar = card.querySelector('.record-avatar');
+
+  var av = document.getElementById('editAvatar');
+  av.textContent = name[0];
+  av.style.background = avatar ? avatar.style.background : '#000000';
+  document.getElementById('editName').innerHTML = name + ' <span style="font-size:12px;color:#999;font-weight:400;">' + (metaSpans[0]?metaSpans[0].textContent:'') + '·' + (metaSpans[1]?metaSpans[1].textContent:'') + '</span>';
+  document.getElementById('editMeta').textContent = metaSpans.length>2?metaSpans[2].textContent:'';
+  document.getElementById('editDate').value = metaSpans[2]?metaSpans[2].textContent:'';
+  var sel = document.getElementById('editBehavior');
+  var beh = behavior?behavior.textContent.trim():'';
+  for (var i=0;i<sel.options.length;i++) { if (sel.options[i].text===beh) { sel.selectedIndex=i; break; } }
+  document.getElementById('editFeedback').value = feedback?feedback.textContent.trim():'';
+  document.getElementById('editModal').classList.add('show');
+}
+
+function closeDetailModal() { document.getElementById('detailModal').classList.remove('show'); }
+function closeEditModal() { document.getElementById('editModal').classList.remove('show'); }
+
+function switchToEditM() {
+  closeDetailModal();
+  if (_currentEditCard) openEditM({closest:function(){return _currentEditCard;}});
+}
+
+function submitEditM() {
+  if (!_currentEditCard) { closeEditModal(); return; }
+  var date = document.getElementById('editDate').value;
+  var behavior = document.getElementById('editBehavior').value;
+  var feedback = document.getElementById('editFeedback').value;
+  var metaSpans = _currentEditCard.querySelectorAll('.record-meta span');
+  if (metaSpans[2]) metaSpans[2].textContent = date;
+  var behEl = _currentEditCard.querySelector('.record-behavior');
+  if (behEl) {
+    behEl.textContent = behavior;
+    var cls = {'线下拜访':'behavior-visit','电话回访':'behavior-phone','活动邀约':'behavior-event','微信沟通':'behavior-wechat'};
+    behEl.className = 'record-behavior ' + (cls[behavior]||'behavior-phone');
+  }
+  var fbEl = _currentEditCard.querySelector('.record-feedback');
+  if (fbEl) fbEl.textContent = feedback;
+  closeEditModal();
+  _currentEditCard.style.transition = 'background .2s';
+  _currentEditCard.style.background = '#F6FFED';
+  setTimeout(function(){ _currentEditCard.style.background = '#FAFAFA'; }, 1200);
+}
+
+// ====== Sales Switch ======
+var currentSales = '';
+function toggleSalesDropdown() {
+  var dd = document.getElementById('salesDropdown');
+  var btn = document.querySelector('.sales-btn');
+  dd.classList.toggle('show');
+  btn.classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  var sw = document.getElementById('salesSwitcher');
+  if (sw && !sw.contains(e.target)) {
+    document.getElementById('salesDropdown').classList.remove('show');
+    document.querySelector('.sales-btn').classList.remove('open');
+  }
+});
+function switchSales(el, label, name) {
+  currentSales = name;
+  document.getElementById('currentSalesLabel').textContent = label;
+  document.querySelectorAll('.sales-item').forEach(function(i){ i.classList.remove('active'); });
+  el.classList.add('active');
+  document.getElementById('salesDropdown').classList.remove('show');
+  document.querySelector('.sales-btn').classList.remove('open');
+  filterBySalesM();
+}
+function filterBySalesM() {
+  document.querySelectorAll('#recordCardList .record-card[data-sales]').forEach(function(c){
+    c.style.display = (!currentSales || c.dataset.sales === currentSales) ? '' : 'none';
+  });
+  // 更新统计数字
+  updateStatsM();
+}
+
+function updateStatsM() {
+  var coreCount = 0, assetCount = 0;
+  if (currentSales) {
+    coreCount = memberDB.filter(function(m){ return m.sales === currentSales; }).length;
+    assetCount = memberDB.filter(function(m){
+      return (!m.sales || m.sales === '') && m.contactSales === currentSales;
+    }).length;
+  } else {
+    coreCount = memberDB.filter(function(m){ return m.sales; }).length;
+    assetCount = memberDB.filter(function(m){ return (!m.sales || m.sales === '') && m.contactSales; }).length;
+  }
+  var visibleRecords = document.querySelectorAll('#recordCardList .record-card[data-sales]').length;
+  if (currentSales) {
+    visibleRecords = document.querySelectorAll('#recordCardList .record-card[data-sales="' + currentSales + '"]').length;
+  } else {
+    visibleRecords = document.querySelectorAll('#recordCardList .record-card[data-sales]').length;
+  }
+  var coreEl = document.getElementById('m-stat-core');
+  var assetEl = document.getElementById('m-stat-asset');
+  var monthEl = document.getElementById('m-stat-month');
+  if (coreEl) coreEl.textContent = coreCount;
+  if (assetEl) assetEl.textContent = assetCount;
+  if (monthEl) monthEl.textContent = visibleRecords;
+}
+
+// ====== Member Search ======
+var memberDB = [
+  { id:'wjm',name:'王建明',card:'MD80001234',level:'金刚',phone:'138****5678',city:'北京·朝阳区',ambassador:'是',amount:'¥286,500',lastOrder:'2026-03-20',expiry:'2026-12-31',lastContact:'8天前·线下拜访',sales:'赵岍',color:'#000000',relations:[{name:'王小红',rel:'配偶',card:'MD80006789',level:'莲'},{name:'王子轩',rel:'子女',card:'MD80011234',level:'格桑'}],equityRelated:['王小红'],pointsTransfer:['王小红'],referrer:['周明'],referee:['王子轩'],lastMaint:'2026-04-12' },
+  { id:'slh',name:'孙丽华',card:'MD80002345',level:'金刚',phone:'139****1234',city:'上海·静安区',ambassador:'未知',amount:'¥512,000',lastOrder:'2026-04-10',expiry:'2027-06-30',lastContact:'5天前·线下拜访',sales:'王倩',color:'#531dab',relations:[{name:'孙建国',rel:'配偶',card:'MD80004500',level:'雪莲'}],equityRelated:[],pointsTransfer:['孙建国'],referrer:[],referee:[],lastMaint:'2026-04-10' },
+  { id:'zyz',name:'赵雅芝',card:'MD80003456',level:'绿绒蒿',phone:'135****9876',city:'深圳·南山区',ambassador:'否',amount:'¥378,900',lastOrder:'2026-04-15',expiry:'2027-03-15',lastContact:'2天前·电话回访',sales:'廖文娟',color:'#C41D7F',relations:[],equityRelated:[],pointsTransfer:[],referrer:['林芳'],referee:[],lastMaint:'2026-04-17' },
+  { id:'lt',name:'李婷',card:'MD80005678',level:'莲',phone:'136****4321',city:'成都·锦江区',ambassador:'否',amount:'¥152,800',lastOrder:'2026-04-11',expiry:'2027-01-20',lastContact:'5天前·微信沟通',sales:'曾卓',color:'#C41D7F',relations:[{name:'李子豪',rel:'子女',card:'MD80008888',level:'格桑'},{name:'张明远',rel:'配偶',card:'MD80007777',level:'雪莲'}],equityRelated:['张明远'],pointsTransfer:[],referrer:['马晓芸'],referee:[],lastMaint:'2026-04-16' },
+  { id:'yf',name:'杨帆',card:'MD80004567',level:'雪莲',phone:'137****8765',city:'广州·天河区',ambassador:'否',amount:'¥98,700',lastOrder:'2026-03-25',expiry:'2026-11-10',lastContact:'7天前·电话回访',sales:'张金鸿',color:'#FA8C16',relations:[],equityRelated:[],pointsTransfer:[],referrer:[],referee:['陈志强'],lastMaint:'2026-04-08' },
+  { id:'zm',name:'周明',card:'MD80006789',level:'莲',phone:'133****5555',city:'杭州·西湖区',ambassador:'未知',amount:'¥32,500',lastOrder:'2026-03-01',expiry:'2026-08-15',lastContact:'1天前·微信沟通',sales:'曹晓昕',color:'#389E0D',relations:[{name:'王小红',rel:'配偶',card:'MD80001234',level:'金刚'}],equityRelated:[],pointsTransfer:[],referrer:[],referee:['王建明'],lastMaint:'2026-03-01' },
+  { id:'ly',name:'刘洋',card:'MD80007890',level:'格桑',phone:'158****3333',city:'重庆·渝北区',ambassador:'否',amount:'¥56,300',lastOrder:'2026-04-16',expiry:'2026-09-30',lastContact:'1天前·电话回访',sales:'郑文婷',color:'#08979C',relations:[],equityRelated:[],pointsTransfer:[],referrer:[],referee:[],lastMaint:'2026-04-15' },
+  { id:'hlj',name:'黄丽娟',card:'MD80008888',level:'雪莲',phone:'159****2222',city:'南京·鼓楼区',ambassador:'是',amount:'¥421,000',lastOrder:'2026-04-11',expiry:'2027-05-20',lastContact:'6天前·线下拜访',sales:'王翊',color:'#AD6800',relations:[],equityRelated:['孙建国'],pointsTransfer:['孙建国'],referrer:[],referee:[],lastMaint:'2026-04-16' },
+  { id:'czq',name:'陈志强',card:'MD80009012',level:'雪莲',phone:'186****1111',city:'武汉·武昌区',ambassador:'否',amount:'¥89,600',lastOrder:'2026-04-13',expiry:'2026-10-08',lastContact:'3天前·微信沟通',sales:'苏凝影',color:'#AD6800',relations:[],equityRelated:[],pointsTransfer:[],referrer:['杨帆'],referee:[],lastMaint:'2026-04-13' },
+  { id:'zw',name:'张伟',card:'MD80009999',level:'格桑',phone:'150****6666',city:'西安·雁塔区',ambassador:'未知',amount:'¥18,200',lastOrder:'2026-03-02',expiry:'2026-07-01',lastContact:'45天前·电话回访',sales:'张嵩',color:'#999',relations:[],equityRelated:[],pointsTransfer:[],referrer:[],referee:[],lastMaint:'2026-04-05' },
+  { id:'mx',name:'马晓芸',card:'MD80011111',level:'莲',phone:'131****7777',city:'昆明·盘龙区',ambassador:'否',amount:'¥356,000',lastOrder:'2026-03-05',expiry:'2027-02-28',lastContact:'12天前·微信沟通',sales:null,contactSales:'赵岍',color:'#CF1322',relations:[{name:'马建国',rel:'配偶',card:'MD80012222',level:'雪莲'}],equityRelated:[],pointsTransfer:[],referrer:[],referee:['李婷'],lastMaint:'2026-04-14' },
+  { id:'xw',name:'许文强',card:'MD80012222',level:'雪莲',phone:'132****8888',city:'昆明·五华区',ambassador:'未知',amount:'¥68,500',lastOrder:'2026-04-14',expiry:'2026-12-10',lastContact:'3天前·活动邀约',sales:null,contactSales:'王倩',color:'#AD6800',relations:[{name:'马晓芸',rel:'配偶',card:'MD80011111',level:'莲'}],equityRelated:[],pointsTransfer:[],referrer:[],referee:[],lastMaint:'—' },
+  { id:'lf',name:'林芳',card:'MD80013333',level:'绿绒蒿',phone:'188****4444',city:'拉萨·城关区',ambassador:'是',amount:'¥198,000',lastOrder:'2026-02-20',expiry:'2027-08-30',lastContact:'15天前·线下拜访',sales:null,contactSales:'赵岍',color:'#C41D7F',relations:[],equityRelated:['马晓芸'],pointsTransfer:[],referrer:[],referee:['赵雅芝'],lastMaint:'—' }
+];
+
+var selectedMemberId = null;
+function openSearchModal() {
+  document.getElementById('searchModal').classList.add('show');
+  document.getElementById('searchInput').value='';
+  setTimeout(function(){ document.getElementById('searchInput').focus(); }, 300);
+  document.getElementById('searchCount').textContent='输入关键词开始搜索';
+  document.getElementById('searchList').innerHTML='<div class="search-empty">🔍<br>请输入会员信息进行搜索</div>';
+  selectedMemberId=null;
+}
+
+// 跳转新建咨询单（独立移动端页面）
+function openConsultModal() {
+  window.location.href = '咨询单新建-移动端.html';
+}
+function closeSearchModal() { document.getElementById('searchModal').classList.remove('show'); }
+
+function doSearch() {
+  var kw = document.getElementById('searchInput').value.trim().toLowerCase();
+  var listEl = document.getElementById('searchList');
+  var countEl = document.getElementById('searchCount');
+  if (!kw) {
+    countEl.textContent='输入关键词开始搜索';
+    listEl.innerHTML='<div class="search-empty">🔍<br>请输入会员信息进行搜索</div>';
+    return;
+  }
+  var results = memberDB.filter(function(m){ return m.name.toLowerCase().includes(kw)||m.card.toLowerCase().includes(kw)||m.phone.includes(kw); });
+  countEl.textContent='找到 '+results.length+' 条结果';
+  if (results.length===0) {
+    listEl.innerHTML='<div class="search-empty">🤷<br>未找到匹配的会员</div>';
+    return;
+  }
+  var html='';
+  results.forEach(function(m){
+    html+='<div class="search-result-item" onclick="selectMember(\''+m.id+'\')" data-id="'+m.id+'">'
+      +'<div class="sr-avatar" style="background:'+m.color+';">'+m.name[0]+'</div>'
+      +'<div class="sr-info"><div class="sr-name">'+m.name+'</div><div class="sr-meta"><span>'+m.card+'</span><span>'+m.level+'</span><span>'+m.phone+'</span><span>'+(m.sales?'👤 '+m.sales:'<span style="color:#F5222D;">⭕ 暂无归属</span>')+'</span></div></div></div>';
+  });
+  listEl.innerHTML=html;
+}
+
+function selectMember(id) {
+  selectedMemberId = id;
+  var m = memberDB.find(function(x){return x.id===id;});
+  if (!m) return;
+  // 关闭搜索弹窗，打开独立的会员详情弹窗
+  closeSearchModal();
+  setTimeout(function(){ openMemberDetail(m); }, 200);
+}
+
+function openMemberDetail(m) {
+  document.getElementById('mdmTitle').textContent = m.name;
+
+  // ====== Body ======
+  var salesBadge = m.sales
+    ? '<div class="mdm-profile-badge">👤 '+m.sales+'</div>'
+    : '<div class="mdm-profile-badge una">⭕ 暂无归属</div>';
+
+  var html = ''
+    // 头像卡片
+    + '<div class="mdm-profile">'
+    +   '<div class="mdm-profile-avatar">'+m.name[0]+'</div>'
+    +   '<div class="mdm-profile-info">'
+    +     '<div class="mdm-profile-name">'+m.name+'</div>'
+    +     '<div class="mdm-profile-meta">'+m.card+' · '+m.level+'会员</div>'
+    +     salesBadge
+    +   '</div>'
+    + '</div>'
+
+    // 基本信息卡片
+    + '<div class="mdm-card"><div class="mdm-card-body">'
+    +   '<div class="mdm-card-title"><span class="icon">📋</span>基本信息</div>'
+    +   '<div class="mdm-fields">'
+    +     '<div><div class="mdm-field-label">手机号码</div><div class="mdm-field-value">'+m.phone+'</div></div>'
+    +     '<div><div class="mdm-field-label">会员所在地</div><div class="mdm-field-value">'+m.city+'</div></div>'
+    +     '<div><div class="mdm-field-label">城市大使</div><div class="mdm-field-value">'+(m.ambassador||'未知')+'</div></div>'
+    +     '<div><div class="mdm-field-label">累计消费</div><div class="mdm-field-value amount">'+m.amount+'</div></div>'
+    +     '<div><div class="mdm-field-label">最近下单</div><div class="mdm-field-value">'+m.lastOrder+'</div></div>'
+    +     '<div><div class="mdm-field-label">会籍有效期</div><div class="mdm-field-value">'+m.expiry+'</div></div>'
+    +     '<div><div class="mdm-field-label">最近联系</div><div class="mdm-field-value">'+m.lastContact+'</div></div>'
+    +     (m.lastMaint?'<div><div class="mdm-field-label">最近维护</div><div class="mdm-field-value link">'+m.lastMaint+'</div></div>':'')
+    +   '</div>'
+    + '</div></div>';
+
+  // 推荐关系卡片
+  if (m.referrer && m.referrer.length) {
+    html += '<div class="mdm-card"><div class="mdm-card-body">'
+      + '<div class="mdm-card-title"><span class="icon">🔗</span>推荐关系</div>'
+      + '<div class="mdm-section">'
+      +   '<div class="mdm-section-row">推荐人：'+m.referrer.join('、')+'</div>'
+      +   (m.referee && m.referee.length ? '<div class="mdm-section-row">被推荐人：'+m.referee.join('、')+'</div>' : '')
+      + '</div>'
+      + '</div></div>';
+  }
+
+  // 会员关系卡片
+  if (m.relations && m.relations.length) {
+    html += '<div class="mdm-card"><div class="mdm-card-body">'
+      + '<div class="mdm-card-title"><span class="icon">👥</span>会员关系</div>';
+    m.relations.forEach(function(r){
+      html += '<div class="mdm-rel-item">'
+        + '<span class="mdm-rel-name" onclick="navigateToMember(\''+(r.card||'')+'\')">'+r.name+'</span>'
+        + '<span class="mdm-rel-tag">'+r.rel+'</span>'
+        + '<span class="mdm-rel-card">'+r.card+' · '+r.level+'</span>'
+        + '</div>';
+    });
+    html += '</div></div>';
+  }
+
+  // 权益/积分标签
+  var tagHtml = '';
+  if (m.equityRelated && m.equityRelated.length) {
+    tagHtml += '<div class="mdm-section" style="margin-bottom:6px;">'
+      + '<div class="mdm-field-label" style="margin-bottom:4px;">权益共享人</div>'
+      + '<div class="mdm-tags">'+m.equityRelated.map(function(n){return '<span class="mdm-tag">'+n+'</span>';}).join('')+'</div>'
+      + '</div>';
+  }
+  if (m.pointsTransfer && m.pointsTransfer.length) {
+    tagHtml += '<div class="mdm-section">'
+      + '<div class="mdm-field-label" style="margin-bottom:4px;">积分可转移人</div>'
+      + '<div class="mdm-tags">'+m.pointsTransfer.map(function(n){return '<span class="mdm-tag warn">'+n+'</span>';}).join('')+'</div>'
+      + '</div>';
+  }
+  if (tagHtml) {
+    html += '<div class="mdm-card"><div class="mdm-card-body">'
+      + '<div class="mdm-card-title"><span class="icon">🏷️</span>权益与积分</div>'
+      + tagHtml
+      + '</div></div>';
+  }
+
+  document.getElementById('mdmBody').innerHTML = html;
+
+  // ====== Footer ======
+  var footerHtml = '';
+  if (m.sales) {
+    footerHtml += '<button class="btn mdm-btn-claim" disabled>✓ 已有归属</button>';
+  } else {
+    footerHtml += '<button class="btn mdm-btn-claim" onclick="claimMember()">📥 纳入我的客户</button>';
+  }
+  footerHtml += '<button class="btn mdm-btn-add" onclick="addRecordFromSearch()">+ 新增维护记录</button>';
+  document.getElementById('mdmFooter').innerHTML = footerHtml;
+
+  // 显示
+  document.getElementById('mdmOverlay').classList.add('show');
+  document.getElementById('mdmSheet').classList.add('show');
+}
+
+function closeMemberDetail() {
+  document.getElementById('mdmOverlay').classList.remove('show');
+  document.getElementById('mdmSheet').classList.remove('show');
+}
+document.getElementById('mdmOverlay').addEventListener('click', closeMemberDetail);
+
+function navigateToMember(cardNo) {
+  var m = memberDB.find(function(x){return x.card===cardNo;});
+  if (!m) return;
+  openMemberDetail(m);
+}
+
+function claimMember() {
+  if (!selectedMemberId) return;
+  var m = memberDB.find(function(x){return x.id===selectedMemberId;});
+  if (!m || m.sales) return;
+  m.sales = '赵岍';
+  // 刷新当前详情
+  openMemberDetail(m);
+}
+
+function addRecordFromSearch() {
+  if (!selectedMemberId) return;
+  var m = memberDB.find(function(x){return x.id===selectedMemberId;});
+  if (!m) return;
+  closeMemberDetail();
+  document.getElementById('modalAvatar').textContent = m.name[0];
+  document.getElementById('modalAvatar').style.background = m.color;
+  document.getElementById('modalMemberName').textContent = m.name;
+  document.getElementById('modalMemberMeta').textContent = m.card+'·'+m.level;
+  document.getElementById('addModal').classList.add('show');
+}
+
+function openModal() { document.getElementById('addModal').classList.add('show'); }
+function closeModal() { document.getElementById('addModal').classList.remove('show'); }
+
+function showLogModal() { document.getElementById('logModal').classList.add('show'); }
+function hideLogModal() { document.getElementById('logModal').classList.remove('show'); }
+
+// ====== Group Detail ======
+// 会员等级/姓名/手机号映射表（根据 cardNo 关联 memberDB）
+function getMemberExtraM(cardNo) {
+  var m = memberDB.find(function(x){return x.card===cardNo;});
+  if (!m) return { name:'—', phone:'—', level:'—' };
+  return { name: m.name, phone: m.phone, level: m.level };
+}
+
+var groupDetailData = {
+  repurchase: [
+    { cardNo:'MD80001234',regDate:'2024-03-15',custType:'存量激活客',sales:'李明辉',memberAttr:'老会员',custAttr:'老客',yearFreq:3,orderAmt:58600,travelAmt:42800,isRepurchase:'是',regFirstGap:12 },
+    { cardNo:'MD80002345',regDate:'2023-08-22',custType:'标准忠诚客',sales:'王芳',memberAttr:'老会员',custAttr:'老客',yearFreq:2,orderAmt:35200,travelAmt:28900,isRepurchase:'是',regFirstGap:45 },
+    { cardNo:'MD80003456',regDate:'2024-01-10',custType:'存量激活客',sales:'李明辉',memberAttr:'新会员',custAttr:'老客',yearFreq:4,orderAmt:125800,travelAmt:98600,isRepurchase:'是',regFirstGap:8 },
+    { cardNo:'MD80004567',regDate:'2023-05-18',custType:'标准忠诚客',sales:'张伟',memberAttr:'老会员',custAttr:'新客',yearFreq:2,orderAmt:42300,travelAmt:31500,isRepurchase:'是',regFirstGap:67 },
+    { cardNo:'MD80005678',regDate:'2024-06-03',custType:'存量激活客',sales:'王芳',memberAttr:'新会员',custAttr:'老客',yearFreq:3,orderAmt:67800,travelAmt:52100,isRepurchase:'是',regFirstGap:15 },
+    { cardNo:'MD80006789',regDate:'2023-11-29',custType:'标准忠诚客',sales:'赵雪',memberAttr:'老会员',custAttr:'老客',yearFreq:5,orderAmt:186500,travelAmt:142300,isRepurchase:'是',regFirstGap:23 },
+    { cardNo:'MD80007890',regDate:'2024-09-14',custType:'存量激活客',sales:'张伟',memberAttr:'新会员',custAttr:'新客',yearFreq:2,orderAmt:29400,travelAmt:22100,isRepurchase:'是',regFirstGap:5 },
+    { cardNo:'MD80008888',regDate:'2023-02-07',custType:'标准忠诚客',sales:'李明辉',memberAttr:'老会员',custAttr:'老客',yearFreq:3,orderAmt:73200,travelAmt:55800,isRepurchase:'是',regFirstGap:38 }
+  ],
+  firstbuy: [
+    { cardNo:'MD80011111',regDate:'2026-01-08',custType:'标准忠诚客',sales:'王芳',memberAttr:'新会员',custAttr:'新客',yearFreq:1,orderAmt:15800,travelAmt:12600,isRepurchase:'否',regFirstGap:3 },
+    { cardNo:'MD80012222',regDate:'2026-01-22',custType:'存量激活客',sales:'李明辉',memberAttr:'新会员',custAttr:'新客',yearFreq:1,orderAmt:22400,travelAmt:18900,isRepurchase:'否',regFirstGap:7 },
+    { cardNo:'MD80013333',regDate:'2025-11-15',custType:'标准忠诚客',sales:'赵雪',memberAttr:'新会员',custAttr:'新客',yearFreq:1,orderAmt:8600,travelAmt:6200,isRepurchase:'否',regFirstGap:12 },
+    { cardNo:'MD80009012',regDate:'2026-02-03',custType:'存量激活客',sales:'张伟',memberAttr:'新会员',custAttr:'新客',yearFreq:1,orderAmt:31200,travelAmt:25600,isRepurchase:'否',regFirstGap:2 },
+    { cardNo:'MD80009999',regDate:'2025-12-20',custType:'标准忠诚客',sales:'王芳',memberAttr:'新会员',custAttr:'新客',yearFreq:1,orderAmt:19700,travelAmt:14800,isRepurchase:'否',regFirstGap:18 }
+  ]
+};
+
+// 'core' 和 'asset' 类型由 memberDB 动态生成
+function buildCoreDataM() {
+  if (!currentSales) return [];
+  return memberDB.filter(function(m){ return m.sales === currentSales; }).map(function(m){
+    return {
+      cardNo: m.card, regDate: '—', custType: '标准忠诚客',
+      sales: m.sales, memberAttr: '老会员', custAttr: '老客',
+      yearFreq: 2, orderAmt: parseInt((m.amount||'').replace(/[^\d]/g,''))||0,
+      travelAmt: 0, isRepurchase: '是', regFirstGap: 0
+    };
+  });
+}
+
+function buildAssetDataM() {
+  if (!currentSales) return [];
+  return memberDB.filter(function(m){
+    return (!m.sales || m.sales === '') && m.contactSales === currentSales;
+  }).map(function(m){
+    return {
+      cardNo: m.card, regDate: '—', custType: '标准忠诚客',
+      sales: '（暂无归属）', memberAttr: '新会员', custAttr: '新客',
+      yearFreq: 0, orderAmt: parseInt((m.amount||'').replace(/[^\d]/g,''))||0,
+      travelAmt: 0, isRepurchase: '否', regFirstGap: 0
+    };
+  });
+}
+
+var currentGroupType = '';
+var groupFilterStateM = { keyword:'', level:[], custType:[], memberAttr:[], custAttr:[] };
+
+function getCurrentGroupDataM() {
+  if (currentGroupType === 'core') return buildCoreDataM();
+  if (currentGroupType === 'asset') return buildAssetDataM();
+  return groupDetailData[currentGroupType] || [];
+}
+
+function showGroupDetail(type) {
+  currentGroupType = type;
+  var titleMap = {
+    'repurchase': '当年复购非核心-优先维护',
+    'firstbuy': '当年首购非核心-建议维护',
+    'core': '我的核心客户',
+    'asset': '我的客户资产'
+  };
+  document.getElementById('groupDetailTitle').textContent = titleMap[type] || '客户明细';
+  // 重置筛选
+  groupFilterStateM = { keyword:'', level:[], custType:[], memberAttr:[], custAttr:[] };
+  document.getElementById('groupSearchInputM').value = '';
+  document.querySelectorAll('.gd-m-chip').forEach(function(c){ c.classList.remove('active'); });
+  document.getElementById('gdFilterPanelM').classList.remove('show');
+  document.querySelector('.gd-m-filter-toggle').classList.remove('open');
+  document.getElementById('gdFilterCountM').textContent = '未选';
+  applyGroupFilterM();
+  document.getElementById('groupDetailModal').classList.add('show');
+}
+
+function applyGroupFilterM() {
+  var kw = document.getElementById('groupSearchInputM').value.trim().toLowerCase();
+  groupFilterStateM.keyword = kw;
+  // 收集 chip 筛选
+  var totalSelected = 0;
+  document.querySelectorAll('.gd-m-chips').forEach(function(group){
+    var key = group.dataset.key;
+    var vals = [];
+    group.querySelectorAll('.gd-m-chip.active').forEach(function(c){ vals.push(c.textContent); });
+    groupFilterStateM[key] = vals;
+    totalSelected += vals.length;
+  });
+  document.getElementById('gdFilterCountM').textContent = totalSelected === 0 ? '未选' : '已选 ' + totalSelected + ' 项';
+
+  var source = getCurrentGroupDataM();
+  var filtered = source.filter(function(r){
+    if (kw) {
+      var extra = getMemberExtraM(r.cardNo);
+      var nameMatch = extra.name.toLowerCase().includes(kw);
+      var cardMatch = r.cardNo.toLowerCase().includes(kw);
+      var phoneMatch = extra.phone.toLowerCase().includes(kw);
+      if (!(nameMatch || cardMatch || phoneMatch)) return false;
+    }
+    if (groupFilterStateM.level.length > 0) {
+      var extra = getMemberExtraM(r.cardNo);
+      if (groupFilterStateM.level.indexOf(extra.level) === -1) return false;
+    }
+    if (groupFilterStateM.custType.length > 0 && groupFilterStateM.custType.indexOf(r.custType) === -1) return false;
+    if (groupFilterStateM.memberAttr.length > 0 && groupFilterStateM.memberAttr.indexOf(r.memberAttr) === -1) return false;
+    if (groupFilterStateM.custAttr.length > 0 && groupFilterStateM.custAttr.indexOf(r.custAttr) === -1) return false;
+    return true;
+  });
+  renderGroupTableM(filtered);
+  document.getElementById('groupResultCountM').textContent = '共 ' + filtered.length + ' 条 / 总 ' + source.length + ' 条';
+}
+
+function renderGroupTableM(data) {
+  var html='';
+  if (!data || data.length === 0) {
+    document.getElementById('groupTableBody').innerHTML = '<tr><td colspan="14" style="text-align:center;padding:30px 0;color:#999;">暂无匹配数据</td></tr>';
+    return;
+  }
+  data.forEach(function(r){
+    var extra = getMemberExtraM(r.cardNo);
+    var custColor = r.custType==='存量激活客'?'#531dab':'#000000';
+    var memberAttrColor = r.memberAttr === '老会员' ? '#FA8C16' : '#52C41A';
+    var custAttrColor = r.custAttr === '老客' ? '#FA8C16' : '#000000';
+    var levelColor = '#000000';
+    if (extra.level === '金刚') levelColor = '#000000';
+    else if (extra.level === '莲') levelColor = '#531dab';
+    else if (extra.level === '雪莲') levelColor = '#08979C';
+    else if (extra.level === '绿绒蒿') levelColor = '#C41D7F';
+    else if (extra.level === '格桑') levelColor = '#999';
+    html+='<tr><td style="font-family:monospace;color:#000000;">'+r.cardNo+'</td>'
+      +'<td style="font-weight:500;">'+extra.name+'</td>'
+      +'<td style="font-family:monospace;color:#666;">'+extra.phone+'</td>'
+      +'<td><span style="padding:2px 6px;border-radius:4px;font-size:10px;background:'+levelColor+'12;color:'+levelColor+';">'+extra.level+'</span></td>'
+      +'<td>'+r.regDate+'</td>'
+      +'<td><span style="padding:2px 6px;border-radius:4px;font-size:10px;background:'+custColor+'12;color:'+custColor+';">'+r.custType+'</span></td>'
+      +'<td>'+r.sales+'</td>'
+      +'<td><span style="padding:2px 6px;border-radius:4px;font-size:10px;background:'+memberAttrColor+'12;color:'+memberAttrColor+';">'+r.memberAttr+'</span></td>'
+      +'<td><span style="padding:2px 6px;border-radius:4px;font-size:10px;background:'+custAttrColor+'12;color:'+custAttrColor+';">'+r.custAttr+'</span></td>'
+      +'<td style="text-align:right;font-weight:600;">'+r.yearFreq+'次</td>'
+      +'<td style="text-align:right;">¥'+r.orderAmt.toLocaleString()+'</td>'
+      +'<td style="text-align:right;">¥'+r.travelAmt.toLocaleString()+'</td>'
+      +'<td style="text-align:center;font-weight:600;color:'+(r.isRepurchase==='是'?'#52C41A':'#F5222D')+';">'+r.isRepurchase+'</td>'
+      +'<td style="text-align:right;">'+r.regFirstGap+'天</td></tr>';
+  });
+  document.getElementById('groupTableBody').innerHTML=html;
+}
+
+function toggleGdFilterPanelM() {
+  var panel = document.getElementById('gdFilterPanelM');
+  var toggle = document.querySelector('.gd-m-filter-toggle');
+  panel.classList.toggle('show');
+  toggle.classList.toggle('open');
+}
+
+function toggleChipM(chip) {
+  chip.classList.toggle('active');
+  applyGroupFilterM();
+}
+
+function resetGroupFilterM() {
+  document.querySelectorAll('.gd-m-chip').forEach(function(c){ c.classList.remove('active'); });
+  document.getElementById('groupSearchInputM').value = '';
+  applyGroupFilterM();
+}
+
+function closeGroupDetailModal() { document.getElementById('groupDetailModal').classList.remove('show'); }
+
+// ====== 快速维护：获取企微当前会话客人并打开维护记录弹窗 ======
+var wxContactCache = null; // 缓存企微联系人信息
+
+// 尝试从企微SDK获取当前外部联系人
+function getWecomContact(callback) {
+  // 方式1：企微JS-SDK (ww.getCurExternalContact)
+  if (typeof ww !== 'undefined' && ww.getCurExternalContact) {
+    try {
+      ww.getCurExternalContact({
+        success: function(res) {
+          wxContactCache = res;
+          callback(null, res);
+        },
+        fail: function(err) {
+          callback(err, null);
+        }
+      });
+      return;
+    } catch(e) { /* fall through */ }
+  }
+
+  // 方式2：从URL参数获取 (?contactName=xxx&contactId=xxx)
+  var params = new URLSearchParams(window.location.search);
+  var name = params.get('contactName') || params.get('name') || params.get('external_name');
+  var id = params.get('contactId') || params.get('id') || params.get('external_userid');
+  if (name) {
+    var info = { name: decodeURIComponent(name), userId: id ? decodeURIComponent(id) : '' };
+    wxContactCache = info;
+    callback(null, info);
+    return;
+  }
+
+  // 方式3：尝试从企微上下文入口获取 (jssdk.getContextEntry)
+  if (typeof ww !== 'undefined' && ww.getContextEntry) {
+    try {
+      ww.getContextEntry({
+        success: function(entry) {
+          if (entry && entry.entryData && entry.entryData.contact_name) {
+            var info2 = {
+              name: entry.entryData.contact_name,
+              userId: entry.entryData.external_userid || ''
+            };
+            wxContactCache = info2;
+            callback(null, info2);
+          } else {
+            callback({ msg: '无会话信息' }, null);
+          }
+        },
+        fail: function(err) {
+          callback(err, null);
+        }
+      });
+      return;
+    } catch(e) { /* fall through */ }
+  }
+
+  callback({ msg: '无法获取企微联系人' }, null);
+}
+
+// 在memberDB中查找匹配的会员
+function findMemberByWecomContact(contactInfo) {
+  if (!contactInfo || !contactInfo.name) return null;
+
+  // 精确匹配姓名
+  var m = memberDB.find(function(x){ return x.name === contactInfo.name; });
+  if (m) return m;
+
+  // 模糊匹配（姓名包含）
+  m = memberDB.find(function(x){
+    return x.name.indexOf(contactInfo.name) !== -1 || contactInfo.name.indexOf(x.name) !== -1;
+  });
+  if (m) return m;
+
+  // 通过userId匹配
+  if (contactInfo.userId) {
+    m = memberDB.find(function(x){ return x.phone === contactInfo.userId || x.id === contactInfo.userId; });
+    if (m) return m;
+  }
+
+  return null;
+}
+
+// 快速维护主函数
+function openQuickMaintain() {
+  // 先显示loading状态
+  var addModal = document.getElementById('addModal');
+
+  // 设置默认日期为今天
+  var today = new Date();
+  var dateStr = today.getFullYear() + '-' +
+    String(today.getMonth()+1).padStart(2,'0') + '-' +
+    String(today.getDate()).padStart(2,'0');
+  addModal.querySelector('.form-input-m[type="date"]').value = dateStr;
+
+  // 尝试获取企微联系人
+  getWecomContact(function(err, contactInfo) {
+    if (!err && contactInfo && contactInfo.name) {
+      // 找到企微联系人，尝试匹配会员
+      var member = findMemberByWecomContact(contactInfo);
+      if (member) {
+        // 填充会员信息
+        fillMaintainModal(member);
+        addModal.classList.add('show');
+        return;
+      }
+      // 未找到匹配会员，用企微联系人信息填充
+      fillMaintainWithContact(contactInfo);
+      addModal.classList.add('show');
+      return;
+    }
+
+    // 无法获取或无联系人，打开弹窗让用户手动输入
+    fillMaintainDefault();
+    addModal.classList.add('show');
+  });
+}
+
+// 用memberDB中的会员数据填充
+function fillMaintainModal(member) {
+  document.getElementById('modalAvatar').textContent = member.name[0];
+  document.getElementById('modalAvatar').style.background = member.color || '#000000';
+  document.getElementById('modalMemberName').textContent = member.name;
+  document.getElementById('modalMemberMeta').textContent = member.card + '·' + (member.level || '—');
+  // 存储当前维护的会员ID
+  addModal.dataset.memberCard = member.card;
+  addModal.dataset.memberName = member.name;
+}
+
+// 用企微联系人信息填充（未匹配到会员）
+function fillMaintainWithContact(contact) {
+  document.getElementById('modalAvatar').textContent = contact.name[0];
+  document.getElementById('modalAvatar').style.background = '#999999'; // 灰色表示未匹配
+  document.getElementById('modalMemberName').textContent = contact.name;
+  document.getElementById('modalMemberMeta').textContent = contact.userId ? ('ID:' + contact.userId) : '（未匹配到会员）';
+  addModal.dataset.memberCard = '';
+  addModal.dataset.memberName = contact.name;
+}
+
+// 默认填充
+function fillMaintainDefault() {
+  document.getElementById('modalAvatar').textContent = '?';
+  document.getElementById('modalAvatar').style.background = '#CCCCCC';
+  document.getElementById('modalMemberName').textContent = '请选择客户';
+  document.getElementById('modalMemberMeta').textContent = '点击头像区域选择或搜索会员';
+  addModal.dataset.memberCard = '';
+  addModal.dataset.memberName = '';
+}
+
+// ====== 维护记录-客户选择器 ======
+function openMaintainMemberPicker() {
+  var picker = document.getElementById('maintainPickerModal');
+  picker.classList.add('show');
+  // 渲染全部会员列表（优先显示最近联系/当前销售名下）
+  renderPickerList(memberDB);
+}
+
+function closeMaintainPicker() {
+  document.getElementById('maintainPickerModal').classList.remove('show');
+}
+
+function renderPickerList(list) {
+  var container = document.getElementById('pickerMemberList');
+  if (!list || list.length === 0) {
+    container.innerHTML = '<div class="search-empty">无匹配会员</div>';
+    return;
+  }
+  var html = '';
+  list.forEach(function(m) {
+    html += '<div class="search-result-item" onclick="selectPickerMember(\'' + m.card + '\')">'
+      + '<div class="sr-avatar" style="background:' + (m.color || '#999') + ';">' + m.name[0] + '</div>'
+      + '<div class="sr-info"><div class="sr-name">' + m.name + '</div>'
+      + '<div class="sr-meta"><span>' + m.card + '</span><span>' + (m.level || '') + '</span><span>' + (m.phone || '') + '</span></div></div></div>';
+  });
+  container.innerHTML = html;
+}
+
+function filterPickerList() {
+  var kw = document.getElementById('pickerSearchInput').value.trim().toLowerCase();
+  if (!kw) {
+    renderPickerList(memberDB);
+    return;
+  }
+  var filtered = memberDB.filter(function(m) {
+    return m.name.toLowerCase().indexOf(kw) !== -1 ||
+      m.card.toLowerCase().indexOf(kw) !== -1 ||
+      (m.phone && m.phone.indexOf(kw) !== -1);
+  });
+  renderPickerList(filtered);
+}
+
+function selectPickerMember(cardNo) {
+  var m = memberDB.find(function(x){ return x.card === cardNo; });
+  if (m) {
+    fillMaintainModal(m);
+  }
+  closeMaintainPicker();
+}
+</script>
+
+</body>
+</html>
