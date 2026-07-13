@@ -1531,7 +1531,7 @@ body {
     <div id="leadAssignmentMembersM" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
     <div style="font-size:14px;font-weight:600;color:#333;margin:24px 0 10px;">分配给销售员 <span style="color:#F5222D;">*</span></div>
     <select id="leadAssigneeSelectM" class="form-input-m" style="background:#fff;"></select>
-    <div style="margin-top:14px;font-size:12px;color:#999;line-height:1.7;">确认后将更新客人的线索归属，并保留原归属、操作人和分配时间。</div>
+    <div style="margin-top:14px;font-size:12px;color:#999;line-height:1.7;">确认后将分配线索处理人，不会改变客人的归属销售；记录将保留归属销售、操作人和分配时间。</div>
   </div>
   <div class="modal-fs-footer"><button class="btn btn-cancel" onclick="closeLeadAssignmentModalM()">取消</button><button class="btn btn-submit" onclick="submitLeadAssignmentM()">确认分配</button></div>
 </div>
@@ -2498,11 +2498,11 @@ function submitLeadAssignmentM() {
     var row = source.find(function(r){ return r.cardNo === cardNo; });
     if (!row) return;
     var extra = getMemberExtraM(cardNo);
-    var previousSales = row.sales || '暂无归属';
-    row.sales = assignee;
+    var ownerSales = row.sales || '暂无归属';
+    row.leadSales = assignee;
     var member = memberDB.find(function(m){ return m.card === cardNo; });
-    if (member) { member.sales = assignee; member.contactSales = assignee; }
-    records.unshift({ time:new Date().toLocaleString('zh-CN', { hour12:false }), cardNo:cardNo, memberName:extra.name, type:typeLabel, from:previousSales, to:assignee, operator:'大区负责人' });
+    if (member) member.leadSales = assignee;
+    records.unshift({ time:new Date().toLocaleString('zh-CN', { hour12:false }), cardNo:cardNo, memberName:extra.name, memberLevel:extra.level, type:typeLabel, ownerSales:ownerSales, leadSales:assignee, operator:'大区负责人' });
   });
   try { localStorage.setItem('crm_lead_assignment_records_v1', JSON.stringify(records)); } catch (e) {}
   selectedLeadCardsM = [];
@@ -2515,7 +2515,9 @@ function openLeadAssignmentLogModalM() {
   var records = getLeadAssignmentRecordsM();
   var body = document.getElementById('leadAssignmentLogBodyM');
   body.innerHTML = records.length ? records.map(function(r){
-    return '<div class="lead-m-log-item"><div style="display:flex;justify-content:space-between;gap:12px;"><strong style="font-size:15px;color:#333;">' + r.memberName + '</strong><span style="font-size:12px;color:#999;">' + r.time + '</span></div><div style="margin-top:6px;font-size:13px;color:#666;">' + r.type + ' · ' + r.cardNo + '</div><div style="margin-top:7px;font-size:13px;color:#333;">' + r.from + ' <span style="color:#999;">→</span> <span style="color:#389E0D;font-weight:600;">' + r.to + '</span> <span style="color:#999;">· ' + r.operator + '</span></div></div>';
+    var ownerSales = r.ownerSales || r.from || '暂无归属';
+    var leadSales = r.leadSales || r.to || '—';
+    return '<div class="lead-m-log-item"><div style="display:flex;justify-content:space-between;gap:12px;"><strong style="font-size:15px;color:#333;">' + r.memberName + '</strong><span style="font-size:12px;color:#999;">' + r.time + '</span></div><div style="margin-top:6px;font-size:13px;color:#666;">' + (r.memberLevel || '—') + ' · ' + r.type + ' · ' + r.cardNo + '</div><div style="margin-top:7px;font-size:13px;color:#333;">归属销售：' + ownerSales + '</div><div style="margin-top:5px;font-size:13px;color:#333;">分配至：<span style="color:#389E0D;font-weight:600;">' + leadSales + '</span> <span style="color:#999;">· ' + r.operator + '</span></div></div>';
   }).join('') : '<div style="padding:56px 0;text-align:center;color:#999;font-size:14px;">暂无分配记录</div>';
   document.getElementById('leadAssignmentLogModalM').classList.add('show');
 }

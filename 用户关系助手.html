@@ -1694,7 +1694,7 @@ select.m-input { cursor: pointer; }
       <div id="leadAssignmentMembers" style="display:flex;flex-wrap:wrap;gap:6px;min-height:30px;"></div>
       <div style="margin:18px 0 10px;font-size:13px;color:#333;font-weight:500;">分配给销售员 <span style="color:#F5222D;">*</span></div>
       <select id="leadAssigneeSelect" style="width:100%;height:36px;padding:0 10px;border:1px solid #d9d9d9;border-radius:6px;background:#fff;font-family:inherit;"></select>
-      <div style="margin-top:14px;font-size:12px;color:#999;line-height:1.6;">确认后将更新客人的线索归属，并保留原归属、操作人和分配时间。</div>
+      <div style="margin-top:14px;font-size:12px;color:#999;line-height:1.6;">确认后将分配线索处理人，不会改变客人的归属销售；记录将保留归属销售、操作人和分配时间。</div>
     </div>
     <div class="modal-footer"><button class="btn" onclick="closeLeadAssignmentModal()">取消</button><button class="btn btn-primary" onclick="submitLeadAssignment()">确认分配</button></div>
   </div>
@@ -1704,7 +1704,7 @@ select.m-input { cursor: pointer; }
 <div class="modal-mask" id="leadAssignmentLogModal">
   <div class="modal" style="width:820px;max-height:80vh;">
     <div class="modal-header"><span class="modal-title">线索分配记录</span><button class="modal-close" onclick="closeLeadAssignmentLogModal()">✕</button></div>
-    <div class="modal-body" style="padding:0 20px 16px;overflow:auto;"><table class="log-table" style="width:100%;font-size:12px;"><thead><tr><th>分配时间</th><th>客人</th><th>线索类型</th><th>原归属</th><th>分配至</th><th>操作人</th></tr></thead><tbody id="leadAssignmentLogBody"></tbody></table></div>
+    <div class="modal-body" style="padding:0 20px 16px;overflow:auto;"><table class="log-table" style="width:100%;font-size:12px;"><thead><tr><th>分配时间</th><th>客人</th><th>会员等级</th><th>线索类型</th><th>归属销售</th><th>分配至</th><th>操作人</th></tr></thead><tbody id="leadAssignmentLogBody"></tbody></table></div>
   </div>
 </div>
 
@@ -2574,11 +2574,11 @@ function submitLeadAssignment() {
     var row = source.find(function(r){ return r.cardNo === cardNo; });
     if (!row) return;
     var extra = getMemberExtra(row.memberId);
-    var previousSales = row.sales || '暂无归属';
-    row.sales = assignee;
+    var ownerSales = row.sales || '暂无归属';
+    row.leadSales = assignee;
     var member = memberDB.find(function(m){ return m.id === row.memberId || m.card === cardNo; });
-    if (member) { member.sales = assignee; member.contactSales = assignee; }
-    records.unshift({ time:new Date().toLocaleString('zh-CN', { hour12:false }), cardNo:cardNo, memberName:extra.name, type:typeLabel, from:previousSales, to:assignee, operator:'大区负责人' });
+    if (member) member.leadSales = assignee;
+    records.unshift({ time:new Date().toLocaleString('zh-CN', { hour12:false }), cardNo:cardNo, memberName:extra.name, memberLevel:extra.level, type:typeLabel, ownerSales:ownerSales, leadSales:assignee, operator:'大区负责人' });
   });
   try { localStorage.setItem('crm_lead_assignment_records_v1', JSON.stringify(records)); } catch (e) {}
   selectedLeadCards = [];
@@ -2590,7 +2590,11 @@ function submitLeadAssignment() {
 function openLeadAssignmentLogModal() {
   var records = getLeadAssignmentRecords();
   var body = document.getElementById('leadAssignmentLogBody');
-  body.innerHTML = records.length ? records.map(function(r){ return '<tr><td>' + r.time + '</td><td>' + r.memberName + '<br><span style="color:#999;">' + r.cardNo + '</span></td><td>' + r.type + '</td><td>' + r.from + '</td><td style="font-weight:500;color:#1677ff;">' + r.to + '</td><td>' + r.operator + '</td></tr>'; }).join('') : '<tr><td colspan="6" style="padding:36px;text-align:center;color:#999;">暂无分配记录</td></tr>';
+  body.innerHTML = records.length ? records.map(function(r){
+    var ownerSales = r.ownerSales || r.from || '暂无归属';
+    var leadSales = r.leadSales || r.to || '—';
+    return '<tr><td>' + r.time + '</td><td>' + r.memberName + '<br><span style="color:#999;">' + r.cardNo + '</span></td><td>' + (r.memberLevel || '—') + '</td><td>' + r.type + '</td><td>' + ownerSales + '</td><td style="font-weight:500;color:#1677ff;">' + leadSales + '</td><td>' + r.operator + '</td></tr>';
+  }).join('') : '<tr><td colspan="7" style="padding:36px;text-align:center;color:#999;">暂无分配记录</td></tr>';
   document.getElementById('leadAssignmentLogModal').classList.add('show');
 }
 
