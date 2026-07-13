@@ -568,6 +568,36 @@ body {
   min-height: 64px;
 }
 .form-textarea-m:focus { outline:none; border-color:#000000; }
+
+/* Segmented control (成交可能性) */
+.seg-control {
+  display: flex;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+.seg-item {
+  flex: 1;
+  text-align: center;
+  padding: 11px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  border-right: 1px solid #e8e8e8;
+  transition: all .15s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.seg-item:last-child { border-right: none; }
+.seg-item:active { background: #f5f5f5; }
+.seg-item.active {
+  background: #000000;
+  color: #fff;
+  font-weight: 600;
+}
+
 .form-row-m { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
 /* Info highlight box */
@@ -666,6 +696,152 @@ body {
   border:1px solid #F0F0F0;
   border-radius: 8px;
 }
+
+/* Group detail cards */
+.gc-card {
+  background:#fff;
+  border:1px solid #F0F0F0;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:10px;
+}
+.gc-card-head {
+  display:flex; align-items:flex-start; justify-content:space-between;
+  margin-bottom:10px;
+}
+.gc-name-row { display:flex; align-items:center; gap:8px; }
+.gc-name { font-size:16px; font-weight:600; color:#000; }
+.gc-tag {
+  padding:2px 8px; border-radius:4px; font-size:11px; font-weight:500;
+}
+.gc-card-no { font-size:12px; color:#999; font-family:monospace; }
+.gc-info-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:8px 12px;
+  margin-bottom:10px;
+}
+.gc-info-grid > div { display:flex; flex-direction:column; gap:2px; }
+.gc-k { font-size:11px; color:#999; }
+.gc-v { font-size:13px; color:#333; }
+.gc-tag-row { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+.gc-tag-sm {
+  padding:2px 8px; border-radius:4px; font-size:11px; font-weight:500;
+}
+.gc-stats {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:6px;
+  background:#FAFAFA; border-radius:8px; padding:10px 6px;
+}
+.gc-stat-item { text-align:center; }
+.gc-stat-num { font-size:14px; font-weight:600; color:#000; }
+.gc-stat-label { font-size:10px; color:#999; margin-top:2px; }
+
+/* ====== Guest History Panel (Mobile) ====== */
+.ghm-overlay {
+  position:fixed; inset:0; z-index:10001;
+  background:rgba(0,0,0,.45);
+  opacity:0; pointer-events:none; transition:opacity .25s;
+}
+.ghm-overlay.show { opacity:1; pointer-events:auto; }
+.ghm-sheet {
+  position:fixed; left:0; right:0; bottom:0; z-index:10002;
+  background:#fff; border-radius:16px 16px 0 0;
+  max-height:90vh; transform:translateY(100%);
+  transition:transform .3s cubic-bezier(.32,.72,0,1);
+  display:flex; flex-direction:column;
+}
+.ghm-sheet.show { transform:translateY(0); }
+.ghm-navbar {
+  display:flex; align-items:center; gap:10px; padding:12px 16px;
+  border-bottom:1px solid #F0F0F0; flex-shrink:0; background:#fff;
+}
+.ghm-body { overflow-y:auto; -webkit-overflow-scrolling:touch; padding:14px 16px; flex:1; }
+
+/* 客史概览网格 */
+.ghm-overview-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:18px;
+}
+.ghm-overview-item {
+  background:#F8F9FA; border-radius:8px; padding:10px 12px;
+}
+.ghm-overview-label { font-size:11px; color:#999; margin-bottom:3px; }
+.ghm-overview-value { font-size:15px; font-weight:600; color:#333; }
+
+/* 区块标题 */
+.ghm-section-header {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:10px; margin-top:6px;
+}
+.ghm-section-title { font-size:15px; font-weight:600; color:#000; }
+.ghm-more-link { font-size:13px; color:#1677ff; font-weight:400; cursor:pointer; }
+
+/* 订单卡片 */
+.ghm-order-card {
+  background:#fff; border:1px solid #F0F0F0; border-radius:10px;
+  padding:12px 14px; margin-bottom:8px;
+}
+.ghm-order-title { font-size:15px; font-weight:600; color:#000; }
+.ghm-order-meta { font-size:12px; color:#999; margin-top:4px; }
+.ghm-order-desc { font-size:13px; color:#888; margin-top:5px; line-height:1.5; }
+
+/* 活动卡片 */
+.ghm-event-item {
+  padding:11px 0; border-bottom:1px solid #F5F5F5;
+}
+.ghm-event-name { font-size:14px; font-weight:500; color:#333; }
+.ghm-event-time { float:right; font-size:12px; color:#999; }
+.ghm-event-loc { font-size:12px; color:#999; margin-top:4px; clear:both; }
+
+/* 投诉卡片 */
+.ghm-complaint-item {
+  padding:11px 0; border-bottom:1px dashed #E8E8E8;
+}
+.ghm-complaint-title { font-size:14px; font-weight:500; color:#333; display:inline; }
+.ghm-complaint-date { float:right; font-size:11px; color:#999; }
+.ghm-complaint-desc { font-size:13px; color:#888; line-height:1.5; margin-top:5px; clear:both; }
+
+/* ====== 移动端沟通三阶段 ====== */
+.comm-stepper-m{display:flex;align-items:center;justify-content:center;padding:10px 12px 8px;background:#fff;border-bottom:1px solid #F0F0F0;gap:0;flex-shrink:0}
+.csm-step{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;color:#999;flex:1;position:relative}
+.csm-step::after{content:'';position:absolute;top:7px;left:calc(50% + 16px);right:calc(-50% + 16px);height:2px;background:#E8E8E8;z-index:0}
+.csm-step:last-child::after{display:none}
+.csm-dot{width:14px;height:14px;border-radius:50%;background:#E8E8E8;position:relative;z-index:1}
+.csm-step.active{color:#000;font-weight:600}.csm-step.active .csm-dot{background:#000}
+.csm-step.done{color:#52C41A}.csm-step.done .csm-dot{background:#52C41A}.csm-step.done::after{background:#52C41A}
+
+/* 移动端客史快照 */
+.ghm-quick{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.ghm-quick-i{display:flex;align-items:center;gap:3px;padding:3px 8px;background:#F8F9FA;border-radius:6px;font-size:11px}
+.ghm-quick-i .ql{color:#999}.ghm-quick-i .qv{color:#333;font-weight:500}
+
+/* 移动端标签组 */
+.tagdg{margin-bottom:8px;background:#fff;border:1px solid #F0F0F0;border-radius:8px;padding:8px 10px}
+.tagdg .tdl{font-size:12px;color:#999;margin-bottom:5px;font-weight:500}
+.tagdg .tdc{display:flex;flex-wrap:wrap;gap:5px}
+.tchip{display:inline-flex;align-items:center;padding:5px 10px;border-radius:14px;font-size:11px;font-weight:500;cursor:pointer;border:2px solid;user-select:none;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.tchip-init{background:#fff;border-color:#D9D9D9;color:#666}.tchip-yes{background:#F6FFED;border-color:#73D13D;color:#237804}.tchip-predict{border-style:dashed;border-color:#91CAFF;background:#F0F5FF;color:#1677ff}.tchip-predict.tchip-yes{border-style:solid;border-color:#73D13D;background:#F6FFED;color:#237804}
+
+/* 移动端SPIN */
+.mspin-wrap{border:1px solid #E8E8E8;border-radius:8px;overflow:hidden;margin-bottom:6px}
+.mspin-wrap:last-child{margin-bottom:0}
+.mspin-hd{display:flex;align-items:center;gap:8px;padding:10px 12px;cursor:pointer;background:#FAFAFA;user-select:none}
+.mspin-badge{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.mspin-badge.s{background:#000}.mspin-badge.p{background:#531dab}.mspin-badge.i{background:#FA8C16}.mspin-badge.n{background:#08979C}
+.mspin-title{font-size:13px;font-weight:600;color:#333;flex:1}
+.mspin-status{font-size:10px;color:#999}
+.mspin-body{display:none;padding:10px 12px;border-top:1px solid #F0F0F0}
+.mspin-body.open{display:block}
+.mspin-q{margin-bottom:8px;padding:7px 10px;background:#FFFBE6;border-radius:6px;font-size:11px;line-height:1.5}.mspin-q .ql{font-size:10px;color:#AD6800;font-weight:600;margin-bottom:2px}.mspin-q .qt{color:#333}
+.mspin-tip{font-size:10px;color:#999;margin:3px 0 8px}.mspin-notes{width:100%;min-height:54px;border:1px solid #E0E0E0;border-radius:6px;padding:7px 10px;font-size:12px;font-family:inherit}.mspin-tag-link{font-size:11px;color:#1677ff;cursor:pointer;margin:6px 0 4px;display:inline-flex;align-items:center;gap:3px}.mspin-done{display:inline-flex;align-items:center;gap:3px;padding:5px 14px;background:#000;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:500;cursor:pointer;margin-top:6px}
+
+/* 移动端推荐产品 */
+.mprod-list{display:flex;flex-direction:column;gap:8px;margin:8px 0}
+.mprod-card{display:flex;align-items:center;gap:10px;border:2px solid #F0F0F0;border-radius:10px;padding:12px;cursor:pointer;transition:all .15s}
+.mprod-card:active{border-color:#000}.mprod-card.sel{border-color:#1677ff;background:#F0F5FF}
+.mprod-rank{font-size:18px;flex-shrink:0;width:28px}.mprod-info{flex:1;min-width:0}.mprod-name{font-size:13px;font-weight:600;color:#333}.mprod-score{font-size:11px;color:#1677ff;margin-top:2px}
+
+/* 移动端标签对比 */
+.mtagdr{padding:10px 0;border-bottom:1px solid #F5F5F5;display:flex;align-items:center;gap:8px}
+.mtagdr:last-child{border-bottom:none}
+.mtagdl{font-size:11px;color:#999;min-width:55px}.mtagdv{padding:3px 10px;border-radius:5px;font-size:11px;font-weight:500}.mtagdv-same{background:#F5F5F5;color:#999}.mtagdv-mod{background:#FFF7E6;color:#AD4E00}.mtagdv-arrow{font-size:12px;color:#FA8C16;margin:0 4px}
 
 /* ====== Member Detail Modal — Ant Design Mobile ====== */
 .mdm-overlay {
@@ -897,14 +1073,14 @@ body {
   <div class="header-spacer"></div>
   <div class="sales-switcher" id="salesSwitcher">
     <div class="sales-btn" onclick="toggleSalesDropdown()">
-      <span id="currentSalesLabel">赵岍</span>
+      <span id="currentSalesLabel">大区负责人</span>
       <span class="arrow">▼</span>
     </div>
     <div class="sales-dropdown" id="salesDropdown">
-      <div class="sales-dropdown-header">切换销售员视角</div>
-      <div class="sales-item active" onclick="switchSales(this, '全部', '')">
+      <div class="sales-dropdown-header">切换查看视角</div>
+      <div class="sales-item active" onclick="switchSales(this, '大区负责人', '')">
         <div class="s-avatar">全</div>
-        <div class="sales-info"><div class="sales-name">全部</div><div class="sales-region">查看所有销售数据</div></div>
+        <div class="sales-info"><div class="sales-name">大区负责人</div><div class="sales-region">查看全区数据并分配线索</div></div>
       </div>
       <div class="sales-item" onclick="switchSales(this, '赵岍', '赵岍')">
         <div class="s-avatar">赵</div>
@@ -952,7 +1128,7 @@ body {
 
 <!-- ====== Shortcuts ====== -->
 <div class="shortcuts">
-  <button class="shortcut-btn primary" onclick="openQuickMaintain()">⚡ 快速维护</button>
+  <button class="shortcut-btn primary" onclick="openQuickMaintain()">⚡ 快速沟通</button>
   <button class="shortcut-btn secondary" onclick="openConsultModal()">+ 咨询单</button>
   <button class="shortcut-btn secondary" onclick="openSearchModal()">🔍 会员查询</button>
 </div>
@@ -978,7 +1154,7 @@ body {
     </div>
     <div class="stat-card" style="grid-column:span 2;">
       <div class="stat-num blue" id="m-stat-month">42</div>
-      <div class="stat-label">本月维护次数</div>
+      <div class="stat-label">本月沟通次数</div>
     </div>
   </div>
 
@@ -1148,84 +1324,25 @@ body {
   </div>
 </div>
 
-<!-- ====== 新增维护记录弹窗 ====== -->
+<!-- ====== 新增沟通记录弹窗（三阶段）====== -->
 <div class="modal-fs" id="addModal">
-  <div class="modal-fs-header">
-    <span class="modal-fs-title">新增维护记录</span>
+  <div class="modal-fs-header" style="padding:10px 14px;">
+    <span class="modal-fs-title" id="commMTitle">💬 新增沟通记录</span>
     <button class="modal-fs-close" onclick="closeModal()">✕</button>
   </div>
-  <div class="modal-fs-body">
-    <div class="info-box" onclick="openMaintainMemberPicker()" id="maintainInfoBox" style="cursor:pointer;">
-      <div class="info-box-avatar" id="modalAvatar" style="background:#000000;">王</div>
-      <div><div class="info-box-name" id="modalMemberName">王建明</div><div class="info-box-meta" id="modalMemberMeta">MD80001234·金刚</div></div>
-      <div style="margin-left:auto;color:#999;font-size:18px;">›</div>
-    </div>
-    <div class="form-row-m">
-      <div class="form-group">
-        <label class="form-label-m">维护日期 <span class="req">*</span></label>
-        <input type="date" class="form-input-m" value="2026-04-17">
-      </div>
-      <div class="form-group">
-        <label class="form-label-m">维护行为 <span class="req">*</span></label>
-        <select class="form-input-m">
-          <option>请选择</option><option>线下拜访</option><option>电话回访</option><option>活动邀约</option><option selected>微信沟通</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="form-label-m">客户反馈 <span class="req">*</span></label>
-      <textarea class="form-textarea-m" placeholder="记录客户关键反馈、态度或需求..."></textarea>
-    </div>
-    <div style="font-size:14px;font-weight:600;color:#333;margin:16px 0 10px;padding-top:12px;border-top:1px dashed #e8e8e8;">📋 出行需求信息</div>
-    <div class="form-row-m">
-      <div class="form-group">
-        <label class="form-label-m">出行时节</label>
-        <select class="form-input-m">
-          <option>请选择</option><option>春季（3-5月）</option><option>夏季（6-8月）</option><option>秋季（9-11月）</option><option>冬季（12-2月）</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label-m">出行组合</label>
-        <select class="form-input-m">
-          <option>请选择</option><option>独自出行</option><option>情侣出行</option><option>亲子出行</option><option>朋友结伴</option><option>父母同游</option><option>大家庭</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-row-m">
-      <div class="form-group">
-        <label class="form-label-m">人均预算</label>
-        <select class="form-input-m">
-          <option>请选择</option><option>5,000以下</option><option>5,000-10,000</option><option>10,000-20,000</option><option>20,000-50,000</option><option>50,000以上</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label-m">出行天数</label>
-        <select class="form-input-m">
-          <option>请选择</option><option>3天以内</option><option>4-6天</option><option>7-10天</option><option>11-15天</option><option>15天以上</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="form-label-m">出行偏好</label>
-      <select class="form-input-m">
-        <option>请选择</option><option>自然风光</option><option>人文历史</option><option>奢享度假</option><option>户外徒步</option><option>摄影采风</option><option>亲子互动</option><option>美食体验</option><option>温泉养生</option>
-      </select>
-    </div>
-    <div style="font-size:14px;font-weight:600;color:#333;margin:16px 0 10px;padding-top:12px;border-top:1px dashed #e8e8e8;">⏰ 提醒事项</div>
-    <div class="reminder-box">
-      <div class="form-group" style="margin-bottom:10px;">
-        <label class="form-label-m">提醒日期 <span class="req">*</span></label>
-        <input type="date" class="form-input-m">
-      </div>
-      <div class="form-group" style="margin-bottom:0;">
-        <label class="form-label-m">提醒事项 <span class="req">*</span></label>
-        <textarea class="form-textarea-m" placeholder="如：确认客户是否预定、跟进报价反馈..." style="min-height:48px;"></textarea>
-      </div>
-    </div>
+  <!-- 移动端步骤条 -->
+  <div class="comm-stepper-m" id="commMStepper">
+    <div class="csm-step active" data-step="1"><span class="csm-dot"></span>沟通前</div>
+    <div class="csm-step" data-step="2"><span class="csm-dot"></span>沟通中</div>
+    <div class="csm-step" data-step="3"><span class="csm-dot"></span>需求确认</div>
   </div>
-  <div class="modal-fs-footer">
+  <div class="modal-fs-body" id="commMBody" style="flex:1;overflow-y:auto;padding:12px 14px;"></div>
+  <div class="modal-fs-footer" id="commMFooter">
+    <button class="btn btn-cancel" id="commMBtnPrev" style="display:none;" onclick="commMPrevStep()">上一步</button>
     <button class="btn btn-cancel" onclick="closeModal()">取消</button>
-    <button class="btn btn-submit" onclick="closeModal()">提交</button>
+    <button class="btn btn-submit" id="commMBtnNext" onclick="commMNextStep()">下一步 →</button>
+  </div>
+</div>
   </div>
 </div>
 
@@ -1284,6 +1401,18 @@ body {
     <div class="form-group">
       <label class="form-label-m">客户反馈</label>
       <textarea class="form-textarea-m" id="editFeedback"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label-m">竞品对比</label>
+      <textarea class="form-textarea-m" id="editCompetitor" placeholder="客人是否提过竞品，提到过哪些竞品"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label-m">成交可能性</label>
+      <div class="seg-control" data-name="editDealChance" id="editDealChanceControl">
+        <span class="seg-item" data-val="高">高</span>
+        <span class="seg-item" data-val="一般">一般</span>
+        <span class="seg-item" data-val="低">低</span>
+      </div>
     </div>
     <div style="font-size:14px;font-weight:600;color:#333;margin:16px 0 10px;padding-top:12px;border-top:1px dashed #e8e8e8;">⏰ 提醒事项</div>
     <div class="reminder-box">
@@ -1381,19 +1510,36 @@ body {
     </div>
     <!-- 结果统计 -->
     <div class="gd-m-result-count" id="groupResultCountM">共 0 条</div>
-    <!-- 表格 -->
-    <div class="group-table-wrap">
-      <table class="group-table-m">
-        <thead><tr>
-          <th>会员卡号</th><th>会员名称</th><th>手机号</th><th>等级</th><th>注册时间</th><th>客户类型</th><th>销售员</th><th>会员属性</th><th>客户属性</th><th style="text-align:right">消费频次</th><th style="text-align:right">下单金额</th><th style="text-align:right">出行金额</th><th style="text-align:center">复购</th><th style="text-align:right">间隔天数</th>
-        </tr></thead>
-        <tbody id="groupTableBody"></tbody>
-      </table>
+    <div class="lead-m-toolbar" id="leadAssignmentToolbarM" style="display:none;">
+      <span id="selectedLeadCountM">已选 0 位客人</span>
+      <button type="button" onclick="openLeadAssignmentLogModalM()">分配记录</button>
+      <button type="button" class="lead-m-primary" onclick="openLeadAssignmentModalM()">分配线索</button>
     </div>
+    <!-- 卡片列表 -->
+    <div id="groupCardList"></div>
   </div>
   <div class="modal-fs-footer">
     <button class="btn btn-cancel" onclick="closeGroupDetailModal()" style="flex:1;">关闭</button>
   </div>
+</div>
+
+<!-- ====== 线索分配 ====== -->
+<div class="modal-fs" id="leadAssignmentModalM">
+  <div class="modal-fs-header"><button class="modal-fs-close" onclick="closeLeadAssignmentModalM()">✕</button><span class="modal-fs-title">线索分配</span><span style="width:28px;"></span></div>
+  <div class="modal-fs-body">
+    <div style="font-size:13px;color:#999;margin-bottom:8px;">待分配客人</div>
+    <div id="leadAssignmentMembersM" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+    <div style="font-size:14px;font-weight:600;color:#333;margin:24px 0 10px;">分配给销售员 <span style="color:#F5222D;">*</span></div>
+    <select id="leadAssigneeSelectM" class="form-input-m" style="background:#fff;"></select>
+    <div style="margin-top:14px;font-size:12px;color:#999;line-height:1.7;">确认后将更新客人的线索归属，并保留原归属、操作人和分配时间。</div>
+  </div>
+  <div class="modal-fs-footer"><button class="btn btn-cancel" onclick="closeLeadAssignmentModalM()">取消</button><button class="btn btn-submit" onclick="submitLeadAssignmentM()">确认分配</button></div>
+</div>
+
+<!-- ====== 线索分配记录 ====== -->
+<div class="modal-fs" id="leadAssignmentLogModalM">
+  <div class="modal-fs-header"><button class="modal-fs-close" onclick="closeLeadAssignmentLogModalM()">✕</button><span class="modal-fs-title">线索分配记录</span><span style="width:28px;"></span></div>
+  <div class="modal-fs-body" id="leadAssignmentLogBodyM"></div>
 </div>
 
 <style>
@@ -1442,6 +1588,16 @@ body {
 .gd-m-result-count {
   font-size:12px; color:#999; margin-bottom:8px; padding:0 4px;
 }
+.lead-m-toolbar { display:flex; align-items:center; gap:8px; margin:0 0 12px; padding:10px 12px; background:#F6FFED; border:1px solid #D9F7BE; border-radius:8px; font-size:12px; color:#389E0D; }
+.lead-m-toolbar span { margin-right:auto; }
+.lead-m-toolbar button { border:1px solid #B7EB8F; background:#fff; color:#389E0D; border-radius:6px; padding:5px 8px; font:inherit; }
+.lead-m-toolbar .lead-m-primary { background:#389E0D; border-color:#389E0D; color:#fff; }
+.gc-card { position:relative; }
+.lead-m-check { position:absolute; top:12px; right:12px; width:22px; height:22px; border:1px solid #BFBFBF; border-radius:50%; background:#fff; color:transparent; font-size:14px; line-height:20px; text-align:center; cursor:pointer; }
+.lead-m-check.selected { background:#389E0D; border-color:#389E0D; color:#fff; }
+.lead-m-assign { width:100%; margin-top:12px; border:1px solid #B7EB8F; border-radius:6px; background:#F6FFED; color:#389E0D; padding:8px; font:inherit; font-size:13px; }
+.lead-m-log-item { padding:14px 0; border-bottom:1px solid #F0F0F0; }
+.lead-m-log-item:last-child { border-bottom:none; }
 </style>
 
 <!-- ====== 会员详情弹窗 (独立) ====== -->
@@ -1455,7 +1611,28 @@ body {
   <div class="mdm-footer" id="mdmFooter"></div>
 </div>
 
+<!-- ====== 客史信息面板（移动端全屏） ====== -->
+<div class="ghm-overlay" id="ghmOverlay" onclick="closeGuestHistoryM()"></div>
+<div class="ghm-sheet" id="ghmSheet">
+  <div class="ghm-navbar">
+    <button class="mdm-back" onclick="closeGuestHistoryM()">←</button>
+    <span class="mdm-nav-title">客史信息</span>
+    <span></span><!-- 占位保持标题居中 -->
+  </div>
+  <div class="ghm-body" id="ghmBody"></div>
+</div>
+
 <script>
+// ====== Segmented control click (成交可能性) ======
+document.addEventListener('click', function(e){
+  var item = e.target.closest('.seg-item');
+  if (!item) return;
+  var control = item.closest('.seg-control');
+  if (!control) return;
+  control.querySelectorAll('.seg-item').forEach(function(s){ s.classList.remove('active'); });
+  item.classList.add('active');
+});
+
 // ====== Detail & Edit (card-based) ======
 var _currentEditCard = null;
 
@@ -1477,6 +1654,10 @@ function openDetailM(el) {
   html += '</div>';
   html += '<div class="md-field-label">客户反馈</div>';
   html += '<div style="font-size:14px;color:#333;line-height:1.6;padding:10px;background:#FAFAFA;border-radius:8px;margin-top:4px;">' + (feedback&&feedback.textContent.trim()?feedback.textContent:'—') + '</div>';
+  html += '<div class="md-field-label" style="margin-top:14px;">竞品对比</div>';
+  html += '<div style="font-size:14px;color:#333;line-height:1.6;padding:10px;background:#FAFAFA;border-radius:8px;margin-top:4px;">—</div>';
+  html += '<div class="md-field-label" style="margin-top:14px;">成交可能性</div>';
+  html += '<div style="margin-top:4px;"><span style="display:inline-block;padding:4px 14px;border-radius:6px;font-size:13px;font-weight:500;background:#F0F0F0;color:#666;">—</span></div>';
   if (reminder) {
     html += '<div style="margin-top:14px;"><div class="md-field-label">事项提醒</div><div class="reminder-box" style="margin-top:4px;">' + reminder.innerHTML + '</div></div>';
   }
@@ -1749,7 +1930,8 @@ function openMemberDetail(m) {
   } else {
     footerHtml += '<button class="btn mdm-btn-claim" onclick="claimMember()">📥 纳入我的客户</button>';
   }
-  footerHtml += '<button class="btn mdm-btn-add" onclick="addRecordFromSearch()">+ 新增维护记录</button>';
+  footerHtml += '<button class="btn mdm-btn-add" onclick="addRecordFromSearch()">+ 新增沟通</button>';
+  footerHtml += '<button class="btn" style="background:#F0F5FF;color:#1677ff;border:1px solid #ADC6FF;" onclick="openGuestHistoryM()">📊 客史</button>';
   document.getElementById('mdmFooter').innerHTML = footerHtml;
 
   // 显示
@@ -1761,6 +1943,78 @@ function closeMemberDetail() {
   document.getElementById('mdmOverlay').classList.remove('show');
   document.getElementById('mdmSheet').classList.remove('show');
 }
+
+// ====== Guest History Panel (Mobile) ======
+function openGuestHistoryM() {
+  var html = '';
+
+  // 客史概览
+  html += '<div class="ghm-overview-grid">';
+  var overviewData = [
+    { label:'会员属性', value:'老会员' }, { label:'客户属性', value:'老客' },
+    { label:'消费属性', value:'已消费' }, { label:'本年消费频次', value:'本年首购' },
+    { label:'已出行目的地', value:'香格里拉' }, { label:'当年下单金额', value:'¥85,760' },
+    { label:'当年出行金额', value:'¥70,323' }, { label:'首购-复购间隔天数', value:'263天' },
+    { label:'消费人数', value:'5人' },
+  ];
+  overviewData.forEach(function(o){
+    html += '<div class="ghm-overview-item"><div class="ghm-overview-label">'+o.label+'</div><div class="ghm-overview-value">'+o.value+'</div></div>';
+  });
+  html += '</div>';
+
+  // 订单记录
+  html += '<div class="ghm-section-header"><span class="ghm-section-title">订单记录</span><span class="ghm-more-link">查看更多 ›</span></div>';
+  var orders = [
+    { title:'2024 · 香格里拉环线', dateRange:'2024/07/12 - 2024/07/17', amount:'¥118,000', desc:'6天5晚 / 酒店景观和管家服务评价高' },
+    { title:'2023 · 松赞林卡假期', dateRange:'2023/08/06 - 2023/08/09', amount:'¥86,000', desc:'4天3晚 / 偏好慢节奏和亲子活动' },
+  ];
+  orders.forEach(function(o){
+    html += '<div class="ghm-order-card">'
+      + '<div class="ghm-order-title">'+o.title+'</div>'
+      + '<div class="ghm-order-meta">'+o.dateRange+' · '+o.amount+'</div>'
+      + '<div class="ghm-order-desc">'+o.desc+'</div></div>';
+  });
+
+  // 线下活动记录
+  html += '<div class="ghm-section-header"><span class="ghm-section-title">线下活动记录</span><span class="ghm-more-link" onclick="openOfflineActivityRecordsM()">查看更多 ›</span></div>';
+  var events = [
+    { name:'松赞影像展上海站', time:'2026-05-18 14:00', loc:'上海·西岸艺术中心下午场' },
+    { name:'梅里雪山摄影分享会', time:'2025-11-22 19:30', loc:'上海·静安会员中心晚场' },
+  ];
+  events.forEach(function(e){
+    html += '<div class="ghm-event-item">'
+      + '<span class="ghm-event-name">'+e.name+'</span>'
+      + '<span class="ghm-event-time">'+e.time+'</span>'
+      + '<div class="ghm-event-loc">'+e.loc+'</div></div>';
+  });
+
+  // 投诉记录
+  html += '<div class="ghm-section-header"><span class="ghm-section-title">投诉记录</span></div>';
+  var complaints = [
+    { title:'无有效投诉', date:'2026-06-15', desc:'近12个月未记录正式投诉。' },
+    { title:'服务偏好提醒', date:'2014-07-17', desc:'客户反馈餐饮需要提前确认老人和孩子口味，已转为服务偏好。' },
+  ];
+  complaints.forEach(function(c){
+    html += '<div class="ghm-complaint-item">'
+      + '<span class="ghm-complaint-title">'+c.title+'</span>'
+      + '<span class="ghm-complaint-date">'+c.date+'</span>'
+      + '<div class="ghm-complaint-desc">'+c.desc+'</div></div>';
+  });
+
+  document.getElementById('ghmBody').innerHTML = html;
+  document.getElementById('ghmOverlay').classList.add('show');
+  document.getElementById('ghmSheet').classList.add('show');
+}
+
+function closeGuestHistoryM() {
+  document.getElementById('ghmOverlay').classList.remove('show');
+  document.getElementById('ghmSheet').classList.remove('show');
+}
+
+function openOfflineActivityRecordsM() {
+  window.location.href = '线下活动记录-移动端.html';
+}
+
 document.getElementById('mdmOverlay').addEventListener('click', closeMemberDetail);
 
 function navigateToMember(cardNo) {
@@ -1783,15 +2037,224 @@ function addRecordFromSearch() {
   var m = memberDB.find(function(x){return x.id===selectedMemberId;});
   if (!m) return;
   closeMemberDetail();
-  document.getElementById('modalAvatar').textContent = m.name[0];
-  document.getElementById('modalAvatar').style.background = m.color;
-  document.getElementById('modalMemberName').textContent = m.name;
-  document.getElementById('modalMemberMeta').textContent = m.card+'·'+m.level;
+  commMOpen(m);
+}
+
+function openModal() { commMOpen(); }
+function closeModal() { document.getElementById('addModal').classList.remove('show'); }
+
+// ======== 移动端三阶段沟通 ========
+var commMCurrentStep = 1;
+var commMData = {};
+
+function commMOpen(member) {
+  commMCurrentStep = 1;
+  var m = member || {};
+  commMData = {
+    memberId: m.id || 'wjm', memberName: m.name || '王建明', memberCard: m.card || 'MD80001234', memberLevel: m.level || '金刚',
+    sales: m.sales || '赵岍', color: m.color || '#000000',
+    memberAttr:'老会员', custAttr:'老客', consumeAttr:'已消费', yearFreq:'本年首购',
+    traveledDest:'香格里拉', orderAmount:'¥85,760', travelAmount:'¥70,323', repurchaseGap:'263天', consumerCount:'5',
+    orderDesc:'6天5晚 / 景观服务评价高\n4天3晚 / 慢节奏亲子',
+    predictedTags: null, actualTags: {}, predictedProducts: [], selectedProduct: null,
+    commDate: new Date().toISOString().split('T')[0], commPurpose: '', commMethod: '',
+    spinSteps: { S:{done:false,notes:''}, P:{done:false,notes:''}, I:{done:false,notes:''}, N:{done:false,notes:''} },
+    customerFeedback:'', competitorInfo:'', dealIntention:'',
+    reminderDate:'', reminderContent:''
+  };
+  commMData.predictedTags = commMMapHistory();
+  commMData.actualTags = JSON.parse(JSON.stringify(commMData.predictedTags));
+  commMData.predictedProducts = commMScoreProd(commMData.predictedTags);
+  commMRender(1);
   document.getElementById('addModal').classList.add('show');
 }
 
-function openModal() { document.getElementById('addModal').classList.add('show'); }
-function closeModal() { document.getElementById('addModal').classList.remove('show'); }
+function commMMapHistory() {
+  var t = { season:null, group:null, budget:null, days:null, preference:[] };
+  var c = parseInt(commMData.consumerCount||'1');
+  if (c>=5) t.group='family'; else if (c===2) t.group='couple'; else if (c===1) t.group='single'; else t.group='friends';
+  var a = parseFloat((commMData.orderAmount||'0').replace(/[^\d.]/g,''))||0;
+  var p = c>0?a/c:a;
+  if (p>=30000) t.budget='over30k'; else if (p>=20000) t.budget='20k30k'; else if (p>=10000) t.budget='10k20k'; else if (p>=5000) t.budget='5k10k'; else if (a>0) t.budget='under5k';
+  var d = (commMData.traveledDest||'').toLowerCase();
+  if (d.indexOf('香格里拉')>=0||d.indexOf('梅里')>=0){t.preference.push('nature');t.preference.push('culture');}
+  if (d.indexOf('林芝')>=0) t.preference.push('photo');
+  var de = (commMData.orderDesc||'').toLowerCase();
+  if (de.indexOf('慢节奏')>=0||de.indexOf('亲子')>=0) t.preference.push('relax');
+  if (de.indexOf('美食')>=0) t.preference.push('food');
+  if (de.indexOf('徒步')>=0) t.preference.push('adventure');
+  return t;
+}
+
+var PRODS_M = [
+  {id:'p1',name:'香格里拉环线6日',tags:{season:['summer','autumn'],group:['couple','family','friends'],budget:['10k20k','20k30k'],days:['week'],preference:['nature','culture','relax']},desc:'经典入门线路'},
+  {id:'p2',name:'梅里雪山朝圣8日',tags:{season:['autumn','winter'],group:['couple','single','friends'],budget:['20k30k','over30k'],days:['two_weeks','week'],preference:['nature','photo','adventure']},desc:'深度摄影线路'},
+  {id:'p3',name:'林芝桃花源5日',tags:{season:['spring'],group:['couple','family'],budget:['10k20k'],days:['week'],preference:['nature','photo','relax']},desc:'春季限定桃花'},
+  {id:'p4',name:'西藏全景12日',tags:{season:['summer','autumn'],group:['couple','friends'],budget:['over30k'],days:['two_weeks','long'],preference:['culture','adventure','nature']},desc:'全藏深度体验'},
+  {id:'p5',name:'松赞慢时光4日',tags:{season:['spring','summer','autumn','winter'],group:['couple','family'],budget:['5k10k','10k20k'],days:['short','week'],preference:['relax','culture']},desc:'短途度假'},
+  {id:'p6',name:'川藏穿越14日',tags:{season:['summer','autumn'],group:['friends'],budget:['over30k'],days:['long'],preference:['adventure','nature','photo']},desc:'高海拔挑战'},
+];
+
+function commMScoreProd(tags) {
+  var ws = { season:20, group:20, budget:20, days:15, preference:25 };
+  return PRODS_M.map(function(p){
+    var sc=0,mx=0;
+    ['season','group','budget','days'].forEach(function(d){mx+=ws[d];if(tags[d]&&p.tags[d]&&p.tags[d].indexOf(tags[d])>=0) sc+=ws[d];});
+    mx+=ws.preference;
+    if(tags.preference&&tags.preference.length&&p.tags.preference){var mt=tags.preference.filter(function(x){return p.tags.preference.indexOf(x)>=0;});sc+=ws.preference*(mt.length/tags.preference.length);}
+    p._score=Math.round(sc/mx*100);return p;
+  }).sort(function(a,b){return b._score-a._score;}).slice(0,3);
+}
+
+function commMRender(n) {
+  commMCurrentStep = n;
+  var body = document.getElementById('commMBody');
+  var title = document.getElementById('commMTitle');
+  var pb = document.getElementById('commMBtnPrev');
+  var nb = document.getElementById('commMBtnNext');
+  document.querySelectorAll('.csm-step').forEach(function(s,i){s.classList.remove('active','done');if(i+1===n)s.classList.add('active');else if(i+1<n)s.classList.add('done');});
+  if(n===1){title.textContent='💬 新增沟通 — ① 沟通前';pb.style.display='none';nb.style.display='';nb.textContent='下一步 →';body.innerHTML=commMStage1();}
+  else if(n===2){title.textContent='💬 新增沟通 — ② 沟通中';pb.style.display='';nb.style.display='';nb.textContent='下一步 →';body.innerHTML=commMStage2();}
+  else{title.textContent='💬 新增沟通 — ③ 确认';pb.style.display='';nb.style.display='';nb.textContent='✓ 提交';body.innerHTML=commMStage3();}
+}
+
+function commMNextStep() {
+  if(commMCurrentStep===1){if(!commMData.predictedTags.season&&!commMData.predictedTags.group&&!commMData.predictedTags.budget&&!commMData.predictedTags.days&&!commMData.predictedTags.preference.length){alert('请至少选择一个预判标签');return;}}
+  if(commMCurrentStep===2){commMData.commPurpose=document.getElementById('cmPurpose').value;commMData.commMethod=document.getElementById('cmMethod').value;commMData.commDate=document.getElementById('cmDate').value;if(!commMData.commPurpose){alert('请选择沟通目的');return;}if(!commMData.commMethod){alert('请选择沟通方式');return;}commMData.customerFeedback=document.getElementById('cmFeedback').value;commMData.competitorInfo=document.getElementById('cmCompetitor').value;var segs=document.querySelectorAll('#cmDealIntention .seg-item.active');commMData.dealIntention=segs.length?segs[0].dataset.val:'';}
+  if(commMCurrentStep<3){commMRender(commMCurrentStep+1);}else{commMSubmit();}
+}
+function commMPrevStep(){if(commMCurrentStep>1)commMRender(commMCurrentStep-1);}
+
+// 阶段1：沟通前
+function commMStage1(){
+  var h='';
+  h+='<div style="background:#F8F9FA;border-radius:8px;padding:10px;margin-bottom:10px;font-size:11px;">';
+  h+='<div style="font-weight:600;color:#333;margin-bottom:6px;">📊 客史快照</div><div class="ghm-quick">';
+  h+='<div class="ghm-quick-i"><span class="ql">属性:</span><span class="qv">'+commMData.memberAttr+'</span></div>';
+  h+='<div class="ghm-quick-i"><span class="ql">消费:</span><span class="qv">'+commMData.consumeAttr+'/'+commMData.yearFreq+'</span></div>';
+  h+='<div class="ghm-quick-i"><span class="ql">目的地:</span><span class="qv">'+commMData.traveledDest+'</span></div>';
+  h+='<div class="ghm-quick-i"><span class="ql">下单:</span><span class="qv">'+commMData.orderAmount+'</span></div>';
+  h+='<div class="ghm-quick-i"><span class="ql">人数:</span><span class="qv">'+commMData.consumerCount+'</span></div></div></div>';
+  h+='<div style="font-weight:600;color:#333;margin-bottom:6px;">🏷️ 需求标签预判 <span style="font-size:11px;color:#FF4D4F;font-weight:400;">（确认/调整）</span></div>';
+  h+=commMTags('predicted',commMData.predictedTags,true);
+  h+='<div style="font-weight:600;color:#333;margin:10px 0 6px;">🎯 推荐产品</div><div class="mprod-list">';
+  commMData.predictedProducts.forEach(function(p,i){
+    h+='<div class="mprod-card'+(commMData.selectedProduct===p.id?' sel':'')+'" onclick="commMData.selectedProduct=\''+p.id+'\';commMRender(1);">';
+    h+='<div class="mprod-rank">'+(i===0?'🥇':i===1?'🥈':'🥉')+'</div>';
+    h+='<div class="mprod-info"><div class="mprod-name">'+p.name+'</div><div class="mprod-score">匹配度 '+p._score+'%</div></div></div>';
+  });h+='</div>';return h;
+}
+
+function commMTags(pfx,tags,isPredict){
+  var cfg = commMGetTags(); var h='';
+  cfg.forEach(function(dim){
+    var els=dim.enums.sort(function(a,b){return a.sort-b.sort;});
+    h+='<div class="tagdg"><div class="tdl">'+dim.name+(dim.required?' <span style="color:#FF4D4F;">*</span>':'')+'</div><div class="tdc">';
+    els.forEach(function(e){
+      var st='init'; var val=tags[dim.code];
+      if(dim.multiple){var arr=tags[dim.code]||[];if(arr.indexOf(e.code)>=0)st='yes';}else{if(val===e.code)st='yes';}
+      var cls='tchip tchip-'+st+(isPredict?' tchip-predict':'');
+      h+='<span class="'+cls+'" data-pfx="'+pfx+'" data-dim="'+dim.code+'" data-code="'+e.code+'" data-multi="'+(dim.multiple?'1':'0')+'" style="padding:6px 12px;">'+(st==='yes'?'✓ ':'')+e.name+'</span>';
+    });h+='</div></div>';
+  });return h;
+}
+
+document.addEventListener('click',function(e){
+  var el=e.target.closest('.tchip'); if(!el) return;
+  var dim=el.dataset.dim, code=el.dataset.code, multi=el.dataset.multi==='1', pfx=el.dataset.pfx;
+  var tags=(pfx==='predicted')?commMData.predictedTags:commMData.actualTags;
+  if(multi){var arr=tags[dim]||[];var idx=arr.indexOf(code);if(idx>=0)arr.splice(idx,1);else arr.push(code);tags[dim]=arr;}
+  else{var cur=tags[dim];if(cur===code)tags[dim]=null;else tags[dim]=code;}
+  commMRender(commMCurrentStep);
+});
+
+// 阶段2：沟通中
+function commMStage2(){
+  var h='';
+  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:8px 10px;background:#F6FFED;border-radius:6px;font-size:12px;">';
+  h+='<span style="background:#000;color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;">'+commMData.memberName[0]+'</span>';
+  h+='<span style="font-weight:600;">'+commMData.memberName+'</span><span style="color:#999;">'+commMData.memberCard+'·'+commMData.memberLevel+'</span></div>';
+  h+='<div class="form-row-m">';
+  h+='<div class="form-group"><label class="form-label-m">沟通日期*</label><input type="date" class="form-input-m" id="cmDate" value="'+commMData.commDate+'"></div>';
+  h+='<div class="form-group"><label class="form-label-m">沟通目的*</label><select class="form-input-m" id="cmPurpose"><option value="">请选择</option><option'+(commMData.commPurpose==='需求挖掘'?' selected':'')+'>需求挖掘</option><option'+(commMData.commPurpose==='产品推荐'?' selected':'')+'>产品推荐</option><option'+(commMData.commPurpose==='关系维护'?' selected':'')+'>关系维护</option><option'+(commMData.commPurpose==='投诉处理'?' selected':'')+'>投诉处理</option></select></div></div>';
+  h+='<div class="form-group"><label class="form-label-m">沟通方式*</label><select class="form-input-m" id="cmMethod"><option value="">请选择</option><option'+(commMData.commMethod==='线下拜访'?' selected':'')+'>线下拜访</option><option'+(commMData.commMethod==='电话回访'?' selected':'')+'>电话回访</option><option'+(commMData.commMethod==='微信沟通'?' selected':'')+'>微信沟通</option><option'+(commMData.commMethod==='活动邀约'?' selected':'')+'>活动邀约</option></select></div>';
+
+  h+='<div style="font-weight:600;color:#333;margin:12px 0 6px;padding-top:8px;border-top:1px dashed #E8E8E8;">🗺️ 需求挖掘地图 (SPIN)</div>';
+  var spins=[{id:'S',label:'S 现状探索',desc:'建立基础信息',c:'s',qs:[{q:'您大概计划什么时间出行？',tip:'根据回答选出行时节'},{q:'这次大概几个人？有老人小孩吗？',tip:'确认人数标记出行组合'},{q:'之前去过藏区吗？高反如何？',tip:'判断体力承受'}]},
+    {id:'P',label:'P 痛点挖掘',desc:'挖掘情感动机',c:'p',qs:[{q:'这次最想收获什么？',tip:'"放松"→休闲，"体验"→人文/美食'},{q:'上次旅行有什么遗憾吗？',tip:'找到真实需求'},{q:'同行人最在意什么？',tip:'家庭→亲子，情侣→浪漫'}]},
+    {id:'I',label:'I 影响放大',desc:'升华心灵充电',c:'i',qs:[{q:'如果行程完美，回来后会有什么不同？',tip:'引导描述理想状态'},{q:'怎样才算"不虚此行"？',tip:'微调偏好标签'}]},
+    {id:'N',label:'N 价值引导',desc:'自然过渡产品',c:'n',qs:[{q:'基于您说的，推荐几条线路看看？',tip:'综合标签匹配产品'},{q:'哪条线路更吸引您？',tip:'最终确认偏好标签'}]}];
+  spins.forEach(function(s){
+    var dn=commMData.spinSteps[s.id].done;
+    h+='<div class="mspin-wrap">';
+    h+='<div class="mspin-hd" onclick="commMToggleSpin(\''+s.id+'\')">';
+    h+='<span class="mspin-badge '+s.c+'">'+s.id+'</span><span class="mspin-title">'+s.label+'</span><span class="mspin-status">'+(dn?'✅':'▼')+'</span></div>';
+    h+='<div class="mspin-body'+(commMCurrentStep===2&&!dn?' open':'')+'">';
+    s.qs.forEach(function(q){h+='<div class="mspin-q"><div class="ql">💬 '+q.q+'</div><div class="mspin-tip">💡 '+q.tip+'</div></div>';});
+    h+='<span class="mspin-tag-link" onclick="commMToggleSpinTags(\''+s.id+'\')">🔄 发现需求变化</span>';
+    h+='<div class="mspin-tag-panel" id="mSpinTagPanel_'+s.id+'" style="display:block">'+commMTags('actual',commMData.actualTags,false)+'</div>';
+    h+='</div></div>';
+  });
+
+  h+='<div style="font-weight:600;color:#333;margin:12px 0 6px;padding-top:8px;border-top:1px dashed #E8E8E8;">📝 沟通结论</div>';
+  h+='<div class="form-group"><label class="form-label-m">客户反馈*</label><textarea class="form-textarea-m" id="cmFeedback" placeholder="记录客户关键反馈...">'+commMData.customerFeedback+'</textarea></div>';
+  h+='<div class="form-group"><label class="form-label-m">竞品对比</label><textarea class="form-textarea-m" id="cmCompetitor" placeholder="客人是否提过竞品...">'+commMData.competitorInfo+'</textarea></div>';
+  h+='<div class="form-group"><label class="form-label-m">成交意向</label><div class="seg-control" id="cmDealIntention" data-name="cmDealIntention">';
+  ['高','一般','低'].forEach(function(v){h+='<span class="seg-item'+(commMData.dealIntention===v?' active':'')+'" data-val="'+v+'">'+v+'</span>';});
+  h+='</div></div>';return h;
+}
+
+function commMToggleSpin(id){var i={S:1,P:2,I:3,N:4}[id];var b=document.querySelector('.mspin-wrap:nth-child('+(i+3)+') .mspin-body');if(b)b.classList.toggle('open');}
+function commMToggleSpinTags(id){var p=document.getElementById('mSpinTagPanel_'+id);if(p)p.style.display=p.style.display==='block'?'none':'block';}
+function commMCompleteSpin(id){ }
+
+// 阶段3：需求确认
+function commMStage3(){
+  var h='';
+  h+='<div style="font-weight:600;color:#333;margin-bottom:6px;">📊 需求标签变化对比</div>';
+  var cfg=commMGetTags(),changes=0;
+  cfg.forEach(function(dim){
+    var pre=commMData.predictedTags[dim.code],act=commMData.actualTags[dim.code];
+    var ps='—',as='—',dt='same';
+    if(dim.multiple){ps=(pre||[]).length?pre.map(function(x){var e=dim.enums.find(function(ee){return ee.code===x;});return e?e.name:x;}).join(', '):'—';as=(act||[]).length?act.map(function(x){var e=dim.enums.find(function(ee){return ee.code===x;});return e?e.name:x;}).join(', '):'—';if(JSON.stringify(pre||[])!==JSON.stringify(act||[]))dt='mod';}
+    else{if(pre)ps=(dim.enums.find(function(e){return e.code===pre;})||{}).name||pre;if(act)as=(dim.enums.find(function(e){return e.code===act;})||{}).name||act;if(pre!==act)dt='mod';}
+    if(dt!=='same')changes++;
+    h+='<div class="mtagdr"><span class="mtagdl">'+dim.name+'</span>';
+    h+='<span class="mtagdv mtagdv-same">'+ps+'</span>';
+    h+=(dt==='same'?'<span style="font-size:12px;color:#52C41A;">=</span><span class="mtagdv mtagdv-same">'+as+'</span>':'<span class="mtagdv-arrow">→</span><span class="mtagdv mtagdv-mod">'+as+'</span>');
+    h+='</div>';
+  });
+  h+='<div style="font-size:11px;color:#666;margin-top:4px;">变更汇总：修改 '+changes+' 项</div>';
+
+  h+='<div style="font-weight:600;color:#333;margin:12px 0 6px;padding-top:8px;border-top:1px dashed #E8E8E8;">📝 客户反馈确认</div>';
+  h+='<div style="background:#F8F9FA;border-radius:8px;padding:10px;font-size:13px;color:#333;line-height:1.5;margin-bottom:10px;">'+(commMData.customerFeedback||'—')+'</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">';
+  h+='<div><span style="font-size:11px;color:#999;">竞品对比</span><div style="font-size:12px;color:#333;margin-top:3px;">'+(commMData.competitorInfo||'—')+'</div></div>';
+  h+='<div><span style="font-size:11px;color:#999;">成交意向</span><div style="font-size:14px;color:#000;font-weight:600;margin-top:3px;">'+(commMData.dealIntention||'—')+'</div></div></div>';
+
+  h+='<div style="font-weight:600;color:#333;margin:12px 0 6px;padding-top:8px;border-top:1px dashed #E8E8E8;">⏰ 提醒设置</div>';
+  h+='<div style="background:#FFF7E6;border:1px solid #FFD591;border-radius:8px;padding:10px 12px;">';
+  h+='<div class="form-group" style="margin-bottom:8px;"><label class="form-label-m">提醒日期*</label><input type="date" class="form-input-m" id="cmReminderDate" value="'+commMData.reminderDate+'"></div>';
+  h+='<div class="form-group"><label class="form-label-m">提醒内容*</label><input type="text" class="form-input-m" id="cmReminderContent" placeholder="如：发送行程方案" value="'+commMData.reminderContent+'"></div></div>';
+  return h;
+}
+
+function commMGetTags(){
+  try{var s=localStorage.getItem('travel_tag_config_v3');if(s)return JSON.parse(s);}catch(e){}
+  return [{id:'dim_1',name:'出行时节',code:'season',required:true,multiple:false,enums:[{id:'en_1_1',name:'春季(3-5月)',code:'spring',sort:1},{id:'en_1_2',name:'夏季(6-8月)',code:'summer',sort:2},{id:'en_1_3',name:'秋季(9-11月)',code:'autumn',sort:3},{id:'en_1_4',name:'冬季(12-2月)',code:'winter',sort:4}]},{id:'dim_2',name:'出行组合',code:'group',required:true,multiple:false,enums:[{id:'en_2_1',name:'单人出行',code:'single',sort:1},{id:'en_2_2',name:'情侣/夫妻',code:'couple',sort:2},{id:'en_2_3',name:'家庭亲子',code:'family',sort:3},{id:'en_2_4',name:'朋友结伴',code:'friends',sort:4},{id:'en_2_5',name:'商务团建',code:'business',sort:5}]},{id:'dim_3',name:'人均预算',code:'budget',required:false,multiple:false,enums:[{id:'en_3_1',name:'5千元以下',code:'under5k',sort:1},{id:'en_3_2',name:'5千-1万元',code:'5k10k',sort:2},{id:'en_3_3',name:'1万-2万元',code:'10k20k',sort:3},{id:'en_3_4',name:'2万-3万元',code:'20k30k',sort:4},{id:'en_3_5',name:'3万元以上',code:'over30k',sort:5}]},{id:'dim_4',name:'出行天数',code:'days',required:false,multiple:false,enums:[{id:'en_4_1',name:'1-3天',code:'short',sort:1},{id:'en_4_2',name:'4-7天',code:'week',sort:2},{id:'en_4_3',name:'8-14天',code:'two_weeks',sort:3},{id:'en_4_4',name:'15天以上',code:'long',sort:4}]},{id:'dim_5',name:'出行偏好',code:'preference',required:false,multiple:true,enums:[{id:'en_5_1',name:'自然风光',code:'nature',sort:1},{id:'en_5_2',name:'人文历史',code:'culture',sort:2},{id:'en_5_3',name:'美食探索',code:'food',sort:3},{id:'en_5_4',name:'户外探险',code:'adventure',sort:4},{id:'en_5_5',name:'休闲度假',code:'relax',sort:5},{id:'en_5_6',name:'摄影旅拍',code:'photo',sort:6}]}];
+}
+
+function commMSubmit(){
+  commMData.reminderDate=document.getElementById('cmReminderDate').value;
+  commMData.reminderContent=document.getElementById('cmReminderContent').value;
+  if(!commMData.reminderDate||!commMData.reminderContent){alert('请填写提醒日期和内容');return;}
+  var ts=Date.now();commMData.id='cr_'+ts;
+  var todo={id:'todo_'+ts,commRecordId:commMData.id,memberName:commMData.memberName,memberCard:commMData.memberCard,memberLevel:commMData.memberLevel,sales:commMData.sales,content:commMData.reminderContent,dueDate:commMData.reminderDate,method:commMData.commMethod,purpose:commMData.commPurpose,status:'upcoming',createdAt:new Date().toISOString()};
+  try{var todos=JSON.parse(localStorage.getItem('comm_todos_v1')||'[]');todos.unshift(todo);localStorage.setItem('comm_todos_v1',JSON.stringify(todos));var recs=JSON.parse(localStorage.getItem('comm_records_v1')||'[]');recs.unshift(commMData);localStorage.setItem('comm_records_v1',JSON.stringify(recs));}catch(e){}
+  document.getElementById('addModal').classList.remove('show');alert('✅ 沟通记录已提交');
+  var se=document.getElementById('m-stat-month');if(se)se.textContent=(parseInt(se.textContent)||0)+1;
+}
+
 
 function showLogModal() { document.getElementById('logModal').classList.add('show'); }
 function hideLogModal() { document.getElementById('logModal').classList.remove('show'); }
@@ -1853,6 +2316,38 @@ function buildAssetDataM() {
 
 var currentGroupType = '';
 var groupFilterStateM = { keyword:'', level:[], custType:[], memberAttr:[], custAttr:[] };
+var selectedLeadCardsM = [];
+var leadSalesOptionsM = ['赵岍','王倩','廖文娟','曾卓','张金鸿','曹晓昕','郑文婷','王翊','苏凝影','张嵩'];
+
+function canAssignLeadsM() {
+  return !currentSales && (currentGroupType === 'repurchase' || currentGroupType === 'firstbuy');
+}
+
+function updateLeadAssignmentUIM() {
+  var toolbar = document.getElementById('leadAssignmentToolbarM');
+  if (toolbar) toolbar.style.display = canAssignLeadsM() ? 'flex' : 'none';
+  var count = document.getElementById('selectedLeadCountM');
+  if (count) count.textContent = '已选 ' + selectedLeadCardsM.length + ' 位客人';
+}
+
+function toggleLeadSelectionM(cardNo) {
+  if (selectedLeadCardsM.indexOf(cardNo) === -1) selectedLeadCardsM.push(cardNo);
+  else selectedLeadCardsM = selectedLeadCardsM.filter(function(card){ return card !== cardNo; });
+  renderGroupTableM(getFilteredGroupDataM());
+}
+
+function getFilteredGroupDataM() {
+  var kw = groupFilterStateM.keyword || '';
+  return getCurrentGroupDataM().filter(function(r){
+    var extra = getMemberExtraM(r.cardNo);
+    if (kw && !(extra.name.toLowerCase().includes(kw) || r.cardNo.toLowerCase().includes(kw) || extra.phone.toLowerCase().includes(kw))) return false;
+    if (groupFilterStateM.level.length && groupFilterStateM.level.indexOf(extra.level) === -1) return false;
+    if (groupFilterStateM.custType.length && groupFilterStateM.custType.indexOf(r.custType) === -1) return false;
+    if (groupFilterStateM.memberAttr.length && groupFilterStateM.memberAttr.indexOf(r.memberAttr) === -1) return false;
+    if (groupFilterStateM.custAttr.length && groupFilterStateM.custAttr.indexOf(r.custAttr) === -1) return false;
+    return true;
+  });
+}
 
 function getCurrentGroupDataM() {
   if (currentGroupType === 'core') return buildCoreDataM();
@@ -1862,6 +2357,7 @@ function getCurrentGroupDataM() {
 
 function showGroupDetail(type) {
   currentGroupType = type;
+  selectedLeadCardsM = [];
   var titleMap = {
     'repurchase': '当年复购非核心-优先维护',
     'firstbuy': '当年首购非核心-建议维护',
@@ -1877,6 +2373,7 @@ function showGroupDetail(type) {
   document.querySelector('.gd-m-filter-toggle').classList.remove('open');
   document.getElementById('gdFilterCountM').textContent = '未选';
   applyGroupFilterM();
+  updateLeadAssignmentUIM();
   document.getElementById('groupDetailModal').classList.add('show');
 }
 
@@ -1917,39 +2414,113 @@ function applyGroupFilterM() {
 }
 
 function renderGroupTableM(data) {
-  var html='';
+  var listEl = document.getElementById('groupCardList');
   if (!data || data.length === 0) {
-    document.getElementById('groupTableBody').innerHTML = '<tr><td colspan="14" style="text-align:center;padding:30px 0;color:#999;">暂无匹配数据</td></tr>';
+    listEl.innerHTML = '<div style="text-align:center;padding:30px 0;color:#999;font-size:14px;">暂无匹配数据</div>';
     return;
   }
+  var html='';
   data.forEach(function(r){
     var extra = getMemberExtraM(r.cardNo);
-    var custColor = r.custType==='存量激活客'?'#531dab':'#000000';
-    var memberAttrColor = r.memberAttr === '老会员' ? '#FA8C16' : '#52C41A';
-    var custAttrColor = r.custAttr === '老客' ? '#FA8C16' : '#000000';
     var levelColor = '#000000';
     if (extra.level === '金刚') levelColor = '#000000';
     else if (extra.level === '莲') levelColor = '#531dab';
     else if (extra.level === '雪莲') levelColor = '#08979C';
     else if (extra.level === '绿绒蒿') levelColor = '#C41D7F';
     else if (extra.level === '格桑') levelColor = '#999';
-    html+='<tr><td style="font-family:monospace;color:#000000;">'+r.cardNo+'</td>'
-      +'<td style="font-weight:500;">'+extra.name+'</td>'
-      +'<td style="font-family:monospace;color:#666;">'+extra.phone+'</td>'
-      +'<td><span style="padding:2px 6px;border-radius:4px;font-size:10px;background:'+levelColor+'12;color:'+levelColor+';">'+extra.level+'</span></td>'
-      +'<td>'+r.regDate+'</td>'
-      +'<td><span style="padding:2px 6px;border-radius:4px;font-size:10px;background:'+custColor+'12;color:'+custColor+';">'+r.custType+'</span></td>'
-      +'<td>'+r.sales+'</td>'
-      +'<td><span style="padding:2px 6px;border-radius:4px;font-size:10px;background:'+memberAttrColor+'12;color:'+memberAttrColor+';">'+r.memberAttr+'</span></td>'
-      +'<td><span style="padding:2px 6px;border-radius:4px;font-size:10px;background:'+custAttrColor+'12;color:'+custAttrColor+';">'+r.custAttr+'</span></td>'
-      +'<td style="text-align:right;font-weight:600;">'+r.yearFreq+'次</td>'
-      +'<td style="text-align:right;">¥'+r.orderAmt.toLocaleString()+'</td>'
-      +'<td style="text-align:right;">¥'+r.travelAmt.toLocaleString()+'</td>'
-      +'<td style="text-align:center;font-weight:600;color:'+(r.isRepurchase==='是'?'#52C41A':'#F5222D')+';">'+r.isRepurchase+'</td>'
-      +'<td style="text-align:right;">'+r.regFirstGap+'天</td></tr>';
+    var repurchaseColor = r.isRepurchase==='是' ? '#52C41A' : '#F5222D';
+
+    html += '<div class="gc-card">';
+    if (canAssignLeadsM()) {
+      var selected = selectedLeadCardsM.indexOf(r.cardNo) !== -1;
+      html += '<button type="button" class="lead-m-check ' + (selected ? 'selected' : '') + '" onclick="toggleLeadSelectionM(\'' + r.cardNo + '\')">✓</button>';
+    }
+    // 头部：姓名 + 等级
+    html += '<div class="gc-card-head">';
+    html += '<div class="gc-name-row">';
+    html += '<span class="gc-name">' + extra.name + '</span>';
+    html += '<span class="gc-tag" style="background:'+levelColor+'14;color:'+levelColor+';">' + extra.level + '</span>';
+    html += '</div>';
+    html += '<div class="gc-card-no">' + r.cardNo + '</div>';
+    html += '</div>';
+    // 信息区
+    html += '<div class="gc-info-grid">';
+    html += '<div><span class="gc-k">手机号</span><span class="gc-v">' + extra.phone + '</span></div>';
+    html += '<div><span class="gc-k">注册时间</span><span class="gc-v">' + r.regDate + '</span></div>';
+    html += '<div><span class="gc-k">销售员</span><span class="gc-v">' + r.sales + '</span></div>';
+    html += '<div><span class="gc-k">复购</span><span class="gc-v" style="color:'+repurchaseColor+';font-weight:600;">' + r.isRepurchase + '</span></div>';
+    html += '</div>';
+    // 标签行
+    html += '<div class="gc-tag-row">';
+    html += '<span class="gc-tag-sm" style="background:'+(r.custType==='存量激活客'?'#531dab':'#000000')+'14;color:'+(r.custType==='存量激活客'?'#531dab':'#000000')+';">' + r.custType + '</span>';
+    html += '<span class="gc-tag-sm" style="background:'+(r.memberAttr==='老会员'?'#FA8C16':'#52C41A')+'14;color:'+(r.memberAttr==='老会员'?'#FA8C16':'#52C41A')+';">' + r.memberAttr + '</span>';
+    html += '<span class="gc-tag-sm" style="background:'+(r.custAttr==='老客'?'#FA8C16':'#000000')+'14;color:'+(r.custAttr==='老客'?'#FA8C16':'#000000')+';">' + r.custAttr + '</span>';
+    html += '</div>';
+    // 消费数据
+    html += '<div class="gc-stats">';
+    html += '<div class="gc-stat-item"><div class="gc-stat-num">' + r.yearFreq + '次</div><div class="gc-stat-label">消费频次</div></div>';
+    html += '<div class="gc-stat-item"><div class="gc-stat-num">¥' + r.orderAmt.toLocaleString() + '</div><div class="gc-stat-label">下单金额</div></div>';
+    html += '<div class="gc-stat-item"><div class="gc-stat-num">¥' + r.travelAmt.toLocaleString() + '</div><div class="gc-stat-label">出行金额</div></div>';
+    html += '<div class="gc-stat-item"><div class="gc-stat-num">' + r.regFirstGap + '天</div><div class="gc-stat-label">间隔天数</div></div>';
+    html += '</div>';
+    if (canAssignLeadsM()) html += '<button type="button" class="lead-m-assign" onclick="selectedLeadCardsM=[\'' + r.cardNo + '\'];openLeadAssignmentModalM()">分配该线索</button>';
+    html += '</div>';
   });
-  document.getElementById('groupTableBody').innerHTML=html;
+  listEl.innerHTML = html;
+  updateLeadAssignmentUIM();
 }
+
+function getLeadAssignmentRecordsM() {
+  try { return JSON.parse(localStorage.getItem('crm_lead_assignment_records_v1') || '[]'); } catch (e) { return []; }
+}
+
+function openLeadAssignmentModalM() {
+  if (!canAssignLeadsM()) return;
+  if (!selectedLeadCardsM.length) { alert('请先选择需要分配的客人线索'); return; }
+  var selected = getCurrentGroupDataM().filter(function(r){ return selectedLeadCardsM.indexOf(r.cardNo) !== -1; });
+  document.getElementById('leadAssignmentMembersM').innerHTML = selected.map(function(r){
+    var extra = getMemberExtraM(r.cardNo);
+    return '<span style="padding:5px 8px;background:#F5F5F5;border-radius:6px;font-size:12px;color:#333;">' + extra.name + ' · ' + r.cardNo + '</span>';
+  }).join('');
+  document.getElementById('leadAssigneeSelectM').innerHTML = '<option value="">请选择销售员</option>' + leadSalesOptionsM.map(function(name){ return '<option value="' + name + '">' + name + '</option>'; }).join('');
+  document.getElementById('leadAssignmentModalM').classList.add('show');
+}
+
+function closeLeadAssignmentModalM() { document.getElementById('leadAssignmentModalM').classList.remove('show'); }
+
+function submitLeadAssignmentM() {
+  var assignee = document.getElementById('leadAssigneeSelectM').value;
+  if (!assignee) { alert('请选择销售员'); return; }
+  var typeLabel = currentGroupType === 'repurchase' ? '当年复购非核心' : '当年首购非核心';
+  var records = getLeadAssignmentRecordsM();
+  var source = getCurrentGroupDataM();
+  selectedLeadCardsM.forEach(function(cardNo){
+    var row = source.find(function(r){ return r.cardNo === cardNo; });
+    if (!row) return;
+    var extra = getMemberExtraM(cardNo);
+    var previousSales = row.sales || '暂无归属';
+    row.sales = assignee;
+    var member = memberDB.find(function(m){ return m.card === cardNo; });
+    if (member) { member.sales = assignee; member.contactSales = assignee; }
+    records.unshift({ time:new Date().toLocaleString('zh-CN', { hour12:false }), cardNo:cardNo, memberName:extra.name, type:typeLabel, from:previousSales, to:assignee, operator:'大区负责人' });
+  });
+  try { localStorage.setItem('crm_lead_assignment_records_v1', JSON.stringify(records)); } catch (e) {}
+  selectedLeadCardsM = [];
+  closeLeadAssignmentModalM();
+  applyGroupFilterM();
+  alert('线索已分配至' + assignee);
+}
+
+function openLeadAssignmentLogModalM() {
+  var records = getLeadAssignmentRecordsM();
+  var body = document.getElementById('leadAssignmentLogBodyM');
+  body.innerHTML = records.length ? records.map(function(r){
+    return '<div class="lead-m-log-item"><div style="display:flex;justify-content:space-between;gap:12px;"><strong style="font-size:15px;color:#333;">' + r.memberName + '</strong><span style="font-size:12px;color:#999;">' + r.time + '</span></div><div style="margin-top:6px;font-size:13px;color:#666;">' + r.type + ' · ' + r.cardNo + '</div><div style="margin-top:7px;font-size:13px;color:#333;">' + r.from + ' <span style="color:#999;">→</span> <span style="color:#389E0D;font-weight:600;">' + r.to + '</span> <span style="color:#999;">· ' + r.operator + '</span></div></div>';
+  }).join('') : '<div style="padding:56px 0;text-align:center;color:#999;font-size:14px;">暂无分配记录</div>';
+  document.getElementById('leadAssignmentLogModalM').classList.add('show');
+}
+
+function closeLeadAssignmentLogModalM() { document.getElementById('leadAssignmentLogModalM').classList.remove('show'); }
 
 function toggleGdFilterPanelM() {
   var panel = document.getElementById('gdFilterPanelM');
@@ -2055,77 +2626,26 @@ function findMemberByWecomContact(contactInfo) {
 
 // 快速维护主函数
 function openQuickMaintain() {
-  // 先显示loading状态
-  var addModal = document.getElementById('addModal');
-
-  // 设置默认日期为今天
   var today = new Date();
-  var dateStr = today.getFullYear() + '-' +
-    String(today.getMonth()+1).padStart(2,'0') + '-' +
-    String(today.getDate()).padStart(2,'0');
-  addModal.querySelector('.form-input-m[type="date"]').value = dateStr;
+  var dateStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
 
-  // 尝试获取企微联系人
   getWecomContact(function(err, contactInfo) {
     if (!err && contactInfo && contactInfo.name) {
-      // 找到企微联系人，尝试匹配会员
       var member = findMemberByWecomContact(contactInfo);
-      if (member) {
-        // 填充会员信息
-        fillMaintainModal(member);
-        addModal.classList.add('show');
-        return;
-      }
-      // 未找到匹配会员，用企微联系人信息填充
-      fillMaintainWithContact(contactInfo);
-      addModal.classList.add('show');
+      if (member) { commMOpen(member); return; }
+      commMOpen({ name: contactInfo.name, card: contactInfo.userId || '', level: '', sales: '', color: '#999' });
       return;
     }
-
-    // 无法获取或无联系人，打开弹窗让用户手动输入
-    fillMaintainDefault();
-    addModal.classList.add('show');
+    commMOpen();
   });
 }
 
-// 用memberDB中的会员数据填充
-function fillMaintainModal(member) {
-  document.getElementById('modalAvatar').textContent = member.name[0];
-  document.getElementById('modalAvatar').style.background = member.color || '#000000';
-  document.getElementById('modalMemberName').textContent = member.name;
-  document.getElementById('modalMemberMeta').textContent = member.card + '·' + (member.level || '—');
-  // 存储当前维护的会员ID
-  addModal.dataset.memberCard = member.card;
-  addModal.dataset.memberName = member.name;
-}
+// 废弃的旧函数保留空壳（防止报错）
+function fillMaintainModal(member) {}
+function fillMaintainWithContact(contact) {}
+function fillMaintainDefault() {}
+function openMaintainMemberPicker() {}
 
-// 用企微联系人信息填充（未匹配到会员）
-function fillMaintainWithContact(contact) {
-  document.getElementById('modalAvatar').textContent = contact.name[0];
-  document.getElementById('modalAvatar').style.background = '#999999'; // 灰色表示未匹配
-  document.getElementById('modalMemberName').textContent = contact.name;
-  document.getElementById('modalMemberMeta').textContent = contact.userId ? ('ID:' + contact.userId) : '（未匹配到会员）';
-  addModal.dataset.memberCard = '';
-  addModal.dataset.memberName = contact.name;
-}
-
-// 默认填充
-function fillMaintainDefault() {
-  document.getElementById('modalAvatar').textContent = '?';
-  document.getElementById('modalAvatar').style.background = '#CCCCCC';
-  document.getElementById('modalMemberName').textContent = '请选择客户';
-  document.getElementById('modalMemberMeta').textContent = '点击头像区域选择或搜索会员';
-  addModal.dataset.memberCard = '';
-  addModal.dataset.memberName = '';
-}
-
-// ====== 维护记录-客户选择器 ======
-function openMaintainMemberPicker() {
-  var picker = document.getElementById('maintainPickerModal');
-  picker.classList.add('show');
-  // 渲染全部会员列表（优先显示最近联系/当前销售名下）
-  renderPickerList(memberDB);
-}
 
 function closeMaintainPicker() {
   document.getElementById('maintainPickerModal').classList.remove('show');

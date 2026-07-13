@@ -185,7 +185,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingF
 .page-btn.active { border-color: #000000; color: #000000; }
 .page-btn:hover { color: #000000; border-color: #000000; }
 
-/* ====== 弹窗（新增维护记录）====== */
+/* ====== 弹窗（新增沟通记录）====== */
 .modal-mask { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,.45); z-index: 1000; justify-content: center; align-items: center; }
 .modal-mask.show { display: flex; }
 .modal { background: #fff; border-radius: 8px; width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 6px 24px rgba(0,0,0,.15); }
@@ -262,8 +262,114 @@ select.m-input { cursor: pointer; }
 .btn-claim:hover { background: #73D13D; border-color: #73D13D; color: #fff; }
 .btn-claimed { background: #F5F5F5; color: #999; border-color: #D9D9D9; cursor: not-allowed; }
 .btn-claimed:hover { background: #F5F5F5; border-color: #D9D9D9; color: #999; }
+
+/* ====== 客史信息弹窗 ====== */
+.gh-overview-item {
+  background:#F8F9FA;border-radius:6px;padding:10px 12px;
+}
+.gh-overview-label { font-size:11px;color:#999;margin-bottom:2px; }
+.gh-overview-value { font-size:14px;font-weight:600;color:#333; }
+.gh-order-card {
+  border:1px solid #F0F0F0;border-radius:8px;padding:12px 14px;margin-bottom:8px;
+  transition:all .15s;
+}
+.gh-order-card:hover { border-color:#d9d9d9;box-shadow:0 1px 4px rgba(0,0,0,.06); }
+.gh-order-title { font-size:14px;font-weight:600;color:#000; }
+.gh-order-meta { font-size:12px;color:#999;margin-top:3px; }
+.gh-order-desc { font-size:12px;color:#888;margin-top:4px;line-height:1.5; }
+.gh-event-card {
+  display:flex;align-items:center;gap:10px;padding:10px 14px;
+  border-bottom:1px solid #F5F5F5;
+}
+.gh-event-card:last-child { border-bottom:none; }
+.gh-event-name { font-size:13px;font-weight:500;color:#333;flex:1; }
+.gh-event-time { font-size:12px;color:#999;white-space:nowrap; }
+.gh-complaint-card {
+  padding:10px 0;border-bottom:1px dashed #E8E8E8;
+}
+.gh-complaint-card:last-child { border-bottom:none; }
+.gh-complaint-title { font-size:13px;font-weight:500;color:#333; }
+.gh-complaint-date { float:right;font-size:11px;color:#999; }
+.gh-complaint-desc { font-size:12px;color:#888;margin-top:3px;line-height:1.5;clear:both; }
 .btn-goto { background: #000000; color: #fff; border-color: #000000; }
 .btn-goto:hover { background: #595959; border-color: #595959; color: #fff; }
+
+/* ====== 沟通三阶段弹窗 ====== */
+.comm-stepper{display:flex;align-items:center;justify-content:center;padding:16px 24px 12px;border-bottom:1px solid #F0F0F0;background:#FAFAFA;gap:0}
+.comm-step{display:flex;align-items:center;gap:8px;font-size:13px;color:#999;padding:0 24px;cursor:pointer;position:relative;white-space:nowrap}
+.comm-step:not(:last-child)::after{content:'';position:absolute;right:-16px;top:50%;width:32px;height:2px;background:#E8E8E8;transform:translateY(-50%)}
+.comm-step.active{color:#000;font-weight:600}.comm-step.active .cs-num{background:#000;color:#fff;border-color:#000}
+.comm-step.done{color:#52C41A}.comm-step.done::after{background:#52C41A}.comm-step.done .cs-num{background:#52C41A;color:#fff;border-color:#52C41A}
+.cs-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;border:2px solid #D9D9D9;background:#fff;color:#999}
+
+/* 标签chip */
+.tag-chip{display:inline-flex;align-items:center;padding:5px 12px;border-radius:14px;font-size:12px;font-weight:500;cursor:pointer;border:2px solid;transition:all .15s;user-select:none;gap:4px}
+.tag-chip-initial{background:#fff;border-color:#D9D9D9;color:#666}
+.tag-chip-initial:hover{border-color:#BFBFBF}
+.tag-chip-yes{background:#F6FFED;border-color:#73D13D;color:#237804}
+.tag-chip-no{background:#FFF2F0;border-color:#FF7875;color:#A8071A;text-decoration:line-through}
+.tag-chip-predict{background:#F0F5FF;border-color:#91CAFF;border-style:dashed;color:#1677ff}
+.tag-chip-predict.tag-chip-yes{background:#F6FFED;border-color:#73D13D;border-style:solid;color:#237804}
+
+/* 标签维度组 */
+.tag-dim-group{margin-bottom:10px;border:1px solid #F0F0F0;border-radius:8px;padding:10px 12px}
+.tag-dim-group:last-child{margin-bottom:0}
+.tag-dim-label{font-size:12px;color:#999;margin-bottom:6px;font-weight:500}
+.tag-chip-list{display:flex;flex-wrap:wrap;gap:6px}
+
+/* SPIN 折叠面板 */
+.spin-wrap{border:1px solid #E8E8E8;border-radius:8px;overflow:hidden;margin-bottom:8px}
+.spin-wrap:last-child{margin-bottom:0}
+.spin-hd{display:flex;align-items:center;gap:8px;padding:10px 14px;cursor:pointer;background:#FAFAFA;user-select:none;transition:background .15s}
+.spin-hd:hover{background:#F0F0F0}
+.spin-badge{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.spin-badge.s{background:#000}.spin-badge.p{background:#531dab}.spin-badge.i{background:#FA8C16}.spin-badge.n{background:#08979C}
+.spin-title{font-size:13px;font-weight:600;color:#333;flex:1}
+.spin-status{font-size:11px;color:#999}
+.spin-body{display:none;padding:12px 14px;border-top:1px solid #F0F0F0}
+.spin-body.open{display:block}
+.spin-question{margin-bottom:10px;padding:8px 12px;background:#FFFBE6;border-radius:6px;font-size:12px;line-height:1.6}
+.spin-question .sq-label{font-size:11px;color:#AD6800;font-weight:600;margin-bottom:2px}
+.spin-question .sq-text{color:#333}
+.spin-tip{font-size:11px;color:#999;margin:4px 0 10px;line-height:1.5}
+.spin-notes{width:100%;min-height:60px;border:1px solid #E0E0E0;border-radius:6px;padding:8px 10px;font-size:12px;font-family:inherit;resize:vertical}
+.spin-notes:focus{outline:none;border-color:#000}
+.spin-tag-toggle{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:#1677ff;cursor:pointer;margin:8px 0 4px;user-select:none}
+.spin-tag-panel{display:none;margin:6px 0 10px}
+.spin-tag-panel.open{display:block}
+.spin-done-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 16px;background:#000;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;margin-top:8px}
+
+/* 产品推荐卡片 */
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}
+.prod-card{border:2px solid #F0F0F0;border-radius:10px;padding:14px;text-align:center;transition:all .2s;cursor:pointer}
+.prod-card:hover{border-color:#000;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.prod-card.selected{border-color:#1677ff;background:#F0F5FF}
+.prod-rank{font-size:20px;font-weight:700;color:#000;margin-bottom:4px}
+.prod-name{font-size:12px;font-weight:600;color:#333;line-height:1.4;margin-bottom:6px}
+.prod-score{font-size:11px;color:#1677ff;font-weight:500}
+.prod-score-bar{width:60px;height:4px;background:#E0E0E0;border-radius:2px;margin:6px auto 0;overflow:hidden}
+.prod-score-fill{height:100%;border-radius:2px;background:#1677ff}
+
+/* 标签对比 */
+.tag-diff-row{display:flex;align-items:center;padding:10px 12px;border-bottom:1px solid #F5F5F5;gap:10px}
+.tag-diff-row:last-child{border-bottom:none}
+.tag-diff-label{font-size:12px;color:#666;min-width:70px}
+.tag-diff-val{padding:4px 12px;border-radius:6px;font-size:12px;font-weight:500}
+.tag-diff-same{background:#F5F5F5;color:#999}
+.tag-diff-modified{background:#FFF7E6;color:#AD4E00}
+.tag-diff-added{background:#F6FFED;color:#237804}
+.tag-diff-removed{background:#FFF2F0;color:#A8071A}
+.tag-diff-arrow{font-size:14px;color:#FA8C16;margin:0 6px}
+.tag-diff-summary{font-size:12px;color:#666;margin-top:4px}
+
+/* 客史预判快捷展示 */
+.gh-quick{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.gh-quick-item{display:flex;align-items:center;gap:4px;padding:4px 10px;background:#fff;border:1px solid #E8E8E8;border-radius:6px;font-size:11px}
+.gh-quick-label{color:#999}.gh-quick-val{color:#333;font-weight:500}
+
+/* 阶段2表单 */
+.reveal-title{font-size:13px;font-weight:600;color:#000;margin:14px 0 10px;padding-top:10px;border-top:1px dashed #E8E8E8}
+
 
 /* ====== 标签体系扩展 ====== */
 /* 出行人关系标签 */
@@ -325,14 +431,14 @@ select.m-input { cursor: pointer; }
   <div class="sales-switcher" id="salesSwitcher">
     <div class="sales-switcher-btn" onclick="toggleSalesDropdown()">
       <span>👤</span>
-      <span class="current-sales" id="currentSalesLabel">赵岍</span>
+      <span class="current-sales" id="currentSalesLabel">大区负责人</span>
       <span class="arrow">▼</span>
     </div>
     <div class="sales-dropdown" id="salesDropdown">
-      <div class="sales-dropdown-header">切换销售员视角</div>
-      <div class="sales-dropdown-item active" onclick="switchSales(this, '全部', '')">
+      <div class="sales-dropdown-header">切换查看视角</div>
+      <div class="sales-dropdown-item active" onclick="switchSales(this, '大区负责人', '')">
         <div class="sales-avatar">全</div>
-        <div class="sales-info"><div class="sales-name">全部</div><div class="sales-region">查看所有销售数据</div></div>
+        <div class="sales-info"><div class="sales-name">大区负责人</div><div class="sales-region">查看全区数据并分配线索</div></div>
       </div>
       <div class="sales-dropdown-item" onclick="switchSales(this, '赵岍', '赵岍')">
         <div class="sales-avatar">赵</div>
@@ -745,7 +851,7 @@ select.m-input { cursor: pointer; }
     <div class="split-right">
       <div class="record-section">
         <div class="section-header" style="margin-bottom:14px;">
-          <div class="section-title">📝 维护记录</div>
+          <div class="section-title">💬 沟通记录</div>
           <div style="display:flex;align-items:center;gap:16px;">
             <div class="record-stats">
               <div class="record-stat-item clickable" onclick="showGroupDetail('repurchase')">
@@ -766,7 +872,7 @@ select.m-input { cursor: pointer; }
               </div>
               <div class="record-stat-item">
                 <div class="record-stat-num blue" id="stat-month">42</div>
-                <div class="record-stat-label">本月维护次数</div>
+                <div class="record-stat-label">本月沟通次数</div>
               </div>
             </div>
             <div class="btn-group">
@@ -780,7 +886,7 @@ select.m-input { cursor: pointer; }
         <div class="filter-bar">
           <label>会员：</label>
           <input type="text" class="filter-input" placeholder="搜索姓名/卡号" style="width:140px;">
-          <label>维护行为：</label>
+          <label>沟通方式：</label>
           <select class="filter-select">
             <option>全部</option>
             <option>线下拜访</option>
@@ -798,13 +904,13 @@ select.m-input { cursor: pointer; }
         <table class="record-table">
           <thead>
             <tr>
-              <th>维护记录ID</th>
+              <th>沟通记录ID</th>
               <th>会员卡号</th>
               <th>更新时间</th>
               <th>会员</th>
-              <th>维护日期</th>
-              <th>维护行为</th>
-              <th>客户反馈</th>
+              <th>沟通日期</th>
+              <th>沟通方式</th>
+              <th>沟通目的</th>
               <th>提醒事项</th>
               <th>操作</th>
             </tr>
@@ -1035,128 +1141,24 @@ select.m-input { cursor: pointer; }
 
 </div>
 
-<!-- ====== 新增维护记录弹窗 ====== -->
+<!-- ====== 新增沟通记录弹窗（三阶段） ====== -->
 <div class="modal-mask" id="addModal">
-  <div class="modal">
+  <div class="modal" style="width:880px;max-height:90vh;">
     <div class="modal-header">
-      <span class="modal-title">＋ 新增维护记录</span>
+      <span class="modal-title" id="commModalTitle">💬 新增沟通记录</span>
       <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
-    <div class="modal-body">
-      <!-- 当前会员（由会员查询带入，不可修改） -->
-      <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#F6FFED;border:1px solid #B7EB8F;border-radius:6px;margin-bottom:16px;">
-        <div class="member-avatar" style="background:#000000;width:32px;height:32px;font-size:13px;" id="modalAvatar">王</div>
-        <div>
-          <div style="font-size:14px;font-weight:600;color:#333;" id="modalMemberName">王建明</div>
-          <div style="font-size:11px;color:#999;" id="modalMemberMeta">MD80001234 · 金刚 · VIP客户</div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">维护日期 <span class="req">*</span></label>
-          <input type="date" class="m-input" value="2026-04-17">
-        </div>
-        <div class="form-group">
-          <label class="form-label">维护行为 <span class="req">*</span></label>
-          <select class="m-input">
-            <option value="">请选择</option>
-            <option>线下拜访</option>
-            <option>电话回访</option>
-            <option>活动邀约</option>
-            <option selected>微信沟通</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">客户反馈 <span class="req">*</span></label>
-        <textarea class="m-input" placeholder="记录客户关键反馈、态度或需求..."></textarea>
-      </div>
-
-      <!-- 出行需求信息（非必选） -->
-      <div class="travel-demand-title">📋 出行需求信息</div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">出行时节</label>
-          <select class="m-input">
-            <option value="">请选择</option>
-            <option>春季（3-5月）</option>
-            <option>夏季（6-8月）</option>
-            <option>秋季（9-11月）</option>
-            <option>冬季（12-2月）</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">出行组合</label>
-          <select class="m-input">
-            <option value="">请选择</option>
-            <option>独自出行</option>
-            <option>情侣出行</option>
-            <option>亲子出行</option>
-            <option>朋友结伴</option>
-            <option>父母同游</option>
-            <option>大家庭</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">人均预算</label>
-          <select class="m-input">
-            <option value="">请选择</option>
-            <option>5,000以下</option>
-            <option>5,000-10,000</option>
-            <option>10,000-20,000</option>
-            <option>20,000-50,000</option>
-            <option>50,000以上</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">出行天数</label>
-          <select class="m-input">
-            <option value="">请选择</option>
-            <option>3天以内</option>
-            <option>4-6天</option>
-            <option>7-10天</option>
-            <option>11-15天</option>
-            <option>15天以上</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">出行偏好</label>
-          <select class="m-input">
-            <option value="">请选择</option>
-            <option>自然风光</option>
-            <option>人文历史</option>
-            <option>奢享度假</option>
-            <option>户外徒步</option>
-            <option>摄影采风</option>
-            <option>亲子互动</option>
-            <option>美食体验</option>
-            <option>温泉养生</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- 提醒事项（必填） -->
-      <div style="border-top:1px dashed #e8e8e8;margin:20px 0 16px;"></div>
-      <div style="font-size:14px;font-weight:500;color:#333;margin-bottom:12px;">⏰ 提醒事项</div>
-      <div style="background:#FFF7E6;border:1px solid #FFD591;border-radius:6px;padding:12px 14px;">
-        <div class="form-group" style="margin-bottom:10px;">
-          <label class="form-label">提醒日期 <span class="req">*</span></label>
-          <input type="date" class="m-input">
-        </div>
-        <div class="form-group" style="margin-bottom:0;">
-          <label class="form-label">提醒事项 <span class="req">*</span></label>
-          <textarea class="m-input" placeholder="如：确认客户是否预定、跟进报价反馈、发送行程方案..." style="min-height:48px;"></textarea>
-        </div>
-      </div>
-
+    <!-- 步骤条 -->
+    <div class="comm-stepper" id="commStepper">
+      <div class="comm-step active" data-step="1" onclick="renderCommStage(1)"><span class="cs-num">1</span>沟通前</div>
+      <div class="comm-step" data-step="2" onclick="renderCommStage(2)"><span class="cs-num">2</span>沟通中</div>
+      <div class="comm-step" data-step="3" onclick="renderCommStage(3)"><span class="cs-num">3</span>需求确认</div>
     </div>
-    <div class="modal-footer">
+    <div class="modal-body" id="commModalBody" style="overflow-y:auto;max-height:calc(90vh - 180px);"></div>
+    <div class="modal-footer" id="commModalFooter">
+      <button class="btn" id="commBtnPrev" style="display:none;" onclick="commPrevStep()">上一步</button>
       <button class="btn" onclick="closeModal()">取消</button>
-      <button class="btn btn-primary" onclick="closeModal()">提交</button>
+      <button class="btn btn-primary" id="commBtnNext" onclick="commNextStep()">下一步</button>
     </div>
   </div>
 </div>
@@ -1165,19 +1167,19 @@ select.m-input { cursor: pointer; }
 <div class="modal-mask" id="logModal">
   <div class="modal log-modal">
     <div class="modal-header">
-      <span class="modal-title">📋 操作日志 — 维护记录</span>
+      <span class="modal-title">📋 操作日志 — 沟通记录</span>
       <button class="modal-close" onclick="hideLogModal()">✕</button>
     </div>
     <div class="modal-body" style="padding:0;">
       <table class="log-table">
         <thead>
           <tr>
-            <th style="width:130px;">维护记录ID</th>
+            <th style="width:130px;">沟通记录ID</th>
             <th style="width:130px;">更新时间</th>
             <th style="width:70px;">更新人</th>
             <th style="width:60px;">变更类型</th>
             <th style="width:80px;">会员</th>
-            <th style="width:90px;">维护日期</th>
+            <th style="width:90px;">沟通日期</th>
             <th>变更内容摘要</th>
           </tr>
         </thead>
@@ -1189,7 +1191,7 @@ select.m-input { cursor: pointer; }
             <td><span class="type-add">新增</span></td>
             <td>赵雅芝</td>
             <td>2026-04-17</td>
-            <td>新增维护记录：电话回访 — 客户咨询来古冰川行程</td>
+            <td>新增沟通记录：电话回访 — 客户咨询来古冰川行程</td>
           </tr>
           <tr data-rid="r2" data-sales="曾卓">
             <td style="color:#000000;font-size:12px;white-space:nowrap;">2</td>
@@ -1198,7 +1200,7 @@ select.m-input { cursor: pointer; }
             <td><span class="type-add">新增</span></td>
             <td>李婷</td>
             <td>2026-04-16</td>
-            <td>新增维护记录：微信沟通 — 客户咨询暑期亲子路线</td>
+            <td>新增沟通记录：微信沟通 — 客户咨询暑期亲子路线</td>
           </tr>
           <tr data-rid="r3" data-sales="王翊">
             <td style="color:#000000;font-size:12px;white-space:nowrap;">3</td>
@@ -1207,7 +1209,7 @@ select.m-input { cursor: pointer; }
             <td><span class="type-add">新增</span></td>
             <td>黄丽娟</td>
             <td>2026-04-16</td>
-            <td>新增维护记录：线下拜访 — 客户到店体验高端定制</td>
+            <td>新增沟通记录：线下拜访 — 客户到店体验高端定制</td>
           </tr>
           <tr data-rid="r4" data-sales="郑文婷">
             <td style="color:#000000;font-size:12px;white-space:nowrap;">4</td>
@@ -1216,7 +1218,7 @@ select.m-input { cursor: pointer; }
             <td><span class="type-add">新增</span></td>
             <td>刘洋</td>
             <td>2026-04-15</td>
-            <td>新增维护记录：电话回访 — 跟进会员续费意向</td>
+            <td>新增沟通记录：电话回访 — 跟进会员续费意向</td>
           </tr>
           <tr data-rid="r5" data-sales="苏凝影">
             <td style="color:#000000;font-size:12px;white-space:nowrap;">5</td>
@@ -1225,7 +1227,7 @@ select.m-input { cursor: pointer; }
             <td><span class="type-add">新增</span></td>
             <td>陈志强</td>
             <td>2026-04-13</td>
-            <td>新增维护记录：微信沟通 — 南迦巴瓦徒步路线确认</td>
+            <td>新增沟通记录：微信沟通 — 南迦巴瓦徒步路线确认</td>
           </tr>
           <tr data-rid="r6" data-sales="赵岍">
             <td style="color:#000000;font-size:12px;white-space:nowrap;">6</td>
@@ -1234,7 +1236,7 @@ select.m-input { cursor: pointer; }
             <td><span class="type-add">新增</span></td>
             <td>王建明</td>
             <td>2026-04-12</td>
-            <td>新增维护记录：线下拜访 — 梅里雪山路线沟通</td>
+            <td>新增沟通记录：线下拜访 — 梅里雪山路线沟通</td>
           </tr>
           <tr data-rid="r7" data-sales="王倩">
             <td style="color:#000000;font-size:12px;white-space:nowrap;">7</td>
@@ -1243,7 +1245,7 @@ select.m-input { cursor: pointer; }
             <td><span class="type-add">新增</span></td>
             <td>孙丽华</td>
             <td>2026-04-10</td>
-            <td>新增维护记录：线下拜访 — 客户想了解藏东新线路</td>
+            <td>新增沟通记录：线下拜访 — 客户想了解藏东新线路</td>
           </tr>
           <tr data-rid="r8" data-sales="张金鸿">
             <td style="color:#000000;font-size:12px;white-space:nowrap;">8</td>
@@ -1252,7 +1254,7 @@ select.m-input { cursor: pointer; }
             <td><span class="type-add">新增</span></td>
             <td>杨帆</td>
             <td>2026-04-08</td>
-            <td>新增维护记录：电话回访 — 藏东自驾线路成团评估</td>
+            <td>新增沟通记录：电话回访 — 藏东自驾线路成团评估</td>
           </tr>
           <tr data-rid="r9" data-sales="张嵩">
             <td style="color:#000000;font-size:12px;white-space:nowrap;">9</td>
@@ -1261,7 +1263,7 @@ select.m-input { cursor: pointer; }
             <td><span class="type-add">新增</span></td>
             <td>张伟</td>
             <td>2026-04-05</td>
-            <td>新增维护记录：电话回访 — 未接通，标记沉睡客户</td>
+            <td>新增沟通记录：电话回访 — 未接通，标记沉睡客户</td>
           </tr>
         </tbody>
       </table>
@@ -1372,7 +1374,7 @@ select.m-input { cursor: pointer; }
               <div class="detail-field-value" id="detailExpiry">2026-12-31</div>
             </div>
             <div class="detail-field">
-              <div class="detail-field-label">最近维护日期</div>
+              <div class="detail-field-label">最近沟通日期</div>
               <div class="detail-field-value" id="detailLastMaint" style="color:#000000;">—</div>
             </div>
             <div class="detail-field">
@@ -1391,8 +1393,9 @@ select.m-input { cursor: pointer; }
           </div>
 
           <div class="detail-actions">
+            <button class="btn btn-sm" onclick="openGuestHistoryModal()" style="background:#F0F5FF;border:1px solid #ADC6FF;color:#1677ff;">📊 客史信息</button>
             <button class="btn btn-sm btn-claim" id="btnClaim" onclick="claimMember()">📥 纳入我的客户</button>
-            <button class="btn btn-sm btn-primary" onclick="addRecordFromSearch()">＋ 新增维护记录</button>
+            <button class="btn btn-sm btn-primary" onclick="addRecordFromSearch()">＋ 新增沟通记录</button>
           </div>
         </div>
       </div>
@@ -1421,8 +1424,8 @@ select.m-input { cursor: pointer; }
       </div>
       <!-- 基础信息 -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin-bottom:16px;">
-        <div><span style="font-size:12px;color:#999;">维护记录ID</span><div style="font-size:13px;color:#000000;margin-top:2px;font-weight:500;" id="dtRecordId">—</div></div>
-        <div><span style="font-size:12px;color:#999;">维护日期</span><div style="font-size:13px;color:#333;margin-top:2px;" id="dtDate">2026-04-17</div></div>
+        <div><span style="font-size:12px;color:#999;">沟通记录ID</span><div style="font-size:13px;color:#000000;margin-top:2px;font-weight:500;" id="dtRecordId">—</div></div>
+        <div><span style="font-size:12px;color:#999;">沟通日期</span><div style="font-size:13px;color:#333;margin-top:2px;" id="dtDate">2026-04-17</div></div>
         <div><span style="font-size:12px;color:#999;">维护行为</span><div style="font-size:13px;margin-top:2px;" id="dtBehavior"></div></div>
         <div><span style="font-size:12px;color:#999;">更新时间</span><div style="font-size:13px;color:#999;margin-top:2px;" id="dtUpdated">2026-04-17 16:32:15</div></div>
       </div>
@@ -1430,6 +1433,16 @@ select.m-input { cursor: pointer; }
       <div style="margin-bottom:14px;">
         <div style="font-size:12px;color:#999;margin-bottom:4px;">客户反馈</div>
         <div style="font-size:13px;color:#333;line-height:1.7;background:#FAFAFA;padding:10px 12px;border-radius:4px;" id="dtFeedback">—</div>
+      </div>
+      <!-- 竞品对比 -->
+      <div style="margin-bottom:14px;">
+        <div style="font-size:12px;color:#999;margin-bottom:4px;">竞品对比</div>
+        <div style="font-size:13px;color:#333;line-height:1.7;background:#FAFAFA;padding:10px 12px;border-radius:4px;" id="dtCompetitor">—</div>
+      </div>
+      <!-- 成交可能性 -->
+      <div style="margin-bottom:14px;">
+        <div style="font-size:12px;color:#999;margin-bottom:4px;">成交可能性</div>
+        <div style="font-size:13px;color:#333;background:#FAFAFA;padding:6px 12px;border-radius:4px;" id="dtDealChance">—</div>
       </div>
       <!-- 出行需求信息（有则显示） -->
       <div id="dtTravelWrap" style="display:none;margin-bottom:14px;">
@@ -1476,7 +1489,7 @@ select.m-input { cursor: pointer; }
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">维护日期 <span class="required">*</span></label>
+          <label class="form-label">沟通日期 <span class="required">*</span></label>
           <input type="date" class="m-input" id="editDate">
         </div>
         <div class="form-group">
@@ -1489,6 +1502,24 @@ select.m-input { cursor: pointer; }
       <div class="form-group">
         <label class="form-label">客户反馈</label>
         <textarea class="m-input" id="editFeedback" placeholder="记录客户的关键反馈、态度或疑虑..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">竞品对比</label>
+        <textarea class="m-input" id="editCompetitor" placeholder="客人是否提过竞品，提到过哪些竞品"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">成交可能性</label>
+        <div style="display:flex;gap:16px;align-items:center;padding-top:6px;">
+          <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:14px;">
+            <input type="radio" name="editDealChance" value="高"> 高
+          </label>
+          <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:14px;">
+            <input type="radio" name="editDealChance" value="一般"> 一般
+          </label>
+          <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:14px;">
+            <input type="radio" name="editDealChance" value="低"> 低
+          </label>
+        </div>
       </div>
       <!-- 提醒事项（必填） -->
       <div style="border-top:1px dashed #e8e8e8;margin:20px 0 16px;"></div>
@@ -1507,6 +1538,47 @@ select.m-input { cursor: pointer; }
     <div class="modal-footer">
       <button class="btn" onclick="closeEditModal()">取消</button>
       <button class="btn btn-primary" onclick="submitEdit()">保存更新</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 客史信息弹窗 ====== -->
+<div class="modal-mask" id="guestHistoryModal">
+  <div class="modal" style="width:620px;max-height:85vh;">
+    <div class="modal-header">
+      <span class="modal-title">📊 客史信息</span>
+      <button class="modal-close" onclick="closeGuestHistoryModal()">✕</button>
+    </div>
+    <div class="modal-body" style="padding:16px 24px;overflow-y:auto;max-height:calc(85vh - 120px);">
+      <!-- 客史概览 -->
+      <div style="margin-bottom:20px;">
+        <div style="font-size:14px;font-weight:600;color:#333;margin-bottom:10px;">客史概览</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;" id="ghOverviewGrid"></div>
+      </div>
+
+      <!-- 订单记录 -->
+      <div style="margin-bottom:20px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <span style="font-size:14px;font-weight:600;color:#333;">订单记录</span>
+          <span style="font-size:12px;color:#1677ff;cursor:pointer;">查看更多 ›</span>
+        </div>
+        <div id="ghOrderList"></div>
+      </div>
+
+      <!-- 线下活动记录 -->
+      <div style="margin-bottom:20px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <span style="font-size:14px;font-weight:600;color:#333;">线下活动记录</span>
+          <span style="font-size:12px;color:#1677ff;cursor:pointer;" onclick="openOfflineActivityRecords()">查看更多 ›</span>
+        </div>
+        <div id="ghEventList"></div>
+      </div>
+
+      <!-- 投诉记录 -->
+      <div style="margin-bottom:8px;">
+        <div style="font-size:14px;font-weight:600;color:#333;margin-bottom:10px;">投诉记录</div>
+        <div id="ghComplaintList"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -1580,6 +1652,7 @@ select.m-input { cursor: pointer; }
         <table class="log-table" id="groupTable" style="width:100%;border-collapse:collapse;font-size:12px;">
           <thead>
             <tr style="position:sticky;top:0;z-index:1;">
+              <th class="lead-select-col" style="display:none;background:#FAFAFA;padding:10px 10px;text-align:center;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;"><input type="checkbox" id="leadSelectAll" onchange="toggleAllLeadSelection(this.checked)" title="全选当前列表"></th>
               <th style="background:#FAFAFA;padding:10px 10px;text-align:left;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">会员卡号</th>
               <th style="background:#FAFAFA;padding:10px 10px;text-align:left;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">会员名称</th>
               <th style="background:#FAFAFA;padding:10px 10px;text-align:left;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">手机号</th>
@@ -1594,6 +1667,7 @@ select.m-input { cursor: pointer; }
               <th style="background:#FAFAFA;padding:10px 10px;text-align:right;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">当年出行金额</th>
               <th style="background:#FAFAFA;padding:10px 10px;text-align:center;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">是否复购</th>
               <th style="background:#FAFAFA;padding:10px 10px;text-align:right;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">注册_首购间隔天数</th>
+              <th class="lead-action-col" style="display:none;background:#FAFAFA;padding:10px 10px;text-align:center;font-weight:500;color:#666;border-bottom:1px solid #e8e8e8;">操作</th>
             </tr>
           </thead>
           <tbody id="groupTableBody"></tbody>
@@ -1601,8 +1675,36 @@ select.m-input { cursor: pointer; }
       </div>
     </div>
     <div class="modal-footer">
+      <div id="leadAssignmentToolbar" style="display:none;margin-right:auto;align-items:center;gap:10px;">
+        <span id="selectedLeadCount" style="font-size:12px;color:#666;">已选 0 位客人</span>
+        <button class="btn btn-sm btn-primary" onclick="openLeadAssignmentModal()">分配线索</button>
+        <button class="btn btn-sm" onclick="openLeadAssignmentLogModal()">分配记录</button>
+      </div>
       <button class="btn" onclick="closeGroupDetailModal()">关闭</button>
     </div>
+  </div>
+</div>
+
+<!-- ====== 线索分配弹窗 ====== -->
+<div class="modal-mask" id="leadAssignmentModal">
+  <div class="modal" style="width:520px;">
+    <div class="modal-header"><span class="modal-title">线索分配</span><button class="modal-close" onclick="closeLeadAssignmentModal()">✕</button></div>
+    <div class="modal-body" style="padding:18px 22px;">
+      <div style="font-size:13px;color:#666;margin-bottom:8px;">待分配客人</div>
+      <div id="leadAssignmentMembers" style="display:flex;flex-wrap:wrap;gap:6px;min-height:30px;"></div>
+      <div style="margin:18px 0 10px;font-size:13px;color:#333;font-weight:500;">分配给销售员 <span style="color:#F5222D;">*</span></div>
+      <select id="leadAssigneeSelect" style="width:100%;height:36px;padding:0 10px;border:1px solid #d9d9d9;border-radius:6px;background:#fff;font-family:inherit;"></select>
+      <div style="margin-top:14px;font-size:12px;color:#999;line-height:1.6;">确认后将更新客人的线索归属，并保留原归属、操作人和分配时间。</div>
+    </div>
+    <div class="modal-footer"><button class="btn" onclick="closeLeadAssignmentModal()">取消</button><button class="btn btn-primary" onclick="submitLeadAssignment()">确认分配</button></div>
+  </div>
+</div>
+
+<!-- ====== 线索分配记录 ====== -->
+<div class="modal-mask" id="leadAssignmentLogModal">
+  <div class="modal" style="width:820px;max-height:80vh;">
+    <div class="modal-header"><span class="modal-title">线索分配记录</span><button class="modal-close" onclick="closeLeadAssignmentLogModal()">✕</button></div>
+    <div class="modal-body" style="padding:0 20px 16px;overflow:auto;"><table class="log-table" style="width:100%;font-size:12px;"><thead><tr><th>分配时间</th><th>客人</th><th>线索类型</th><th>原归属</th><th>分配至</th><th>操作人</th></tr></thead><tbody id="leadAssignmentLogBody"></tbody></table></div>
   </div>
 </div>
 
@@ -1646,7 +1748,535 @@ function showLogModal() { document.getElementById('logModal').classList.add('sho
 function hideLogModal() { document.getElementById('logModal').classList.remove('show'); }
 function closeDetailModal() { document.getElementById('detailModal').classList.remove('show'); }
 function closeEditModal() { document.getElementById('editModal').classList.remove('show'); }
+
+function openOfflineActivityRecords() {
+  window.location.href = '线下活动记录.html';
+}
+
+// ====================================================================
+// 三阶段沟通弹窗
+// ====================================================================
+var commCurrentStep = 1;
+var commData = {};
+
+// 从 travel_tag_config_v3 读取标签配置
+function getTagConfig() {
+  try {
+    var saved = localStorage.getItem('travel_tag_config_v3');
+    if (saved) return JSON.parse(saved);
+  } catch(e) {}
+  // fallback 默认配置
+  return [
+    { id:'dim_1',name:'出行时节',code:'season',required:true,multiple:false,enums:[
+      {id:'en_1_1',name:'春季 (3-5月)',code:'spring',sort:1},{id:'en_1_2',name:'夏季 (6-8月)',code:'summer',sort:2},{id:'en_1_3',name:'秋季 (9-11月)',code:'autumn',sort:3},{id:'en_1_4',name:'冬季 (12-2月)',code:'winter',sort:4}
+    ]},
+    { id:'dim_2',name:'出行组合',code:'group',required:true,multiple:false,enums:[
+      {id:'en_2_1',name:'单人出行',code:'single',sort:1},{id:'en_2_2',name:'情侣/夫妻',code:'couple',sort:2},{id:'en_2_3',name:'家庭亲子',code:'family',sort:3},{id:'en_2_4',name:'朋友结伴',code:'friends',sort:4},{id:'en_2_5',name:'商务团建',code:'business',sort:5}
+    ]},
+    { id:'dim_3',name:'人均预算',code:'budget',required:false,multiple:false,enums:[
+      {id:'en_3_1',name:'5千元以下',code:'under5k',sort:1},{id:'en_3_2',name:'5千-1万元',code:'5k10k',sort:2},{id:'en_3_3',name:'1万-2万元',code:'10k20k',sort:3},{id:'en_3_4',name:'2万-3万元',code:'20k30k',sort:4},{id:'en_3_5',name:'3万元以上',code:'over30k',sort:5}
+    ]},
+    { id:'dim_4',name:'出行天数',code:'days',required:false,multiple:false,enums:[
+      {id:'en_4_1',name:'1-3天',code:'short',sort:1},{id:'en_4_2',name:'4-7天',code:'week',sort:2},{id:'en_4_3',name:'8-14天',code:'two_weeks',sort:3},{id:'en_4_4',name:'15天以上',code:'long',sort:4}
+    ]},
+    { id:'dim_5',name:'出行偏好',code:'preference',required:false,multiple:true,enums:[
+      {id:'en_5_1',name:'自然风光',code:'nature',sort:1},{id:'en_5_2',name:'人文历史',code:'culture',sort:2},{id:'en_5_3',name:'美食探索',code:'food',sort:3},{id:'en_5_4',name:'户外探险',code:'adventure',sort:4},{id:'en_5_5',name:'休闲度假',code:'relax',sort:5},{id:'en_5_6',name:'摄影旅拍',code:'photo',sort:6}
+    ]}
+  ];
+}
+
+// 客史→标签映射
+function mapHistoryToTags() {
+  var tags = { season:null, group:null, budget:null, days:null, preference:[] };
+  // 消费人数→出行组合
+  var count = parseInt(commData.consumerCount||'1');
+  if (count>=5) tags.group='family';
+  else if (count===2) tags.group='couple';
+  else if (count===1) tags.group='single';
+  else tags.group='friends';
+  // 下单金额→人均预算
+  var amt = parseFloat((commData.orderAmount||'0').replace(/[^\d.]/g,''))||0;
+  var perCap = count>0?amt/count:amt;
+  if (perCap>=30000) tags.budget='over30k';
+  else if (perCap>=20000) tags.budget='20k30k';
+  else if (perCap>=10000) tags.budget='10k20k';
+  else if (perCap>=5000) tags.budget='5k10k';
+  else if (amt>0) tags.budget='under5k';
+  // 出行目的地→偏好
+  var dest = (commData.traveledDest||'').toLowerCase();
+  if (dest.indexOf('香格里拉')>=0||dest.indexOf('梅里')>=0){tags.preference.push('nature');tags.preference.push('culture');}
+  if (dest.indexOf('林芝')>=0) tags.preference.push('photo');
+  var desc = (commData.orderDesc||'').toLowerCase();
+  if (desc.indexOf('慢节奏')>=0||desc.indexOf('亲子')>=0) tags.preference.push('relax');
+  if (desc.indexOf('美食')>=0||desc.indexOf('餐饮')>=0) tags.preference.push('food');
+  if (desc.indexOf('徒步')>=0||desc.indexOf('户外')>=0) tags.preference.push('adventure');
+  return tags;
+}
+
+// 产品库
+var PRODUCTS = [
+  {id:'p1',name:'香格里拉环线6日',tags:{season:['summer','autumn'],group:['couple','family','friends'],budget:['10k20k','20k30k'],days:['week'],preference:['nature','culture','relax']},desc:'经典入门线路'},
+  {id:'p2',name:'梅里雪山朝圣8日',tags:{season:['autumn','winter'],group:['couple','single','friends'],budget:['20k30k','over30k'],days:['two_weeks','week'],preference:['nature','photo','adventure']},desc:'深度摄影线路'},
+  {id:'p3',name:'林芝桃花源5日',tags:{season:['spring'],group:['couple','family'],budget:['10k20k'],days:['week'],preference:['nature','photo','relax']},desc:'春季限定桃花'},
+  {id:'p4',name:'西藏全景12日',tags:{season:['summer','autumn'],group:['couple','friends'],budget:['over30k'],days:['two_weeks','long'],preference:['culture','adventure','nature']},desc:'全藏深度体验'},
+  {id:'p5',name:'松赞慢时光4日',tags:{season:['spring','summer','autumn','winter'],group:['couple','family'],budget:['5k10k','10k20k'],days:['short','week'],preference:['relax','culture']},desc:'短途度假'},
+  {id:'p6',name:'川藏穿越14日',tags:{season:['summer','autumn'],group:['friends'],budget:['over30k'],days:['long'],preference:['adventure','nature','photo']},desc:'高海拔挑战'},
+];
+
+function scoreProducts(tags) {
+  var weights = { season:20, group:20, budget:20, days:15, preference:25 };
+  return PRODUCTS.map(function(p){
+    var score=0, max=0;
+    ['season','group','budget','days'].forEach(function(d){
+      max+=weights[d];
+      if(tags[d]&&p.tags[d]&&p.tags[d].indexOf(tags[d])>=0) score+=weights[d];
+    });
+    max+=weights.preference;
+    if(tags.preference&&tags.preference.length&&p.tags.preference){
+      var m = tags.preference.filter(function(x){return p.tags.preference.indexOf(x)>=0;});
+      score+=weights.preference*(m.length/tags.preference.length);
+    }
+    p._score=Math.round(score/max*100);return p;
+  }).sort(function(a,b){return b._score-a._score;}).slice(0,3);
+}
+
+// 打开弹窗
+function openAddModal(member) {
+  commCurrentStep = 1;
+  // 初始化客史数据
+  var m = member || {};
+  commData = {
+    memberId: m.id || 'wjm', memberName: m.name || '王建明', memberCard: m.card || 'MD80001234', memberLevel: m.level || '金刚', sales: m.sales || '赵岍',
+    memberAttr:'老会员', custAttr:'老客', consumeAttr:'已消费', yearFreq:'本年首购',
+    traveledDest:'香格里拉', orderAmount:'¥85,760', travelAmount:'¥70,323', repurchaseGap:'263天', consumerCount:'5',
+    orderDesc:'6天5晚 / 酒店景观和管家服务评价高\n4天3晚 / 偏好慢节奏和亲子活动',
+    // 标签数据
+    predictedTags: null, actualTags: {},
+    predictedProducts: [], selectedProduct: null,
+    // 阶段2
+    commDate: new Date().toISOString().split('T')[0],
+    commPurpose: '', commMethod: '',
+    spinSteps: { S:{done:false,notes:''}, P:{done:false,notes:''}, I:{done:false,notes:''}, N:{done:false,notes:''} },
+    customerFeedback:'', competitorInfo:'', dealIntention:'',
+    // 阶段3
+    reminderDate:'', reminderContent:''
+  };
+  // 自动预判
+  commData.predictedTags = mapHistoryToTags();
+  commData.actualTags = JSON.parse(JSON.stringify(commData.predictedTags));
+  commData.predictedProducts = scoreProducts(commData.predictedTags);
+
+  renderCommStage(1);
+  document.getElementById('addModal').classList.add('show');
+}
+
+// 渲染阶段
+function renderCommStage(n) {
+  commCurrentStep = n;
+  var body = document.getElementById('commModalBody');
+  var title = document.getElementById('commModalTitle');
+  var prevBtn = document.getElementById('commBtnPrev');
+  var nextBtn = document.getElementById('commBtnNext');
+
+  // 步骤条高亮
+  document.querySelectorAll('.comm-step').forEach(function(s,i){
+    s.classList.remove('active','done');
+    if (i+1 === n) s.classList.add('active');
+    else if (i+1 < n) s.classList.add('done');
+  });
+
+  if (n === 1) {
+    title.textContent = '💬 新增沟通记录 — ① 沟通前';
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = '';
+    nextBtn.textContent = '下一步 →';
+    body.innerHTML = renderStage1();
+  } else if (n === 2) {
+    title.textContent = '💬 新增沟通记录 — ② 沟通中';
+    prevBtn.style.display = '';
+    nextBtn.style.display = '';
+    nextBtn.textContent = '下一步 →';
+    body.innerHTML = renderStage2();
+  } else {
+    title.textContent = '💬 新增沟通记录 — ③ 需求确认';
+    prevBtn.style.display = '';
+    nextBtn.style.display = '';
+    nextBtn.textContent = '✓ 提交沟通记录';
+    body.innerHTML = renderStage3();
+  }
+}
+
+function commNextStep() {
+  if (commCurrentStep === 1) {
+    // 校验至少1个标签
+    var hasTag = commData.predictedTags.season || commData.predictedTags.group || commData.predictedTags.budget || commData.predictedTags.days || commData.predictedTags.preference.length > 0;
+    if (!hasTag) { alert('请至少选择一个预判标签'); return; }
+  }
+  if (commCurrentStep === 2) {
+    // 收集阶段2数据
+    commData.commPurpose = document.getElementById('commPurpose').value;
+    commData.commMethod = document.getElementById('commMethod').value;
+    commData.commDate = document.getElementById('commDate').value;
+    if (!commData.commPurpose) { alert('请选择沟通目的'); return; }
+    if (!commData.commMethod) { alert('请选择沟通方式'); return; }
+    commData.customerFeedback = document.getElementById('commFeedback').value;
+    commData.competitorInfo = document.getElementById('commCompetitor').value;
+    var dealRadio = document.querySelector('input[name="commDealIntention"]:checked');
+    commData.dealIntention = dealRadio ? dealRadio.value : '';
+    // 收集实际标签
+    collectStage2Tags();
+  }
+  if (commCurrentStep < 3) {
+    renderCommStage(commCurrentStep + 1);
+  } else {
+    submitCommunication();
+  }
+}
+
+function commPrevStep() {
+  if (commCurrentStep > 1) renderCommStage(commCurrentStep - 1);
+}
+
+// ==== 阶段1：沟通前 ====
+function renderStage1() {
+  var h = '';
+  // 客史快照
+  h += '<div class="gh-predict-section">';
+  h += '<div class="gh-predict-header">📊 客史信息快照 <span style="font-size:11px;color:#999;font-weight:400;">（基于历史数据智能预判标签）</span></div>';
+  h += '<div class="gh-quick">';
+  h += '<div class="gh-quick-item"><span class="gh-quick-label">属性:</span><span class="gh-quick-val">'+commData.memberAttr+'</span></div>';
+  h += '<div class="gh-quick-item"><span class="gh-quick-label">消费:</span><span class="gh-quick-val">'+commData.consumeAttr+' / '+commData.yearFreq+'</span></div>';
+  h += '<div class="gh-quick-item"><span class="gh-quick-label">目的地:</span><span class="gh-quick-val">'+commData.traveledDest+'</span></div>';
+  h += '<div class="gh-quick-item"><span class="gh-quick-label">下单:</span><span class="gh-quick-val">'+commData.orderAmount+'</span></div>';
+  h += '<div class="gh-quick-item"><span class="gh-quick-label">出行:</span><span class="gh-quick-val">'+commData.travelAmount+'</span></div>';
+  h += '<div class="gh-quick-item"><span class="gh-quick-label">人数:</span><span class="gh-quick-val">'+commData.consumerCount+'</span></div>';
+  h += '</div>';
+  // 预判标签区
+  h += '<div class="gh-predict-header">🏷️ 需求标签预判 <span style="font-size:11px;color:#FF4D4F;font-weight:400;">（请确认/调整后进入下一步）</span></div>';
+  h += renderTagSelector('predicted', commData.predictedTags, true);
+  h += '</div>';
+
+  // 推荐产品
+  h += '<div style="font-size:13px;font-weight:600;color:#333;margin-bottom:6px;">🎯 基于标签的推荐产品</div>';
+  h += '<div class="prod-grid">';
+  commData.predictedProducts.forEach(function(p,i){
+    h += '<div class="prod-card'+(commData.selectedProduct===p.id?' selected':'')+'" onclick="commData.selectedProduct=\''+p.id+'\';renderCommStage(1);">';
+    h += '<div class="prod-rank">'+(i===0?'🥇':i===1?'🥈':'🥉')+'</div>';
+    h += '<div class="prod-name">'+p.name+'</div>';
+    h += '<div class="prod-score">匹配度 '+p._score+'%</div>';
+    h += '<div class="prod-score-bar"><div class="prod-score-fill" style="width:'+p._score+'%"></div></div>';
+    h += '</div>';
+  });
+  h += '</div>';
+  return h;
+}
+
+function renderTagSelector(prefix, tags, isPredict) {
+  var config = getTagConfig();
+  var h = '';
+  config.forEach(function(dim){
+    var tagList = dim.enums.sort(function(a,b){return a.sort-b.sort;});
+    h += '<div class="tag-dim-group">';
+    h += '<div class="tag-dim-label">' + dim.name + (dim.required?' <span style="color:#FF4D4F;">*</span>':'') + '</div>';
+    h += '<div class="tag-chip-list">';
+    tagList.forEach(function(e){
+      var state = 'initial';
+      var val = tags[dim.code];
+      if (dim.multiple) {
+        var arr = tags[dim.code] || [];
+        if (arr.indexOf(e.code) >= 0) state = 'yes';
+      } else {
+        if (val === e.code) state = 'yes';
+      }
+      var cls = 'tag-chip tag-chip-' + state + (isPredict ? ' tag-chip-predict' : '');
+      var label = e.name;
+      if (state === 'no') label = '✕ ' + label;
+      else if (state === 'yes') label = '✓ ' + label;
+      h += '<span class="'+cls+'" data-pfx="'+prefix+'" data-dim="'+dim.code+'" data-code="'+e.code+'" data-multiple="'+(dim.multiple?'1':'0')+'" onclick="cycleTag(this)">'+label+'</span>';
+    });
+    h += '</div></div>';
+  });
+  return h;
+}
+
+function cycleTag(el) {
+  var dim = el.dataset.dim, code = el.dataset.code, multiple = el.dataset.multiple === '1';
+  var pfx = el.dataset.pfx;
+  var tags = (pfx === 'predicted') ? commData.predictedTags : commData.actualTags;
+
+  if (multiple) {
+    var arr = tags[dim] || [];
+    var idx = arr.indexOf(code);
+    if (idx >= 0) { arr.splice(idx, 1); }
+    else { arr.push(code); }
+    tags[dim] = arr;
+  } else {
+    var cur = tags[dim];
+    if (cur === code) { tags[dim] = null; }
+    else { tags[dim] = code; }
+  }
+  // refresh
+  if (commCurrentStep === 1) {
+    renderCommStage(1);
+  } else {
+    renderCommStage(2);
+  }
+}
+
+// ==== 阶段2：沟通中 ====
+function renderStage2() {
+  var h = '';
+  // 当前会员
+  h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:8px 10px;background:#F6FFED;border-radius:6px;font-size:12px;">';
+  h += '<span style="background:#000;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">'+commData.memberName[0]+'</span>';
+  h += '<span style="font-weight:600;">'+commData.memberName+'</span><span style="color:#999;">'+commData.memberCard+' · '+commData.memberLevel+'</span>';
+  h += '</div>';
+
+  // 沟通日期/目的/方式
+  h += '<div class="form-row"><div class="form-group"><label class="form-label">沟通日期 <span class="req">*</span></label><input type="date" class="m-input" id="commDate" value="'+commData.commDate+'"></div>';
+  h += '<div class="form-group"><label class="form-label">沟通目的 <span class="req">*</span></label><select class="m-input" id="commPurpose"><option value="">请选择</option><option'+(commData.commPurpose==='需求挖掘'?' selected':'')+'>需求挖掘</option><option'+(commData.commPurpose==='产品推荐'?' selected':'')+'>产品推荐</option><option'+(commData.commPurpose==='关系维护'?' selected':'')+'>关系维护</option><option'+(commData.commPurpose==='投诉处理'?' selected':'')+'>投诉处理</option></select></div>';
+  h += '<div class="form-group"><label class="form-label">维护行为 <span class="req">*</span></label><select class="m-input" id="commMethod"><option value="">请选择</option><option'+(commData.commMethod==='线下拜访'?' selected':'')+'>线下拜访</option><option'+(commData.commMethod==='电话回访'?' selected':'')+'>电话回访</option><option'+(commData.commMethod==='微信沟通'?' selected':'')+'>微信沟通</option><option'+(commData.commMethod==='活动邀约'?' selected':'')+'>活动邀约</option></select></div></div>';
+
+  // SPIN 需求挖掘地图
+  h += '<div class="reveal-title">🗺️ 需求挖掘沟通地图（SPIN销售法）</div>';
+  h += '<div style="font-size:11px;color:#999;margin-bottom:10px;">按 S→P→I→N 顺序完成，每步边问边打标签</div>';
+
+  var spinDefs = [
+    {id:'S',label:'S 现状探索',desc:'建立基础信息，判断客户偏好和体力',badge:'s',
+     questions:[{q:'您大概计划什么时间出行？',tip:'根据回答选择出行时节'},{q:'这次大概几个人一起？有老人小孩吗？',tip:'确认人数后标记出行组合'},{q:'之前去过藏区吗？高反情况如何？',tip:'判断体力承受能力'}]},
+    {id:'P',label:'P 痛点挖掘',desc:'挖掘情感动机，找到出行驱动力',badge:'p',
+     questions:[{q:'这次出行最想放松/收获什么？',tip:'"放松"→休闲度假，"体验"→人文/美食'},{q:'上次旅行有什么遗憾吗？',tip:'从遗憾中发现真实需求'},{q:'同行人最在意什么？',tip:'家庭关注亲子，情侣关注浪漫'}]},
+    {id:'I',label:'I 影响放大',desc:'将普通旅行升华为心灵充电',badge:'i',
+     questions:[{q:'如果行程完美实现，回来后会有什么不同？',tip:'引导描述理想状态，强化价值感'},{q:'您觉得怎样的旅行才算"不虚此行"？',tip:'根据回答微调偏好标签'}]},
+    {id:'N',label:'N 价值引导',desc:'自然过渡到产品介绍',badge:'n',
+     questions:[{q:'基于您说的这些，我给您推荐几条线路？',tip:'综合标签匹配产品，降低销售感'},{q:'这几条线路哪个更吸引您？',tip:'最终确认偏好标签'}]}
+  ];
+
+  spinDefs.forEach(function(s){
+    var done = commData.spinSteps[s.id].done;
+    h += '<div class="spin-wrap">';
+    h += '<div class="spin-hd" onclick="toggleSpin(\''+s.id+'\')">';
+    h += '<span class="spin-badge '+s.badge+'">'+s.id+'</span>';
+    h += '<span class="spin-title">'+s.label+'</span><span style="font-size:11px;color:#999;">'+s.desc+'</span>';
+    h += '<span class="spin-status">'+(done?'✅':'▼')+'</span></div>';
+    h += '<div class="spin-body'+(commCurrentStep===2&&!done?' open':'')+'">';
+    s.questions.forEach(function(q){
+      h += '<div class="spin-question"><div class="sq-label">💬 话术</div><div class="sq-text">'+q.q+'</div>';
+      h += '<div class="spin-tip">💡 '+q.tip+'</div></div>';
+    });
+    h += '<div class="spin-tag-toggle" onclick="toggleSpinTags(\''+s.id+'\')">🔄 发现需求变化</div>';
+    h += '<div class="spin-tag-panel open" id="spinTagPanel_'+s.id+'">';
+    h += renderTagSelector('actual', commData.actualTags, false);
+    h += '</div></div></div>';
+  });
+
+  // 客户反馈/竞品对比/成交意向
+  h += '<div class="reveal-title">📝 沟通结论</div>';
+  h += '<div class="form-group"><label class="form-label">客户反馈 <span class="req">*</span></label><textarea class="m-input" id="commFeedback" placeholder="记录客户关键反馈、态度或需求...">'+commData.customerFeedback+'</textarea></div>';
+  h += '<div class="form-group"><label class="form-label">竞品对比</label><textarea class="m-input" id="commCompetitor" placeholder="客人是否提过竞品，提到过哪些竞品">'+commData.competitorInfo+'</textarea></div>';
+  h += '<div class="form-group"><label class="form-label">成交意向</label><div style="display:flex;gap:16px;padding-top:6px;">';
+  ['高','一般','低'].forEach(function(v){
+    h += '<label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:14px;"><input type="radio" name="commDealIntention" value="'+v+'"'+(commData.dealIntention===v?' checked':'')+'> '+v+'</label>';
+  });
+  h += '</div></div>';
+  return h;
+}
+
+function collectStage2Tags() {
+  // actualTags already maintained via cycleTag during SPIN
+}
+
+function toggleSpin(id) {
+  var body = document.querySelector('.spin-wrap:nth-child('+({S:1,P:2,I:3,N:4}[id])+') .spin-body');
+  if (body) body.classList.toggle('open');
+}
+
+function toggleSpinTags(id) {
+  var panel = document.getElementById('spinTagPanel_'+id);
+  if (panel) panel.classList.toggle('open');
+}
+
+function completeSpin(id) { }
+
+// ==== 阶段3：需求确认 ====
+function renderStage3() {
+  // 重新计算 actualTags（标签已有预判值和SPIN中调整值）
+  var h = '';
+
+  // 标签对比
+  h += '<div style="font-size:13px;font-weight:600;color:#333;margin-bottom:6px;">📊 需求标签变化对比</div>';
+  var config = getTagConfig();
+  var changes = 0;
+  config.forEach(function(dim){
+    var pre = commData.predictedTags[dim.code];
+    var act = commData.actualTags[dim.code];
+    var preStr='—', actStr='—', diffType='same';
+    if (dim.multiple) {
+      preStr = (pre||[]).length ? pre.map(function(x){
+        var e=dim.enums.find(function(ee){return ee.code===x;}); return e?e.name:x;
+      }).join(', ') : '—';
+      actStr = (act||[]).length ? act.map(function(x){
+        var e=dim.enums.find(function(ee){return ee.code===x;}); return e?e.name:x;
+      }).join(', ') : '—';
+      if (JSON.stringify(pre||[]) !== JSON.stringify(act||[])) diffType='modified';
+    } else {
+      if (pre) preStr = (dim.enums.find(function(e){return e.code===pre;})||{}).name||pre;
+      if (act) actStr = (dim.enums.find(function(e){return e.code===act;})||{}).name||act;
+      if (pre !== act) diffType='modified';
+    }
+    if (diffType !== 'same') changes++;
+    h += '<div class="tag-diff-row">';
+    h += '<span class="tag-diff-label">'+dim.name+'</span>';
+    h += '<span class="tag-diff-val tag-diff-same">'+preStr+'</span>';
+    if (diffType === 'same') {
+      h += '<span style="font-size:14px;color:#52C41A;">=</span><span class="tag-diff-val tag-diff-same">'+actStr+'</span>';
+    } else {
+      h += '<span class="tag-diff-arrow">→</span><span class="tag-diff-val tag-diff-modified">'+actStr+'</span>';
+    }
+    h += '</div>';
+  });
+  h += '<div class="tag-diff-summary">变更汇总：修改 ' + changes + ' 项维度</div>';
+
+  // 反馈确认
+  h += '<div class="reveal-title">📝 客户反馈确认</div>';
+  h += '<div style="background:#F8F9FA;border-radius:8px;padding:12px;font-size:13px;color:#333;line-height:1.6;margin-bottom:14px;">';
+  h += (commData.customerFeedback || '—') + '</div>';
+
+  // 竞品 + 成交意向展示
+  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">';
+  h += '<div><span style="font-size:12px;color:#999;">竞品对比</span><div style="font-size:13px;color:#333;margin-top:4px;">'+(commData.competitorInfo||'—')+'</div></div>';
+  h += '<div><span style="font-size:12px;color:#999;">成交意向</span><div style="font-size:14px;color:#000;font-weight:600;margin-top:4px;">'+(commData.dealIntention||'—')+'</div></div>';
+  h += '</div>';
+
+  // 提醒设置
+  h += '<div class="reveal-title">⏰ 提醒设置</div>';
+  h += '<div style="background:#FFF7E6;border:1px solid #FFD591;border-radius:8px;padding:12px 14px;">';
+  h += '<div class="form-row"><div class="form-group"><label class="form-label">提醒日期 <span class="req">*</span></label><input type="date" class="m-input" id="commReminderDate" value="'+commData.reminderDate+'"></div>';
+  h += '<div class="form-group"><label class="form-label">提醒内容 <span class="req">*</span></label><input type="text" class="m-input" id="commReminderContent" placeholder="如：发送行程方案、跟进报价" value="'+commData.reminderContent+'"></div></div></div>';
+
+  return h;
+}
+
+function submitCommunication() {
+  commData.reminderDate = document.getElementById('commReminderDate').value;
+  commData.reminderContent = document.getElementById('commReminderContent').value;
+  if (!commData.reminderDate || !commData.reminderContent) {
+    alert('请填写提醒日期和提醒内容'); return;
+  }
+  // 生成沟通记录ID和待办ID
+  var ts = Date.now();
+  commData.id = 'cr_'+ts;
+  console.log('沟通记录', JSON.stringify(commData));
+
+  // 生成待办
+  var todo = {
+    id: 'todo_'+ts, commRecordId: commData.id,
+    memberName: commData.memberName, memberCard: commData.memberCard, memberLevel: commData.memberLevel,
+    sales: commData.sales, content: commData.reminderContent,
+    dueDate: commData.reminderDate, method: commData.commMethod, purpose: commData.commPurpose,
+    status: 'upcoming', createdAt: new Date().toISOString()
+  };
+  // 存储
+  try {
+    var todos = JSON.parse(localStorage.getItem('comm_todos_v1')||'[]');
+    todos.unshift(todo);
+    localStorage.setItem('comm_todos_v1', JSON.stringify(todos));
+    var recs = JSON.parse(localStorage.getItem('comm_records_v1')||'[]');
+    recs.unshift(commData);
+    localStorage.setItem('comm_records_v1', JSON.stringify(recs));
+  } catch(e){}
+
+  document.getElementById('addModal').classList.remove('show');
+  alert('✅ 沟通记录已提交，待办已生成');
+
+  // 更新统计
+  var statEl = document.getElementById('stat-month');
+  if (statEl) statEl.textContent = (parseInt(statEl.textContent)||0) + 1;
+}
+
+
 function closeGroupDetailModal() { document.getElementById('groupDetailModal').classList.remove('show'); }
+
+// ============ 客史信息弹窗 ============
+function openGuestHistoryModal() {
+  var nameEl = document.getElementById('detailName');
+  var memberName = nameEl ? nameEl.textContent.trim() : '当前会员';
+
+  // 客史概览
+  var overviewData = [
+    { label:'会员属性', value:'老会员' },
+    { label:'客户属性', value:'老客' },
+    { label:'消费属性', value:'已消费' },
+    { label:'本年消费频次', value:'本年首购' },
+    { label:'已出行目的地', value:'香格里拉' },
+    { label:'当年下单金额', value:'¥85,760' },
+    { label:'当年出行金额', value:'¥70,323' },
+    { label:'首购-复购间隔天数', value:'263天' },
+    { label:'消费人数', value:'5人' },
+  ];
+  var overviewHtml = '';
+  overviewData.forEach(function(item){
+    overviewHtml += '<div class="gh-overview-item"><div class="gh-overview-label">'+item.label+'</div><div class="gh-overview-value">'+item.value+'</div></div>';
+  });
+  document.getElementById('ghOverviewGrid').innerHTML = overviewHtml;
+
+  // 订单记录
+  var orders = [
+    { title:'2024 · 香格里拉环线', dateRange:'2024/07/12 - 2024/07/17', amount:'¥118,000', desc:'6天5晚 / 酒店景观和管家服务评价高' },
+    { title:'2023 · 松赞林卡假期', dateRange:'2023/08/06 - 2023/08/09', amount:'¥86,000', desc:'4天3晚 / 偏好慢节奏和亲子活动' },
+  ];
+  var orderHtml = '';
+  orders.forEach(function(o){
+    orderHtml += '<div class="gh-order-card">'
+      + '<div class="gh-order-title">'+o.title+'</div>'
+      + '<div class="gh-order-meta">'+o.dateRange+' · '+o.amount+'</div>'
+      + '<div class="gh-order-desc">'+o.desc+'</div>'
+      + '</div>';
+  });
+  if (!orders.length) orderHtml = '<div style="text-align:center;color:#999;font-size:13px;padding:16px 0;">暂无订单记录</div>';
+  document.getElementById('ghOrderList').innerHTML = orderHtml;
+
+  // 线下活动记录
+  var events = [
+    { name:'松赞影像展上海站', time:'2026-05-18 14:00', loc:'上海·西岸艺术中心下午场' },
+    { name:'梅里雪山摄影分享会', time:'2025-11-22 19:30', loc:'上海·静安会员中心晚场' },
+  ];
+  var eventHtml = '';
+  if (events.length) {
+    events.forEach(function(e){
+      eventHtml += '<div class="gh-event-card">'
+        + '<div class="gh-event-name">'+e.name+'</div>'
+        + '<div class="gh-event-time">'+e.time+'</div>'
+        + '</div>';
+      eventHtml += '<div style="font-size:12px;color:#999;padding-left:14px;margin-bottom:8px;">'+e.loc+'</div>';
+    });
+  } else {
+    eventHtml = '<div style="text-align:center;color:#999;font-size:13px;padding:12px 0;">暂无活动记录</div>';
+  }
+  document.getElementById('ghEventList').innerHTML = eventHtml;
+
+  // 投诉记录
+  var complaints = [
+    { title:'无有效投诉', date:'2026-06-15', desc:'近12个月未记录正式投诉。' },
+    { title:'服务偏好提醒', date:'2014-07-17', desc:'客户反馈餐饮需要提前确认老人和孩子口味，已转为服务偏好。' },
+  ];
+  var complaintHtml = '';
+  complaints.forEach(function(c){
+    complaintHtml += '<div class="gh-complaint-card">'
+      + '<span class="gh-complaint-title">'+c.title+'</span>'
+      + '<span class="gh-complaint-date">'+c.date+'</span>'
+      + '<div class="gh-complaint-desc">'+c.desc+'</div>'
+      + '</div>';
+  });
+  if (!complaints.length) complaintHtml = '<div style="text-align:center;color:#999;font-size:13px;padding:12px 0;">暂无投诉记录</div>';
+  document.getElementById('ghComplaintList').innerHTML = complaintHtml;
+
+  document.getElementById('guestHistoryModal').classList.add('show');
+}
+
+function closeGuestHistoryModal() {
+  document.getElementById('guestHistoryModal').classList.remove('show');
+}
 
 // ============ 客户分组明细弹窗 ============
 // 会员等级/姓名/手机号映射表（根据 memberId 关联 memberDB）
@@ -1723,9 +2353,41 @@ function buildAssetData() {
 
 var currentGroupType = '';
 var groupFilterState = { keyword:'', level:[], custType:[], memberAttr:[], custAttr:[] };
+var selectedLeadCards = [];
+var leadSalesOptions = ['赵岍','王倩','廖文娟','曾卓','张金鸿','曹晓昕','郑文婷','王翊','苏凝影','张嵩'];
+
+function canAssignLeads() {
+  return !currentSales && (currentGroupType === 'repurchase' || currentGroupType === 'firstbuy');
+}
+
+function updateLeadAssignmentUI() {
+  var enabled = canAssignLeads();
+  var toolbar = document.getElementById('leadAssignmentToolbar');
+  if (toolbar) toolbar.style.display = enabled ? 'flex' : 'none';
+  document.querySelectorAll('.lead-select-col, .lead-action-col').forEach(function(el){ el.style.display = enabled ? '' : 'none'; });
+  var count = document.getElementById('selectedLeadCount');
+  if (count) count.textContent = '已选 ' + selectedLeadCards.length + ' 位客人';
+  var selectAll = document.getElementById('leadSelectAll');
+  if (selectAll) selectAll.checked = false;
+}
+
+function toggleLeadSelection(cardNo, checked) {
+  if (checked && selectedLeadCards.indexOf(cardNo) === -1) selectedLeadCards.push(cardNo);
+  if (!checked) selectedLeadCards = selectedLeadCards.filter(function(card){ return card !== cardNo; });
+  var count = document.getElementById('selectedLeadCount');
+  if (count) count.textContent = '已选 ' + selectedLeadCards.length + ' 位客人';
+}
+
+function toggleAllLeadSelection(checked) {
+  selectedLeadCards = checked ? getCurrentGroupData().map(function(r){ return r.cardNo; }) : [];
+  document.querySelectorAll('.lead-row-check').forEach(function(box){ box.checked = checked; });
+  var count = document.getElementById('selectedLeadCount');
+  if (count) count.textContent = '已选 ' + selectedLeadCards.length + ' 位客人';
+}
 
 function showGroupDetail(type) {
   currentGroupType = type;
+  selectedLeadCards = [];
   var titleMap = {
     'repurchase': '当年复购非核心-优先维护',
     'firstbuy': '当年首购非核心-建议维护',
@@ -1742,6 +2404,7 @@ function showGroupDetail(type) {
     f.querySelectorAll('input[type="checkbox"]').forEach(function(c){ c.checked = false; });
   });
   applyGroupFilter();
+  updateLeadAssignmentUI();
   document.getElementById('groupDetailModal').classList.add('show');
 }
 
@@ -1832,7 +2495,7 @@ document.addEventListener('click', function(e) {
 function renderGroupTable(data) {
   var tbody = document.getElementById('groupTableBody');
   if (!data || data.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="14" style="text-align:center;padding:40px 0;color:#999;">暂无匹配数据</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="16" style="text-align:center;padding:40px 0;color:#999;">暂无匹配数据</td></tr>';
     return;
   }
   var html = '';
@@ -1848,7 +2511,11 @@ function renderGroupTable(data) {
     else if (extra.level === '雪莲') levelColor = '#08979C';
     else if (extra.level === '绿绒蒿') levelColor = '#C41D7F';
     else if (extra.level === '格桑') levelColor = '#999';
+    var isSelected = selectedLeadCards.indexOf(r.cardNo) !== -1;
+    var selectionCell = '<td class="lead-select-col" style="display:none;padding:9px 10px;border-bottom:1px solid #F0F0F0;text-align:center;"><input class="lead-row-check" type="checkbox" ' + (isSelected ? 'checked ' : '') + 'onclick="event.stopPropagation()" onchange="toggleLeadSelection(\'' + r.cardNo + '\', this.checked)"></td>';
+    var actionCell = '<td class="lead-action-col" style="display:none;padding:9px 10px;border-bottom:1px solid #F0F0F0;text-align:center;"><button class="btn btn-sm" style="height:26px;padding:0 8px;font-size:11px;" onclick="event.stopPropagation();selectSingleLead(\'' + r.cardNo + '\')">分配</button></td>';
     html += '<tr style="cursor:pointer;" onclick="openMemberFromGroup(\'' + r.memberId + '\')" onmouseenter="this.style.background=\'#f5f5f5\'" onmouseleave="this.style.background=\'\'">' +
+      selectionCell +
       '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;font-family:monospace;color:#000000;">' + r.cardNo + '</td>' +
       '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;font-weight:500;">' + extra.name + '</td>' +
       '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;font-family:monospace;color:#666;">' + extra.phone + '</td>' +
@@ -1862,11 +2529,72 @@ function renderGroupTable(data) {
       '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;text-align:right;color:#333;">¥' + r.orderAmt.toLocaleString() + '</td>' +
       '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;text-align:right;color:#333;">¥' + r.travelAmt.toLocaleString() + '</td>' +
       '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;text-align:center;"><span style="font-size:11px;font-weight:600;color:' + repurchaseColor + ';">' + r.isRepurchase + '</span></td>' +
+      '</tr>';
       '<td style="padding:9px 10px;border-bottom:1px solid #F0F0F0;text-align:right;color:#666;">' + r.regFirstGap + '天</td>' +
+      actionCell + '</tr>';
       '</tr>';
   });
   tbody.innerHTML = html;
+  updateLeadAssignmentUI();
 }
+
+function selectSingleLead(cardNo) {
+  selectedLeadCards = [cardNo];
+  openLeadAssignmentModal();
+}
+
+function getLeadAssignmentRecords() {
+  try { return JSON.parse(localStorage.getItem('crm_lead_assignment_records_v1') || '[]'); } catch (e) { return []; }
+}
+
+function openLeadAssignmentModal() {
+  if (!canAssignLeads()) return;
+  if (!selectedLeadCards.length) { alert('请先选择需要分配的客人线索'); return; }
+  var source = getCurrentGroupData();
+  var selected = source.filter(function(r){ return selectedLeadCards.indexOf(r.cardNo) !== -1; });
+  var members = document.getElementById('leadAssignmentMembers');
+  members.innerHTML = selected.map(function(r){
+    var extra = getMemberExtra(r.memberId);
+    return '<span style="padding:4px 8px;background:#F5F5F5;border-radius:4px;font-size:12px;color:#333;">' + extra.name + ' · ' + r.cardNo + '</span>';
+  }).join('');
+  var select = document.getElementById('leadAssigneeSelect');
+  select.innerHTML = '<option value="">请选择销售员</option>' + leadSalesOptions.map(function(name){ return '<option value="' + name + '">' + name + '</option>'; }).join('');
+  document.getElementById('leadAssignmentModal').classList.add('show');
+}
+
+function closeLeadAssignmentModal() { document.getElementById('leadAssignmentModal').classList.remove('show'); }
+
+function submitLeadAssignment() {
+  var assignee = document.getElementById('leadAssigneeSelect').value;
+  if (!assignee) { alert('请选择销售员'); return; }
+  var typeLabel = currentGroupType === 'repurchase' ? '当年复购非核心' : '当年首购非核心';
+  var records = getLeadAssignmentRecords();
+  var source = getCurrentGroupData();
+  selectedLeadCards.forEach(function(cardNo){
+    var row = source.find(function(r){ return r.cardNo === cardNo; });
+    if (!row) return;
+    var extra = getMemberExtra(row.memberId);
+    var previousSales = row.sales || '暂无归属';
+    row.sales = assignee;
+    var member = memberDB.find(function(m){ return m.id === row.memberId || m.card === cardNo; });
+    if (member) { member.sales = assignee; member.contactSales = assignee; }
+    records.unshift({ time:new Date().toLocaleString('zh-CN', { hour12:false }), cardNo:cardNo, memberName:extra.name, type:typeLabel, from:previousSales, to:assignee, operator:'大区负责人' });
+  });
+  try { localStorage.setItem('crm_lead_assignment_records_v1', JSON.stringify(records)); } catch (e) {}
+  selectedLeadCards = [];
+  closeLeadAssignmentModal();
+  applyGroupFilter();
+  alert('线索已分配至' + assignee);
+}
+
+function openLeadAssignmentLogModal() {
+  var records = getLeadAssignmentRecords();
+  var body = document.getElementById('leadAssignmentLogBody');
+  body.innerHTML = records.length ? records.map(function(r){ return '<tr><td>' + r.time + '</td><td>' + r.memberName + '<br><span style="color:#999;">' + r.cardNo + '</span></td><td>' + r.type + '</td><td>' + r.from + '</td><td style="font-weight:500;color:#1677ff;">' + r.to + '</td><td>' + r.operator + '</td></tr>'; }).join('') : '<tr><td colspan="6" style="padding:36px;text-align:center;color:#999;">暂无分配记录</td></tr>';
+  document.getElementById('leadAssignmentLogModal').classList.add('show');
+}
+
+function closeLeadAssignmentLogModal() { document.getElementById('leadAssignmentLogModal').classList.remove('show'); }
 
 function filterGroupTable() { applyGroupFilter(); }
 
@@ -2053,7 +2781,7 @@ function submitEdit() {
   var pad = function(n){ return n<10?'0'+n:n; };
   var ts = now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+' '+pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
   if (tds[2]) tds[2].textContent = ts;
-  // 更新维护日期
+  // 更新沟通日期
   if (tds[4]) tds[4].textContent = date;
   // 更新维护行为标签
   var tagEl = _currentEditTr.querySelector('.tag');
@@ -2422,12 +3150,11 @@ function addRecordFromSearch() {
   const m = memberDB.find(x => x.id === selectedMemberId);
   if (!m) return;
   closeSearchModal();
-  // 将会员信息带入新增弹窗
-  document.getElementById('modalAvatar').textContent = m.name[0];
-  document.getElementById('modalAvatar').style.background = m.color;
-  document.getElementById('modalMemberName').textContent = m.name;
-  document.getElementById('modalMemberMeta').textContent = m.card + ' · ' + m.level;
-  openModal();
+  openAddModal(m);
+}
+// 新增沟通记录按钮入口
+function openCommFromBtn() {
+  openAddModal();
 }
 // ====== 销售切换 ======
 let currentSales = '';  // 空字符串表示"全部"
@@ -2527,7 +3254,7 @@ function updateStats(visibleCount) {
   var seenMembers = new Set();
   allRows.forEach(function(row) {
     if (row.style.display !== 'none') {
-      // 从会员卡号字段提取唯一会员（索引1，因为索引0是维护记录ID）
+      // 从会员卡号字段提取唯一会员（索引1，因为索引0是沟通记录ID）
       var cells = row.querySelectorAll('td');
       if (cells.length > 1) {
         seenMembers.add(cells[1].textContent.trim());

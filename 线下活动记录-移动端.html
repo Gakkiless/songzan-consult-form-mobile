@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>线下活动记录</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingFang SC", sans-serif;
+  background:#F5F6F8;
+  color:#333;
+  font-size:14px;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+}
+.header {
+  height:48px;
+  background:linear-gradient(135deg,#000 0%,#1a1a1a 100%);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:0 14px;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+.header-back {
+  width:30px;
+  height:30px;
+  border:none;
+  background:rgba(255,255,255,.14);
+  color:#fff;
+  border-radius:50%;
+  font-size:24px;
+  line-height:28px;
+  font-family:inherit;
+}
+.header-title {
+  color:#fff;
+  font-size:16px;
+  font-weight:700;
+}
+.page {
+  padding-bottom:24px;
+}
+.member-card {
+  background:#fff;
+  padding:14px 16px;
+  border-bottom:1px solid #EEE;
+}
+.member-row {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.member-main {
+  min-width:0;
+}
+.member-name {
+  font-size:18px;
+  font-weight:700;
+  color:#000;
+}
+.member-meta {
+  margin-top:4px;
+  color:#999;
+  font-size:12px;
+}
+.member-tag {
+  flex-shrink:0;
+  padding:5px 10px;
+  border-radius:14px;
+  background:#F5F5F5;
+  color:#333;
+  font-size:12px;
+  font-weight:600;
+}
+.summary-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  padding:12px 16px;
+  background:#fff;
+}
+.summary-item {
+  background:#F8F9FA;
+  border-radius:8px;
+  padding:10px 8px;
+  text-align:center;
+}
+.summary-num {
+  font-size:18px;
+  font-weight:700;
+  color:#000;
+  line-height:1.1;
+}
+.summary-label {
+  margin-top:4px;
+  color:#999;
+  font-size:11px;
+}
+.filters {
+  display:flex;
+  gap:8px;
+  padding:10px 12px;
+  background:#fff;
+  border-top:1px solid #F0F0F0;
+  border-bottom:1px solid #EEE;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  position:sticky;
+  top:48px;
+  z-index:15;
+}
+.filters::-webkit-scrollbar { display:none; }
+.filter-chip {
+  flex-shrink:0;
+  border:1px solid #E0E0E0;
+  background:#fff;
+  color:#666;
+  border-radius:16px;
+  padding:6px 14px;
+  font-size:12px;
+  font-weight:600;
+  font-family:inherit;
+}
+.filter-chip.active {
+  background:#000;
+  border-color:#000;
+  color:#fff;
+}
+.list {
+  padding:10px 12px 0;
+}
+.activity-card {
+  background:#fff;
+  border:1px solid #EEE;
+  border-radius:10px;
+  padding:14px;
+  margin-bottom:10px;
+  box-shadow:0 1px 4px rgba(0,0,0,.03);
+}
+.activity-top {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+.activity-title {
+  font-size:16px;
+  line-height:1.35;
+  font-weight:700;
+  color:#000;
+}
+.status {
+  flex-shrink:0;
+  border-radius:12px;
+  padding:3px 8px;
+  font-size:11px;
+  font-weight:600;
+}
+.status.done { background:#F6FFED; color:#389E0D; }
+.status.booked { background:#E6F7FF; color:#1677ff; }
+.status.cancel { background:#F5F5F5; color:#999; }
+.activity-info {
+  margin-top:10px;
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+.info-line {
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  color:#666;
+  font-size:13px;
+  line-height:1.45;
+}
+.info-icon {
+  width:16px;
+  text-align:center;
+  color:#999;
+  flex-shrink:0;
+}
+.activity-note {
+  margin-top:10px;
+  padding:9px 10px;
+  background:#FAFAFA;
+  border-radius:8px;
+  color:#666;
+  font-size:12px;
+  line-height:1.5;
+}
+.empty {
+  display:none;
+  text-align:center;
+  color:#999;
+  font-size:13px;
+  padding:44px 0;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <button class="header-back" onclick="goBack()">‹</button>
+  <div class="header-title">线下活动记录</div>
+</div>
+
+<div class="page">
+  <section class="member-card">
+    <div class="member-row">
+      <div class="member-main">
+        <div class="member-name">王建明</div>
+        <div class="member-meta">MD80001234 · 金刚 · 赵岍维护</div>
+      </div>
+      <div class="member-tag">客史</div>
+    </div>
+  </section>
+
+  <section class="summary-grid">
+    <div class="summary-item">
+      <div class="summary-num">6</div>
+      <div class="summary-label">活动记录</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-num">4</div>
+      <div class="summary-label">已参加</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-num">1</div>
+      <div class="summary-label">待参加</div>
+    </div>
+  </section>
+
+  <section class="filters" id="filters">
+    <button class="filter-chip active" data-status="all" onclick="switchFilter(this)">全部</button>
+    <button class="filter-chip" data-status="done" onclick="switchFilter(this)">已参加</button>
+    <button class="filter-chip" data-status="booked" onclick="switchFilter(this)">已报名</button>
+    <button class="filter-chip" data-status="cancel" onclick="switchFilter(this)">已取消</button>
+  </section>
+
+  <main class="list" id="activityList"></main>
+  <div class="empty" id="emptyState">暂无对应活动记录</div>
+</div>
+
+<script>
+var activities = [
+  {
+    title:'松赞影像展上海站',
+    time:'2026-05-18 14:00',
+    location:'上海·西岸艺术中心下午场',
+    status:'booked',
+    statusText:'已报名',
+    role:'报名人：王建明 / 同行 1 人',
+    note:'客户关注梅里雪山与香格里拉影像内容，活动后适合跟进秋季摄影线路。'
+  },
+  {
+    title:'梅里雪山摄影分享会',
+    time:'2025-11-22 19:30',
+    location:'上海·静安会员中心晚场',
+    status:'done',
+    statusText:'已参加',
+    role:'签到人：王建明',
+    note:'现场咨询梅里雪山朝圣线路，对摄影领队和小团人数较敏感。'
+  },
+  {
+    title:'松赞会员私享茶会',
+    time:'2025-09-07 15:00',
+    location:'杭州·西湖会员中心',
+    status:'done',
+    statusText:'已参加',
+    role:'签到人：王建明 / 同行 2 人',
+    note:'偏好安静私密空间，提到下次出行会带父母，需提前确认餐饮口味。'
+  },
+  {
+    title:'香格里拉秋季线路说明会',
+    time:'2025-07-26 14:30',
+    location:'上海·静安会员中心',
+    status:'cancel',
+    statusText:'已取消',
+    role:'报名人：王建明',
+    note:'临时行程冲突取消，可在后续沟通中补发线路资料。'
+  },
+  {
+    title:'松赞林卡亲子手作活动',
+    time:'2024-12-15 10:00',
+    location:'上海·前滩太古里快闪空间',
+    status:'done',
+    statusText:'已参加',
+    role:'签到人：王建明 / 同行 3 人',
+    note:'孩子对藏纸手作兴趣高，客户反馈亲子类慢节奏活动更适合家庭出行。'
+  },
+  {
+    title:'滇藏线老会员答谢晚宴',
+    time:'2024-10-19 18:30',
+    location:'上海·外滩源会员晚宴',
+    status:'done',
+    statusText:'已参加',
+    role:'签到人：王建明',
+    note:'餐饮偏清淡，客户对管家提前沟通评价较高。'
+  }
+];
+
+function goBack() {
+  if (document.referrer && document.referrer.indexOf('用户关系助手-移动端') !== -1) {
+    history.back();
+  } else {
+    window.location.href = '用户关系助手-移动端.html';
+  }
+}
+
+function switchFilter(el) {
+  document.querySelectorAll('.filter-chip').forEach(function(btn){ btn.classList.remove('active'); });
+  el.classList.add('active');
+  renderActivities(el.getAttribute('data-status'));
+}
+
+function renderActivities(status) {
+  var list = document.getElementById('activityList');
+  var empty = document.getElementById('emptyState');
+  var data = activities.filter(function(item){
+    return status === 'all' || item.status === status;
+  });
+  list.innerHTML = data.map(function(item){
+    return '<article class="activity-card">'
+      + '<div class="activity-top">'
+      + '<div class="activity-title">'+item.title+'</div>'
+      + '<span class="status '+item.status+'">'+item.statusText+'</span>'
+      + '</div>'
+      + '<div class="activity-info">'
+      + '<div class="info-line"><span class="info-icon">时</span><span>'+item.time+'</span></div>'
+      + '<div class="info-line"><span class="info-icon">地</span><span>'+item.location+'</span></div>'
+      + '<div class="info-line"><span class="info-icon">人</span><span>'+item.role+'</span></div>'
+      + '</div>'
+      + '<div class="activity-note">'+item.note+'</div>'
+      + '</article>';
+  }).join('');
+  empty.style.display = data.length ? 'none' : 'block';
+}
+
+renderActivities('all');
+</script>
+</body>
+</html>
